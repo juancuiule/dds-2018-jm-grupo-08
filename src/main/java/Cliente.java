@@ -22,15 +22,15 @@ public class Cliente {
 	}
 	
 	public Boolean hayAlgunDispositivoEncendido() {
-		return this.dispositivos.stream().mapToBool(((Dispositivo unDispositivo) -> unDispositivo.getEncendido())).any();
+		return this.dispositivos.stream().anyMatch((Dispositivo dispositivo) -> dispositivo.estaEncendido());
 	}
 	
-	public Integer cantidadDeDispositivosEncendido() {
-		return this.dispositivos.length((Dispositivo unDispositivo) -> unDispositivo.getEncendido());
+	public Long cantidadDeDispositivosEncendido() {
+		return this.dispositivos.stream().filter((Dispositivo dispositivo) -> dispositivo.estaEncendido()).count();
 	}
 	
-	public Integer cantidadDeDispositivosApagados() {
-		return this.dispositivos.size((Dispositivo unDispositivo) -> not(unDispositivo.getEncendido()));
+	public Long cantidadDeDispositivosApagados() {
+		return this.dispositivos.stream().filter((Dispositivo dispositivo) -> dispositivo.estaApagado()).count();
 	}
 	 
 	public Integer cantidadDeDispositivos() {

@@ -18,7 +18,11 @@ public class Dispositivo {
 		this.encendido = true;
 	}
 
-	public Boolean getEncendido() {
-		return this.encendido;
+	public Boolean estaEncendido() {
+		return this.encendido == true;
+	}
+	
+	public Boolean estaApagado() {
+		return this.encendido == false;
 	}
 }
