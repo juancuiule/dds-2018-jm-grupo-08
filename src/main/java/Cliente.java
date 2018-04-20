@@ -1,23 +1,28 @@
 import java.time.LocalDate;
 import java.util.List;
 
-
 public class Cliente {
 	private String nombre;
 	private String apellido;
-	private String domicilio;
-	private LocalDate fechaDeAlta;
+	private TipoDeDocumento tipoDeDocumento;
 	private Integer numeroDeDocumento;
 	private Integer telefono;
+	private LocalDate fechaDeAlta;
+	private String domicilio;
+	private String nombreDeUsuario;
+	private String contrasena;	
 	private List <Dispositivo> dispositivos;
 	
-	public Cliente(String nombre,String apellido,String domicilio,LocalDate fechaDeAlta,Integer numeroDeDocumento,Integer telefono,List <Dispositivo> dispositivos) {
+	public Cliente(String nombre, String apellido, TipoDeDocumento tipoDeDocumento, Integer numeroDeDocumento, Integer telefono, LocalDate fechaDeAlta, String domicilio, String nombreDeUsuario, String contrasena, List <Dispositivo> dispositivos) {
 		this.nombre = nombre;
-		this. apellido = apellido;
-		this.domicilio = domicilio;
-		this.fechaDeAlta = fechaDeAlta;
+		this.apellido = apellido;
+		this.tipoDeDocumento = tipoDeDocumento;
 		this.numeroDeDocumento = numeroDeDocumento;
-		this.telefono = telefono;
+		this.telefono = telefono;		
+		this.fechaDeAlta = fechaDeAlta;
+		this.domicilio = domicilio;
+		this.nombreDeUsuario = nombreDeUsuario;
+		this.contrasena = contrasena;		
 		this.dispositivos = dispositivos; 
 	}
 	
