@@ -24,8 +24,9 @@ public class ClienteDeserializer implements JsonDeserializer<Cliente> {
             Gson parser = new GsonBuilder()
                             .registerTypeAdapter(Dispositivo.class, new DispositivoDeserializer())
                             .create();
+            Dispositivo[] vectorDeDispositivos = parser.fromJson(clienteJson.get("dispositivos").toString(), Dispositivo[].class);
             
-          return new Cliente(
+            return new Cliente(
                       clienteJson.get("nombre").getAsString(),
                       clienteJson.get("apellido").getAsString(),
                       TipoDeDocumento.valueOf(clienteJson.get("tipoDeDocumento").getAsString()),
@@ -35,8 +36,8 @@ public class ClienteDeserializer implements JsonDeserializer<Cliente> {
                       clienteJson.get("domicilio").getAsString(),
                       clienteJson.get("nombreDeUsuario").getAsString(),
                       clienteJson.get("contrasena").getAsString(),
-                      Arrays.asList(parser.fromJson(clienteJson.get("dispositivos").getAsString(), Dispositivo[].class))
-                  );
+                      Arrays.asList(vectorDeDispositivos)
+            );
         }
 
     }
