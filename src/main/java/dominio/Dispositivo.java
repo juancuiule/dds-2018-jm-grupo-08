@@ -54,7 +54,7 @@ public class Dispositivo {
 	}
 	
 	public Boolean esIgualA(Dispositivo dispositivoAComparar) {
-	    return this.getNombre() == dispositivoAComparar.getNombre() &&
+	    return this.getNombre().equals(dispositivoAComparar.getNombre())  &&
 	           this.getkWh() == dispositivoAComparar.getkWh() &&
 	           this.getEncendido() == dispositivoAComparar.getEncendido();
 	}
