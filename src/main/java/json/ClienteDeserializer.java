@@ -1,3 +1,4 @@
+package json;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -10,13 +11,17 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
+import dominio.Cliente;
+import dominio.Dispositivo;
+import dominio.TipoDeDocumento;
+
 public class ClienteDeserializer implements JsonDeserializer<Cliente> {
         @Override
         public Cliente deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
           
             JsonObject clienteJson = json.getAsJsonObject();
-            Gson gson = new GsonBuilder()
+            Gson parser = new GsonBuilder()
                             .registerTypeAdapter(Dispositivo.class, new DispositivoDeserializer())
                             .create();
             
@@ -30,7 +35,7 @@ public class ClienteDeserializer implements JsonDeserializer<Cliente> {
                       clienteJson.get("domicilio").getAsString(),
                       clienteJson.get("nombreDeUsuario").getAsString(),
                       clienteJson.get("contrasena").getAsString(),
-                      Arrays.asList(gson.fromJson(clienteJson.get("dispositivos").getAsString(), Dispositivo[].class))
+                      Arrays.asList(parser.fromJson(clienteJson.get("dispositivos").getAsString(), Dispositivo[].class))
                   );
         }
 

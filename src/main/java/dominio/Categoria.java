@@ -1,3 +1,4 @@
+package dominio;
 
 public class Categoria {
 	String identificador; // Hay que ver si tiene sentido definir este atributo (en el futuro)

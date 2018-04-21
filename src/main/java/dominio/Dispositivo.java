@@ -1,3 +1,4 @@
+package dominio;
 
 public class Dispositivo {
 	private String nombre;
