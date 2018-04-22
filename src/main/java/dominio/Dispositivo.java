@@ -9,27 +9,13 @@ public class Dispositivo {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public Integer getkWh() {
         return kWh;
-    }
-
-    public void setkWh(Integer kWh) {
-        this.kWh = kWh;
     }
 
     public Boolean getEncendido() {
         return encendido;
     }
-
-    public void setEncendido(Boolean encendido) {
-        this.encendido = encendido;
-    }
-
-
 	
 	public Dispositivo(String nombre, Integer kWh, Boolean encendido) {
 		this.nombre = nombre;
@@ -54,9 +40,9 @@ public class Dispositivo {
 	}
 	
 	public Boolean esIgualA(Dispositivo dispositivoAComparar) {
-	    return this.getNombre().equals(dispositivoAComparar.getNombre())  &&
-	           this.getkWh() == dispositivoAComparar.getkWh() &&
-	           this.getEncendido() == dispositivoAComparar.getEncendido();
+	    return nombre.equals(dispositivoAComparar.getNombre())  &&
+	           kWh == dispositivoAComparar.getkWh() &&
+	           encendido == dispositivoAComparar.getEncendido();
 	}
 
 }
