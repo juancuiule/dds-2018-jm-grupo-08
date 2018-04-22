@@ -1,0 +1,12 @@
+{
+	"nombre" : "Armando",
+	"apellido" : "Barreda",
+	"tipoDeDocumento" : "DNI",
+	"numeroDeDocumento" : "38265412",
+	"telefono" : "1234657896",
+	"fechaDeAlta" : "2007-12-03",
+	"domicilio" : "Fake St. 123",
+	"nombreDeUsuario" : "PrincipalSkinner",
+	"contrasena" : "Skiiiiiiiinneer!",
+	"dispositivos" : []
+}

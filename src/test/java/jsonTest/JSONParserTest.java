@@ -12,7 +12,7 @@ public class JSONParserTest {
     // Exepciones
     @Test(expected = FileNotFoundException.class)
     public void clienteDesdeArchivo_parsearUnArchivoInexistente_UnaFileNotFoundException() throws JsonSyntaxException, JsonIOException, FileNotFoundException{
-        new JSONParser().clienteDesdeArchivo("../resources/archivoInexistente.json");
+        new JSONParser().clienteDesdeArchivo("src/test/resources/archivoInexistente.json");
     }
     
     @Test(expected = JsonSyntaxException.class)
