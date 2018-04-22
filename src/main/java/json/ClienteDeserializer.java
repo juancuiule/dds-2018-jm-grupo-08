@@ -9,7 +9,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 
 import dominio.Cliente;
 import dominio.Dispositivo;
@@ -17,8 +16,7 @@ import dominio.TipoDeDocumento;
 
 public class ClienteDeserializer implements JsonDeserializer<Cliente> {
         @Override
-        public Cliente deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-            throws JsonParseException {
+        public Cliente deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context){
           
             JsonObject clienteJson = json.getAsJsonObject();
             Gson parser = new GsonBuilder()

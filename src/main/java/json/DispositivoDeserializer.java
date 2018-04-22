@@ -5,15 +5,13 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 
 import dominio.Dispositivo;
 
 public class DispositivoDeserializer implements JsonDeserializer<Dispositivo> {
 
     @Override
-    public Dispositivo deserialize(JsonElement json, Type typeOf, JsonDeserializationContext context)
-            throws JsonParseException {
+    public Dispositivo deserialize(JsonElement json, Type typeOf, JsonDeserializationContext context){
         JsonObject dispositivoJson = json.getAsJsonObject();
         return new Dispositivo(
                     dispositivoJson.get("nombre").getAsString(),
