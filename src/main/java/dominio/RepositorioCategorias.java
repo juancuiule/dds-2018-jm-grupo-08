@@ -3,6 +3,7 @@ package dominio;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class RepositorioCategorias {
     static RepositorioCategorias instancia;
@@ -20,14 +21,26 @@ public class RepositorioCategorias {
         )
     );
     
-    static RepositorioCategorias getInstance() {
+    public static RepositorioCategorias getInstance() {
         if(instancia == null) {
             return new RepositorioCategorias();
         }
         return instancia;
     }
     
-    List<Categoria> categorias() {
+    public List<Categoria> categorias() {
         return this.categorias;
     }
+    
+    /* 
+     * Propongo este metodo que, de la lista de categorias devuelve la que aplica al consumo recibido
+     * Pero hay acoplamiento entre el repositorio y el Cliente en el momento en que el repositorio esta al tanto
+     * de como el Cliente representa el consumo, lo que se podria evitar pasando directamente el Cliente al metodo.
+     * 
+    public Optional<Categoria> categoriaCorrespondiente(Double consumo){
+        return this.categorias.stream()
+                              .filter(categoria -> categoria.correspondeCategoria(consumo))
+                              .findFirst();
+    }
+    */
 }
