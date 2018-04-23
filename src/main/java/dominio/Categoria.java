@@ -1,29 +1,30 @@
 package dominio;
 
 public class Categoria {
-	String identificador; // Hay que ver si tiene sentido definir este atributo (en el futuro)
-	Integer limiteInferiorDeConsumo;
-	Integer limiteSuperiorDeConsumo;
-	Integer valorFijo;
-	Integer valorVariable;
-	
-	public Categoria(String identificador, Integer limiteInferiorDeConsumo, Integer limiteSuperiorDeConsumo, Integer valorFijo, Integer valorVariable) {
-		this.identificador = identificador;
-		this.limiteInferiorDeConsumo = limiteInferiorDeConsumo;
-		this.limiteSuperiorDeConsumo = limiteSuperiorDeConsumo;
-		this.valorFijo = valorFijo;
-		this.valorVariable = valorVariable;
-	}
-	
-	Integer retornarValorFijo() {
-		return this.valorFijo;
-	}
-	
-	Integer retornarValorVariable() {
-		return this.valorVariable;
-	}
-	
-	Boolean correspondeCategoria(Integer consumo) {
-		return (this.limiteInferiorDeConsumo < consumo) && (consumo < this.limiteSuperiorDeConsumo);
-	}	
+    private String categoria;
+    private Integer limiteInferiorDeConsumo;
+    private Integer limiteSuperiorDeConsumo;
+    private Double valorFijo;
+    private Double valorVariable;
+
+    public Categoria(String categoria, Integer limiteInferiorDeConsumo, Integer limiteSuperiorDeConsumo, Double valorFijo, Double valorVariable) {
+        this.categoria = categoria;
+        this.limiteInferiorDeConsumo = limiteInferiorDeConsumo;
+        this.limiteSuperiorDeConsumo = limiteSuperiorDeConsumo;
+        this.valorFijo = valorFijo ;
+        this.valorVariable  = valorVariable ;
+    }
+
+    double cargoFijo(Integer meses) {
+        return this.valorFijo * meses;
+    }
+
+    double cargoVariable(Double kWh) {
+        return this.valorVariable * kWh;
+    }
+
+    boolean correspondeCategoria(Double consumo) {
+        return (this.limiteInferiorDeConsumo < consumo) &&
+                (consumo <= this.limiteSuperiorDeConsumo);
+    }
 }
