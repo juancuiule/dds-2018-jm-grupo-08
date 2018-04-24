@@ -2,6 +2,7 @@ package dominio;
 import java.time.LocalDate;
 import java.util.List;
 
+
 public class Cliente {
 	private String nombre;
 	private String apellido;
@@ -13,7 +14,8 @@ public class Cliente {
 	private String nombreDeUsuario;
 	private String contrasena;	
 	private List <Dispositivo> dispositivos;
-
+	private Categoria categoria;
+	
     public TipoDeDocumento getTipoDeDocumento() {
         return tipoDeDocumento;
     }
@@ -21,7 +23,9 @@ public class Cliente {
     public LocalDate getFechaDeAlta() {
         return fechaDeAlta;
     }
-
+    public void setCategoria(Categoria unaCategoria) {
+    	this.categoria=unaCategoria;
+    }
 
     public Cliente(String nombre, String apellido, TipoDeDocumento tipoDeDocumento, Integer numeroDeDocumento, Integer telefono, LocalDate fechaDeAlta, String domicilio, String nombreDeUsuario, String contrasena, List <Dispositivo> dispositivos) {
 		this.nombre = nombre;
@@ -50,5 +54,14 @@ public class Cliente {
 	 
 	public Integer cantidadDeDispositivos() {
 		return this.dispositivos.size();
-	}	
+	}
+	public Double consumo() {
+		return this.dispositivos.stream()
+				.filter((Dispositivo dispositivo) -> dispositivo.estaEncendido())
+				.mapToDouble((Dispositivo dispositivo) -> dispositivo.getkWh()).sum();
+	}
+	/*public void recategorizar() {
+		RepositorioCategorias repositorio=RepositorioCategorias.getInstance();
+	}*/
+	
 }

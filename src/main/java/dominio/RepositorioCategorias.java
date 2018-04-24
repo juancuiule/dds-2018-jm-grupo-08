@@ -32,15 +32,10 @@ public class RepositorioCategorias {
         return this.categorias;
     }
     
-    /* 
-     * Propongo este metodo que, de la lista de categorias devuelve la que aplica al consumo recibido
-     * Pero hay acoplamiento entre el repositorio y el Cliente en el momento en que el repositorio esta al tanto
-     * de como el Cliente representa el consumo, lo que se podria evitar pasando directamente el Cliente al metodo.
-     * 
-    public Optional<Categoria> categoriaCorrespondiente(Double consumo){
+    public Optional<Categoria> categoriaCorrespondiente(Cliente cliente){
         return this.categorias.stream()
-                              .filter(categoria -> categoria.correspondeCategoria(consumo))
+                              .filter(categoria -> categoria.correspondeCategoria(cliente))
                               .findFirst();
     }
-    */
+    
 }

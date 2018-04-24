@@ -23,8 +23,8 @@ public class Categoria {
         return this.valorVariable * kWh;
     }
 
-    public boolean correspondeCategoria(Double consumo) {
-        return (this.limiteInferiorDeConsumo < consumo) &&
-                (consumo <= this.limiteSuperiorDeConsumo);
+    public boolean correspondeCategoria(Cliente cliente) {
+        return (this.limiteInferiorDeConsumo < cliente.consumo()) &&
+                (cliente.consumo() <= this.limiteSuperiorDeConsumo);
     }
 }
