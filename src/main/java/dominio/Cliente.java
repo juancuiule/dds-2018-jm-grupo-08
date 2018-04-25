@@ -1,8 +1,14 @@
 package dominio;
+<<<<<<< Updated upstream
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+=======
+import java.time.LocalDate;
+import java.util.List;
+
+>>>>>>> Stashed changes
 
 public class Cliente {
 	private String nombre;
@@ -13,6 +19,7 @@ public class Cliente {
 	private LocalDate fechaDeAlta;
 	private String domicilio;
 	private String nombreDeUsuario;
+<<<<<<< Updated upstream
 	private String contrasena;
 	private List<Dispositivo> dispositivos;
 	private Optional<Categoria> categoria;
@@ -28,6 +35,22 @@ public class Cliente {
 	public Optional<Categoria> getCategoria() {
 		return this.categoria;
 	}
+=======
+	private String contrasena;	
+	private List <Dispositivo> dispositivos;
+	private Categoria categoria;
+	
+    public TipoDeDocumento getTipoDeDocumento() {
+        return tipoDeDocumento;
+    }
+    
+    public LocalDate getFechaDeAlta() {
+        return fechaDeAlta;
+    }
+    public void setCategoria(Categoria unaCategoria) {
+    	this.categoria=unaCategoria;
+    }
+>>>>>>> Stashed changes
 
 	public Cliente(String nombre, String apellido, TipoDeDocumento tipoDeDocumento, Integer numeroDeDocumento,
 			Integer telefono, LocalDate fechaDeAlta, String domicilio, String nombreDeUsuario, String contrasena,
@@ -36,6 +59,7 @@ public class Cliente {
 		this.apellido = apellido;
 		this.tipoDeDocumento = tipoDeDocumento;
 		this.numeroDeDocumento = numeroDeDocumento;
+<<<<<<< Updated upstream
 		this.telefono = telefono;
 		this.fechaDeAlta = fechaDeAlta;
 		this.domicilio = domicilio;
@@ -71,4 +95,38 @@ public class Cliente {
 				.filter(categoria -> categoria.correspondeCategoria(this.consumo())).findFirst();
 	}
 
+=======
+		this.telefono = telefono;		
+		this.fechaDeAlta = fechaDeAlta;
+		this.domicilio = domicilio;
+		this.nombreDeUsuario = nombreDeUsuario;
+		this.contrasena = contrasena;		
+		this.dispositivos = dispositivos; 
+	}
+	
+	public Boolean hayAlgunDispositivoEncendido() {
+		return this.dispositivos.stream().anyMatch((Dispositivo dispositivo) -> dispositivo.estaEncendido());
+	}
+	
+	public Long cantidadDeDispositivosEncendidos() {
+		return this.dispositivos.stream().filter((Dispositivo dispositivo) -> dispositivo.estaEncendido()).count();
+	}
+	
+	public Long cantidadDeDispositivosApagados() {
+		return this.dispositivos.stream().filter((Dispositivo dispositivo) -> dispositivo.estaApagado()).count();
+	}
+	 
+	public Integer cantidadDeDispositivos() {
+		return this.dispositivos.size();
+	}
+	public Double consumo() {
+		return this.dispositivos.stream()
+				.filter((Dispositivo dispositivo) -> dispositivo.estaEncendido())
+				.mapToDouble((Dispositivo dispositivo) -> dispositivo.getkWh()).sum();
+	}
+	/*public void recategorizar() {
+		RepositorioCategorias repositorio=RepositorioCategorias.getInstance();
+	}*/
+	
+>>>>>>> Stashed changes
 }

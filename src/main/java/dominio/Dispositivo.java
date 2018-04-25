@@ -2,14 +2,14 @@ package dominio;
 
 public class Dispositivo {
 	private String nombre;
-	private Integer kWh;
+	private Double kWh;
 	private Boolean encendido;
 
 	public String getNombre() {
 		return nombre;
 	}
 
-	public Integer getkWh() {
+	public Double getkWh() {
 		return kWh;
 	}
 
@@ -17,7 +17,7 @@ public class Dispositivo {
 		return encendido;
 	}
 
-	public Dispositivo(String nombre, Integer kWh, Boolean encendido) {
+	public Dispositivo(String nombre, Double kWh, Boolean encendido) {
 		this.nombre = nombre;
 		this.kWh = kWh;
 		this.encendido = encendido;

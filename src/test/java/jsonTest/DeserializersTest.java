@@ -75,7 +75,7 @@ public class DeserializersTest {
 	public void DispositivoDeserializer_DadoJSONDeDispositivo_ElParserLoDeserializaCorrectamente() {
 
 		Dispositivo dispositivoDePrueba = parser.fromJson(readerDispositivoDePrueba, Dispositivo.class);
-		Dispositivo dispositivoObjetivo = new Dispositivo("Microondas", 15, false);
+		Dispositivo dispositivoObjetivo = new Dispositivo("Microondas", 15.0, false);
 
 		assertTrue(dispositivoObjetivo.esIgualA(dispositivoDePrueba));
 	}
