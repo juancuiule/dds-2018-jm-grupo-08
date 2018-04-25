@@ -52,7 +52,7 @@ public class ClienteTest {
 	}
 	
 	@Test
-	public void elConsumoDelClienteAes1con75() {
+	public void consumoDelClienteA() {
 		assertEquals(new Double(1.75), clienteA.consumo());
 	}
 
@@ -63,7 +63,7 @@ public class ClienteTest {
 	}
 
 	@Test
-	public void elConsumoDelClienteBes0() {
+	public void elConsumoDelClienteB() {
 		assertEquals(new Double(0), clienteB.consumo());
 	}
 }

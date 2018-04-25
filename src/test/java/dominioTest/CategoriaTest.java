@@ -27,4 +27,14 @@ public class CategoriaTest {
 		assertEquals("Falla - el consumo deberia corresponder a esta categoria",
 				categoriaDePrueba.correspondeCategoria(1800d), false);
 	}
+
+	@Test
+	public void cargoFijoDeCategoria() {
+		assertEquals(2183.84, categoriaDePrueba.cargoFijo(4), 0);
+	}
+
+	@Test
+	public void cargoVariableDeCategoria() {
+		assertEquals(1659.45, categoriaDePrueba.cargoVariable(1950.0), 0);
+	}
 }
