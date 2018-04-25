@@ -25,8 +25,8 @@ public class Cliente {
 		return fechaDeAlta;
 	}
 
-	public void setCategoria(Optional<Categoria> unaCategoria) {
-		this.categoria = unaCategoria;
+	public Optional<Categoria> getCategoria() {
+		return this.categoria;
 	}
 
 	public Cliente(String nombre, String apellido, TipoDeDocumento tipoDeDocumento, Integer numeroDeDocumento,
@@ -67,7 +67,8 @@ public class Cliente {
 
 	public void recategorizar() {
 		RepositorioCategorias repositorio = RepositorioCategorias.getInstance();
-		this.categoria = repositorio.categoriaCorrespondiente(this.consumo());
+		this.categoria = repositorio.categorias().stream()
+				.filter(categoria -> categoria.correspondeCategoria(this.consumo())).findFirst();
 	}
 
 }
