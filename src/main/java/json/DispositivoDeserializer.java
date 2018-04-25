@@ -1,4 +1,5 @@
 package json;
+
 import java.lang.reflect.Type;
 
 import com.google.gson.JsonDeserializationContext;
@@ -10,14 +11,11 @@ import dominio.Dispositivo;
 
 public class DispositivoDeserializer implements JsonDeserializer<Dispositivo> {
 
-    @Override
-    public Dispositivo deserialize(JsonElement json, Type typeOf, JsonDeserializationContext context){
-        JsonObject dispositivoJson = json.getAsJsonObject();
-        return new Dispositivo(
-                    dispositivoJson.get("nombre").getAsString(),
-                    dispositivoJson.get("kWh").getAsInt(),
-                    dispositivoJson.get("encendido").getAsBoolean()
-                );
-    }
+	@Override
+	public Dispositivo deserialize(JsonElement json, Type typeOf, JsonDeserializationContext context) {
+		JsonObject dispositivoJson = json.getAsJsonObject();
+		return new Dispositivo(dispositivoJson.get("nombre").getAsString(), dispositivoJson.get("kWh").getAsInt(),
+				dispositivoJson.get("encendido").getAsBoolean());
+	}
 
 }

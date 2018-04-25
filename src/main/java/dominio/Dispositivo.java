@@ -2,21 +2,21 @@ package dominio;
 
 public class Dispositivo {
 	private String nombre;
-    private Integer kWh;
-    private Boolean encendido;
-    
+	private Integer kWh;
+	private Boolean encendido;
+
 	public String getNombre() {
-        return nombre;
-    }
+		return nombre;
+	}
 
-    public Integer getkWh() {
-        return kWh;
-    }
+	public Integer getkWh() {
+		return kWh;
+	}
 
-    public Boolean getEncendido() {
-        return encendido;
-    }
-	
+	public Boolean getEncendido() {
+		return encendido;
+	}
+
 	public Dispositivo(String nombre, Integer kWh, Boolean encendido) {
 		this.nombre = nombre;
 		this.kWh = kWh;
@@ -34,15 +34,14 @@ public class Dispositivo {
 	public Boolean estaEncendido() {
 		return this.encendido == true;
 	}
-	
+
 	public Boolean estaApagado() {
 		return this.encendido == false;
 	}
-	
+
 	public Boolean esIgualA(Dispositivo dispositivoAComparar) {
-	    return nombre.equals(dispositivoAComparar.getNombre())  &&
-	           kWh == dispositivoAComparar.getkWh() &&
-	           encendido == dispositivoAComparar.getEncendido();
+		return nombre.equals(dispositivoAComparar.getNombre()) && kWh == dispositivoAComparar.getkWh()
+				&& encendido == dispositivoAComparar.getEncendido();
 	}
 
 }
