@@ -42,6 +42,8 @@ public class Cliente {
 		this.nombreDeUsuario = nombreDeUsuario;
 		this.contrasena = contrasena;
 		this.dispositivos = dispositivos;
+		
+		this.recategorizar();
 	}
 
 	public Boolean hayAlgunDispositivoEncendido() {
