@@ -32,7 +32,7 @@ public class Dispositivo {
 	}
 
 	public Boolean estaEncendido() {
-		return this.encendido == true;
+		return this.encendido;
 	}
 
 	public Boolean estaApagado() { 
