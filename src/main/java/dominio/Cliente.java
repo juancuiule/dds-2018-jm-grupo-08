@@ -48,7 +48,7 @@ public class Cliente {
 		return this.dispositivos.stream().anyMatch((Dispositivo dispositivo) -> dispositivo.estaEncendido());
 	}
 
-	public Long cantidadDeDispositivosEncendido() {
+	public Long cantidadDeDispositivosEncendidos() {
 		return this.dispositivos.stream().filter((Dispositivo dispositivo) -> dispositivo.estaEncendido()).count();
 	}
 

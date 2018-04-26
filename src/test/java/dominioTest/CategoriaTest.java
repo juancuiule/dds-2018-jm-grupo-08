@@ -2,13 +2,10 @@ package dominioTest;
 
 import static org.junit.Assert.*;
 
-import java.util.Optional;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import dominio.Categoria;
-import dominio.RepositorioCategorias;
 
 public class CategoriaTest {
 
@@ -21,26 +18,21 @@ public class CategoriaTest {
 
 	@Test
 	public void correspondeCategoria_DadoUnConsumoQueCorrespondeAlaCategoria_true() {
-		assertEquals("Falla - el consumo deberia corresponder a esta categoria",
-				categoriaDePrueba.correspondeCategoria(800d), true);
+		assertTrue(categoriaDePrueba.correspondeCategoria(800d));
 	}
 
 	@Test
 	public void correspondeCategoria_DadoUnConsumoQueNoCorrespondeAlaCategoria_false() {
-		assertEquals("Falla - el consumo deberia corresponder a esta categoria",
-				categoriaDePrueba.correspondeCategoria(1800d), false);
+		assertFalse(categoriaDePrueba.correspondeCategoria(1800d));
 	}
 
 	@Test
-	public void repoDarCategoria_R1_dadoConsumoQueCorresponde() {
-		Optional<Categoria> categoria = RepositorioCategorias.getInstance().categoriaCorrespondiente((double) 120);
-		assertEquals("R1", categoria.get().getCategoria());
+	public void cargoFijoDeCategoria() {
+		assertEquals(2183.84, categoriaDePrueba.cargoFijo(4), 0);
 	}
 
 	@Test
-	public void repoDarOtraCategoria_R1_dadoConsumoQueNoCorresponde() {
-		Optional<Categoria> categoria = RepositorioCategorias.getInstance().categoriaCorrespondiente((double) 500);
-		assertNotEquals("El repo da una categoria que no corresponde", "R1", categoria.get().getCategoria());
+	public void cargoVariableDeCategoria() {
+		assertEquals(1659.45, categoriaDePrueba.cargoVariable(1950.0), 0);
 	}
-
 }
