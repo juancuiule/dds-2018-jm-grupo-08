@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-
 public class Cliente {
 	private String nombre;
 	private String apellido;
