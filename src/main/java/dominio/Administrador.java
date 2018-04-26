@@ -1,6 +1,5 @@
 package dominio;
 
-import java.time.Duration;
 import java.time.LocalDate;
 
 public class Administrador {
@@ -11,17 +10,22 @@ public class Administrador {
 	private String nombreDeUsuario;
 	private String contrasena;
 
-	public Administrador(String nombre, String apellido, LocalDate fechaDeAlta, Integer identificador,
+	public Administrador(String nombre, String apellido, String stringFechaDeAlta, Integer identificador,
 			String nombreDeUsuario, String contrasena) {
 		this.nombre = nombre;
 		this.apellido = apellido;
+		LocalDate fechaDeAlta = LocalDate.parse(stringFechaDeAlta);
 		this.fechaDeAlta = fechaDeAlta;
 		this.identificador = identificador;
 		this.nombreDeUsuario = nombreDeUsuario;
 		this.contrasena = contrasena;
 	}
+	
+	public LocalDate getFechaDeAlta() {
+		return this.fechaDeAlta;
+	}
 
-	Duration mesesComoAdministrador() { // Hay que testear que valor devuelve
-		return Duration.between(this.fechaDeAlta, LocalDate.now());
+	public int mesesComoAdministrador() { 
+		return this.fechaDeAlta.until(LocalDate.now()).getMonths();
 	}
 }
