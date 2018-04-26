@@ -19,6 +19,6 @@ public class RepositorioCategoriasTest {
 	@Test
 	public void repoDarOtraCategoria_R1_dadoConsumoQueNoCorresponde() {
 		Optional<Categoria> categoria = RepositorioCategorias.getInstance().categoriaCorrespondiente((double) 500);
-		assertNotEquals("El repo da una categoria que no corresponde", "R1", categoria.get().getCategoria());
+		assertNotEquals("R1", categoria.get().getCategoria());
 	}
 }

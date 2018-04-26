@@ -18,14 +18,12 @@ public class CategoriaTest {
 
 	@Test
 	public void correspondeCategoria_DadoUnConsumoQueCorrespondeAlaCategoria_true() {
-		assertEquals("Falla - el consumo deberia corresponder a esta categoria",
-				categoriaDePrueba.correspondeCategoria(800d), true);
+		assertTrue(categoriaDePrueba.correspondeCategoria(800d));
 	}
 
 	@Test
 	public void correspondeCategoria_DadoUnConsumoQueNoCorrespondeAlaCategoria_false() {
-		assertEquals("Falla - el consumo deberia corresponder a esta categoria",
-				categoriaDePrueba.correspondeCategoria(1800d), false);
+		assertFalse(categoriaDePrueba.correspondeCategoria(1800d));
 	}
 
 	@Test
