@@ -32,3 +32,16 @@ this.categoria = repositorio.categoriaCorrespondiente(this.consumo());
 }
 ```
 Como todas las clases entienden mensajes( como el mensaje “new),le mandamos a la clase el mensaje “getInstance”, que devolverá la única instancia de esa clase, o creará una si todavía no la había creado.
+## RepositorioCategoria
+``` java
+static RepositorioCategorias instancia;
+def getInstance(){
+    if(instancia==null){
+        return new RepositorioCategorias();
+    else{
+      return instancia;
+    }
+}
+```
+Entonces en el método recategorizar, obtenemos dicha instancia y la clase Cliente tendrá la responsabilidad de encontrar la categoría que le corresponda. Para esto, busca en la instancia todas las categorías existentes y las filtra hasta encontrar la primera que se corresponda con el consumo calculado para el cliente en cuestión.
+Esta fue una decisión de diseño que llevamos a cabo, teniendo en cuenta que la otra alternativa era pasarle a la clase RepositorioCategorias la responsabilidad de encontrar la categoría que le corresponda. Finalmente decidimos inclinarnos por la primera, lo que permite un repositorio de categorias más cohesivo.
