@@ -1,5 +1,5 @@
 # Especificación de responsabilidades
-
+![Diagrama de clases](DiagramaClases.png)
 ## RepositorioCategoria
 Ésta clase se va a instanciar una sola vez, posee una lista  con de cada tipo de categoría. Se encarga de iterar sobre la misma preguntando cuál categoría corresponde. No calcula directamente si el consumo del cliente cae en el rango de cada categoría, ya que de eso se encargan ellas. Debido a ésto decidimos diseñarla como un Singleton, ya que no necesitamos más de una instancia de ésta clase. Todos los clientes recurrirán al mismo repositorio a la hora de recategorizarse.
 
