@@ -45,3 +45,6 @@ def getInstance(){
 ```
 Entonces en el método recategorizar, obtenemos dicha instancia y la clase Cliente tendrá la responsabilidad de encontrar la categoría que le corresponda. Para esto, busca en la instancia todas las categorías existentes y las filtra hasta encontrar la primera que se corresponda con el consumo calculado para el cliente en cuestión.
 Esta fue una decisión de diseño que llevamos a cabo, teniendo en cuenta que la otra alternativa era pasarle a la clase RepositorioCategorias la responsabilidad de encontrar la categoría que le corresponda. Finalmente decidimos inclinarnos por la primera, lo que permite un repositorio de categorias más cohesivo.
+## Parser JSON
+A la hora de implementar la creacion de usuarios a partir de un archivo con formato json, decidimos emplear la biblioteca GSON, la cual implementamos de la siguiente manera; Creamos dos clases deserializadoras (ClienteDeserializer y DispositivoDeserializer) que sirven de estrategia al objeto de la clase Gson, encargado de hacer el parseo, e implementamos una clase (JSONParser) que cumple con el rol de adaptar la interfaz de la biblioteca a la que requiere nuestro dominio
+![Diagrama de JSON Parser](DiagramaJSON.png)
