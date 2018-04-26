@@ -23,7 +23,7 @@ public class Dispositivo {
 		this.encendido = encendido;
 	}
 
-	public void apagar() {
+	public void apagar() { 
 		this.encendido = false;
 	}
 
@@ -35,11 +35,11 @@ public class Dispositivo {
 		return this.encendido == true;
 	}
 
-	public Boolean estaApagado() {
-		return this.encendido == false;
+	public Boolean estaApagado() { 
+		return !this.estaEncendido();
 	}
 
-	public Boolean esIgualA(Dispositivo dispositivoAComparar) {
+	public Boolean esIgualA(Dispositivo dispositivoAComparar) { /*usar esto directamente en los test*/
 		return nombre.equals(dispositivoAComparar.getNombre()) && kWh == dispositivoAComparar.getkWh()
 				&& encendido == dispositivoAComparar.getEncendido();
 	}

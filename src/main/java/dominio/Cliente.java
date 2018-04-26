@@ -3,6 +3,8 @@ package dominio;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Cliente {
 	private String nombre;
@@ -47,15 +49,15 @@ public class Cliente {
 	}
 
 	public Boolean hayAlgunDispositivoEncendido() {
-		return this.dispositivos.stream().anyMatch((Dispositivo dispositivo) -> dispositivo.estaEncendido());
+		
+		return this.cantidadDeDispositivosBajoCondicion(dispositivo -> dispositivo.estaEncendido()) > 0;
+		/*return this.dispositivos.stream().anyMatch((Dispositivo dispositivo) -> dispositivo.estaEncendido()); /* corregir*/
+		
 	}
 
-	public Long cantidadDeDispositivosEncendidos() {
-		return this.dispositivos.stream().filter((Dispositivo dispositivo) -> dispositivo.estaEncendido()).count();
-	}
-
-	public Long cantidadDeDispositivosApagados() {
-		return this.dispositivos.stream().filter((Dispositivo dispositivo) -> dispositivo.estaApagado()).count();
+	public Long cantidadDeDispositivosBajoCondicion(Predicate<Dispositivo> unaCondicion) {
+		
+		return this.dispositivos.stream().filter(unaCondicion).count();
 	}
 
 	public Integer cantidadDeDispositivos() {
@@ -63,7 +65,7 @@ public class Cliente {
 	}
 
 	public Double consumo() {
-		return this.dispositivos.stream().filter((Dispositivo dispositivo) -> dispositivo.estaEncendido())
+		return this.dispositivos.stream().(this.cantidadDeDispositivosBajoUnaCondicion(dispositivo -> dispositivo.estaEncendido())) /*FIJENSE POR QUE ROMPE EL PUNTO ESE*/
 				.mapToDouble((Dispositivo dispositivo) -> dispositivo.getkWh()).sum();
 	}
 

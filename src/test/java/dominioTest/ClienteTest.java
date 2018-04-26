@@ -65,5 +65,7 @@ public class ClienteTest {
 	@Test
 	public void elConsumoDelClienteB() {
 		assertEquals(new Double(0), clienteB.consumo());
+		
+		/*AGREGAR TEST DE RECATEGORIZAR*/
 	}
 }
