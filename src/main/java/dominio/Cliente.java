@@ -65,7 +65,7 @@ public class Cliente {
 	}
 
 	public Double consumo() {
-		return this.dispositivos.stream().(this.cantidadDeDispositivosBajoUnaCondicion(dispositivo -> dispositivo.estaEncendido())) /*FIJENSE POR QUE ROMPE EL PUNTO ESE*/
+		return this.cantidadDeDispositivosBajoCondicion(dispositivo -> dispositivo.estaEncendido()) /*rompe por el long del metodo*/
 				.mapToDouble((Dispositivo dispositivo) -> dispositivo.getkWh()).sum();
 	}
 
