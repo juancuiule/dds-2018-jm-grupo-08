@@ -64,7 +64,7 @@ public class Cliente {
 	}
 
 	public Integer cantidadDeDispositivosApagados() {
-		return this.cantidadDeDispositivos() - (int) this.dispositivosEncendidos().count();
+		return this.cantidadDeDispositivos() - this.cantidadDeDispositivosEncendidos();
 	}
 
 	public Boolean hayAlgunDispositivoEncendido() {
