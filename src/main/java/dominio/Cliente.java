@@ -2,9 +2,8 @@ package dominio;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class Cliente {
 	private String nombre;
@@ -17,7 +16,7 @@ public class Cliente {
 	private String nombreDeUsuario;
 	private String contrasena;
 	private List<Dispositivo> dispositivos;
-	private Optional<Categoria> categoria;
+	private Categoria categoria;
 
 	public TipoDeDocumento getTipoDeDocumento() {
 		return tipoDeDocumento;
@@ -27,7 +26,7 @@ public class Cliente {
 		return fechaDeAlta;
 	}
 
-	public Optional<Categoria> getCategoria() {
+	public Categoria getCategoria() {
 		return this.categoria;
 	}
 
@@ -44,35 +43,42 @@ public class Cliente {
 		this.nombreDeUsuario = nombreDeUsuario;
 		this.contrasena = contrasena;
 		this.dispositivos = dispositivos;
-		
+
 		this.recategorizar();
 	}
 
-	public Boolean hayAlgunDispositivoEncendido() {
-		
-		return this.cantidadDeDispositivosBajoCondicion(dispositivo -> dispositivo.estaEncendido()) > 0;
-		/*return this.dispositivos.stream().anyMatch((Dispositivo dispositivo) -> dispositivo.estaEncendido()); /* corregir*/
-		
+	public Stream<Dispositivo> dispositivosQueCumplen(Predicate<Dispositivo> unaCondicion) {
+		return this.dispositivos.stream().filter(unaCondicion);
 	}
 
-	public Long cantidadDeDispositivosBajoCondicion(Predicate<Dispositivo> unaCondicion) {
-		
-		return this.dispositivos.stream().filter(unaCondicion).count();
+	public Stream<Dispositivo> dispositivosEncendidos() {
+		return dispositivosQueCumplen(dispositivo -> dispositivo.estaEncendido());
 	}
 
 	public Integer cantidadDeDispositivos() {
 		return this.dispositivos.size();
 	}
 
+	public Integer cantidadDeDispositivosEncendidos() {
+		return (int) this.dispositivosEncendidos().count();
+	}
+
+	public Integer cantidadDeDispositivosApagados() {
+		return this.cantidadDeDispositivos() - (int) this.dispositivosEncendidos().count();
+	}
+
+	public Boolean hayAlgunDispositivoEncendido() {
+		return this.cantidadDeDispositivosEncendidos() > 0;
+	}
+
 	public Double consumo() {
-		return this.cantidadDeDispositivosBajoCondicion(dispositivo -> dispositivo.estaEncendido()) /*rompe por el long del metodo*/
-				.mapToDouble((Dispositivo dispositivo) -> dispositivo.getkWh()).sum();
+		return this.dispositivosEncendidos().mapToDouble((Dispositivo dispositivo) -> dispositivo.getkWh()).sum();
 	}
 
 	public void recategorizar() {
 		RepositorioCategorias repositorio = RepositorioCategorias.getInstance();
 		this.categoria = repositorio.categorias().stream()
-				.filter(categoria -> categoria.correspondeCategoria(this.consumo())).findFirst();
+				.filter(categoria -> categoria.correspondeCategoria(this.consumo())).findFirst().get();
 	}
 
 }
