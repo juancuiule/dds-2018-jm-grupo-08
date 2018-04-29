@@ -21,11 +21,6 @@ public class RepositorioCategorias extends Repositorio<Categoria> {
 		}
 		return instancia;
 	}
-	@Override
-	public List<Categoria> elementos() {
-		return this.elementos;
-	}
-
 	public Stream<Categoria> categoriaCorrespondiente(Double consumo) {
 		return this.filtrarSegun(categoria->categoria.correspondeCategoria(consumo));
 	}
