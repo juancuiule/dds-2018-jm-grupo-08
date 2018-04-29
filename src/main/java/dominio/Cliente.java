@@ -77,7 +77,7 @@ public class Cliente {
 
 	public void recategorizar() {
 		RepositorioCategorias repositorio = RepositorioCategorias.getInstance();
-		this.categoria = repositorio.categorias().stream()
+		this.categoria = repositorio.elementos().stream()
 				.filter(categoria -> categoria.correspondeCategoria(this.consumo())).findFirst().get();
 	}
 

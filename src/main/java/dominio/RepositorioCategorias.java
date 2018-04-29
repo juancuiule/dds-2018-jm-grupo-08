@@ -21,8 +21,8 @@ public class RepositorioCategorias extends Repositorio<Categoria> {
 		}
 		return instancia;
 	}
-	public Stream<Categoria> categoriaCorrespondiente(Double consumo) {
-		return this.filtrarSegun(categoria->categoria.correspondeCategoria(consumo));
+	public Categoria categoriaCorrespondiente(Double consumo) {
+		return this.filtrarSegun(categoria->categoria.correspondeCategoria(consumo)).findFirst().get();
 	}
 
 }
