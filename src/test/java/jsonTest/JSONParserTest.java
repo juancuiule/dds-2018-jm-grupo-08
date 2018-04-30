@@ -1,20 +1,24 @@
 package jsonTest;
 
-import java.io.FileNotFoundException;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.junit.Test;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
 
+import dominio.Dispositivo;
 import json.JSONParser;
 
 public class JSONParserTest {
-
+    
+    /*
+     * DEPRECATED
+     * 
 	// Exepciones
 	@Test(expected = FileNotFoundException.class)
 	public void clienteDesdeArchivo_parsearUnArchivoInexistente_UnaFileNotFoundException()
 			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-		new JSONParser().clienteDesdeArchivo("src/test/resources/archivoInexistente.json");
+		new JSONParser().clienteDesdeArchivo(     );
 	}
 
 	@Test(expected = JsonSyntaxException.class)
@@ -22,5 +26,18 @@ public class JSONParserTest {
 			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
 		new JSONParser().clienteDesdeArchivo("src/test/resources/jsonErroneo.json");
 	}
+	*
+	*  END-DEPRECATED
+	*
+	*/
+    
+    @Test
+    public void ObjetosDesdeArchivo_DadoUnJsonDeDispositivoss_LoParseaCorrectamente(){
+        JSONParser parser = new JSONParser();
+        List<Dispositivo> objetosExtraidos = parser.objetoDesdeArchivo("src/test/resources/dispositivoDePrueba.json",Dispositivo.class);
+        assertTrue(objetosExtraidos.get(0).getkWh()==15d);
+    }
+    
 
+    
 }
