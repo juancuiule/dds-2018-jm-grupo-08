@@ -1,5 +1,7 @@
-{
-	"nombre":"Microondas",
-	"kWh":"15",
-	"encendido":"false"
-}
+[
+	{
+		"nombre":"Microondas",
+		"kWh":"15",
+		"encendido":"false"
+	}
+]

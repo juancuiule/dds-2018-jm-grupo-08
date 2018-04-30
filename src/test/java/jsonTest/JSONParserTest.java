@@ -34,7 +34,7 @@ public class JSONParserTest {
     @Test
     public void ObjetosDesdeArchivo_DadoUnJsonDeDispositivoss_LoParseaCorrectamente(){
         JSONParser parser = new JSONParser();
-        List<Dispositivo> objetosExtraidos = parser.objetoDesdeArchivo("src/test/resources/dispositivoDePrueba.json",Dispositivo.class);
+        List<Dispositivo> objetosExtraidos = parser.objetosDesdeArchivo("src/test/resources/dispositivoDePrueba.json",Dispositivo[].class);
         assertTrue(objetosExtraidos.get(0).getkWh()==15d);
     }
     
