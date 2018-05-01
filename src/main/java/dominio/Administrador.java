@@ -8,8 +8,7 @@ public class Administrador {
 	private LocalDate fechaDeAlta;
 	private Integer identificador;
 	private String nombreDeUsuario;
-	private String contrasena;
-	final String FECHA_ACTUAL = "2018-05-17";	
+	private String contrasena;	
 
 	public Administrador(String nombre, String apellido, String stringFechaDeAlta, Integer identificador,
 			String nombreDeUsuario, String contrasena) {
@@ -27,6 +26,6 @@ public class Administrador {
 	}
 
 	public int mesesComoAdministrador() { 
-		return this.fechaDeAlta.until(LocalDate.parse(FECHA_ACTUAL)).getMonths();
+		return this.fechaDeAlta.until(LocalDate.now()).getMonths();
 	}
 }
