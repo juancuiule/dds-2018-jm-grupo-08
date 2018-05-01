@@ -1,29 +1,31 @@
-{
-	"nombre" : "Armando",
-	"apellido" : "Barreda",
-	"tipoDeDocumento" : "DNI",
-	"numeroDeDocumento" : "38265412",
-	"telefono" : "1234657896",
-	"fechaDeAlta" : "2007-12-03",
-	"domicilio" : "Fake St. 123",
-	"nombreDeUsuario" : "PrincipalSkinner",
-	"contrasena" : "Skiiiiiiiinneer!",
-	"dispositivos" : 
-	[
-		{
-			"nombre":"Heladera",
-			"kWh":"9",
-			"encendido":"true"
-		},
-		{
-			"nombre":"Horno",
-			"kWh":"40",
-			"encendido":"true"
-		},
-		{
-			"nombre":"Microondas",
-			"kWh":"15",
-			"encendido":"false"
-		}
-	]
-}
+[
+	{
+		"nombre" : "Armando",
+		"apellido" : "Barreda",
+		"tipoDeDocumento" : "DNI",
+		"numeroDeDocumento" : "38265412",
+		"telefono" : "1234657896",
+		"fechaDeAlta" : "2007-12-03",
+		"domicilio" : "Fake St. 123",
+		"nombreDeUsuario" : "PrincipalSkinner",
+		"contrasena" : "Skiiiiiiiinneer!",
+		"dispositivos" : 
+		[
+			{
+				"nombre":"Heladera",
+				"kWh":"9",
+				"encendido":"true"
+			},
+			{
+				"nombre":"Horno",
+				"kWh":"40",
+				"encendido":"true"
+			},
+			{
+				"nombre":"Microondas",
+				"kWh":"15",
+				"encendido":"false"
+			}
+		]
+	}
+]

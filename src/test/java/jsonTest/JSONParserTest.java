@@ -6,36 +6,23 @@ import java.util.List;
 
 import org.junit.Test;
 
-import dominio.Dispositivo;
+import dominio.Cliente;
+//import dominio.Dispositivo;
 import json.JSONParser;
 
 public class JSONParserTest {
     
-    /*
-     * DEPRECATED
-     * 
-	// Exepciones
-	@Test(expected = FileNotFoundException.class)
-	public void clienteDesdeArchivo_parsearUnArchivoInexistente_UnaFileNotFoundException()
-			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-		new JSONParser().clienteDesdeArchivo(     );
-	}
-
-	@Test(expected = JsonSyntaxException.class)
-	public void clienteDesdeArchivo_parsearUnJSONErroneo_UnaJsonSyntaxException()
-			throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-		new JSONParser().clienteDesdeArchivo("src/test/resources/jsonErroneo.json");
-	}
-	*
-	*  END-DEPRECATED
-	*
-	*/
+    /*private Boolean dispositivosIguales(Dispositivo dispositivoA, Dispositivo dispositivoB) {
+        return dispositivoA.getEncendido() == dispositivoB.getEncendido() &&
+               dispositivoA.getkWh()       == dispositivoB.getkWh()       &&
+               dispositivoA.getNombre()    == dispositivoB.getNombre();
+    }*/
     
     @Test
-    public void ObjetosDesdeArchivo_DadoUnJsonDeDispositivoss_LoParseaCorrectamente(){
+    public void ObjetosDesdeArchivo_DadoUnJsonDeDispositivos_LoParseaCorrectamente(){
         JSONParser parser = new JSONParser();
-        List<Dispositivo> objetosExtraidos = parser.objetosDesdeArchivo("src/test/resources/dispositivoDePrueba.json",Dispositivo[].class);
-        assertTrue(objetosExtraidos.get(0).getkWh()==15d);
+        List<Cliente> objetosExtraidos = parser.objetosDesdeArchivo("src/test/resources/clienteDePrueba.json",Cliente[].class);
+        assertTrue(objetosExtraidos.get(0).cantidadDeDispositivos()==3);
     }
     
 
