@@ -8,7 +8,7 @@ public class Administrador {
 	private LocalDate fechaDeAlta;
 	private Integer identificador;
 	private String nombreDeUsuario;
-	private String contrasena;
+	private String contrasena;	
 
 	public Administrador(String nombre, String apellido, String stringFechaDeAlta, Integer identificador,
 			String nombreDeUsuario, String contrasena) {
