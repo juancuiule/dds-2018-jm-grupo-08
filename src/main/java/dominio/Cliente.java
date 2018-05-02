@@ -26,8 +26,12 @@ public class Cliente {
 		return fechaDeAlta;
 	}
 
-	public Categoria getCategoria() {
+	public Categoria categoria() {
 		return this.categoria;
+	}
+
+	public void agregarDispositivo(Dispositivo dispositivo) {
+		this.dispositivos.add(dispositivo);
 	}
 
 	public Cliente(String nombre, String apellido, TipoDeDocumento tipoDeDocumento, Integer numeroDeDocumento,
@@ -77,8 +81,7 @@ public class Cliente {
 
 	public void recategorizar() {
 		RepositorioCategorias repositorio = RepositorioCategorias.getInstance();
-		this.categoria = repositorio.elementos().stream()
-				.filter(categoria -> categoria.correspondeCategoria(this.consumo())).findFirst().get();
+		this.categoria = repositorio.categoriaCorrespondiente(this.consumo());
 	}
 
 }

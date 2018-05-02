@@ -30,7 +30,6 @@ public class ClienteTest {
 				"8944 Red Saturn Dr", "arthhow", "hotshot", new ArrayList<Dispositivo>());
 	}
 
-	// Tests con A
 	@Test
 	public void elClienteATieneUnDispositivoEncendido() {
 		assertTrue(clienteA.hayAlgunDispositivoEncendido());
@@ -38,25 +37,24 @@ public class ClienteTest {
 
 	@Test
 	public void elClienteATieneDosDispositivosEncendidos() {
-		assertEquals(new Long(2), clienteA.cantidadDeDispositivosEncendidos());
+		assertEquals(new Integer(2), clienteA.cantidadDeDispositivosEncendidos());
 	}
 
 	@Test
 	public void elClienteATieneUnDispositivoApagado() {
-		assertEquals(new Long(1), clienteA.cantidadDeDispositivosApagados());
+		assertEquals(new Integer(1), clienteA.cantidadDeDispositivosApagados());
 	}
 
 	@Test
 	public void elClienteATieneTresDispositivos() {
 		assertEquals(new Integer(3), clienteA.cantidadDeDispositivos());
 	}
-	
+
 	@Test
 	public void consumoDelClienteA() {
 		assertEquals(new Double(1.75), clienteA.consumo());
 	}
 
-	// Tests con B
 	@Test
 	public void elClienteBNoTieneUnDispositivoEncendido() {
 		assertFalse(clienteB.hayAlgunDispositivoEncendido());
@@ -65,7 +63,25 @@ public class ClienteTest {
 	@Test
 	public void elConsumoDelClienteB() {
 		assertEquals(new Double(0), clienteB.consumo());
-		
-		/*AGREGAR TEST DE RECATEGORIZAR*/
+	}
+
+	@Test
+	public void elClienteACambiaDeCategoria() {
+		Dispositivo lavaplatos = new Dispositivo("Heladera", 320.023, true);
+		Dispositivo plancha = new Dispositivo("Tostadora", 120.123, true);
+		clienteA.agregarDispositivo(lavaplatos);
+		clienteA.agregarDispositivo(plancha);
+		clienteA.recategorizar();
+		assertEquals("R4", clienteA.categoria().getCategoria());
+	}
+
+	@Test
+	public void elClienteBCambiaDeCategoria() {
+		Dispositivo heladera = new Dispositivo("Heladera con Freezer", 0.4, true);
+		Dispositivo tostadora = new Dispositivo("Tostadora", 1.0, true);
+		clienteB.agregarDispositivo(heladera);
+		clienteB.agregarDispositivo(tostadora);
+		clienteB.recategorizar();
+		assertEquals("R1", clienteB.categoria().getCategoria());
 	}
 }
