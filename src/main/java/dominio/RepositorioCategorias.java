@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
-public class RepositorioCategorias {
+public class RepositorioCategorias extends Repositorio<Categoria> {
 	static RepositorioCategorias instancia;
-	private List<Categoria> categorias = new ArrayList<Categoria>(
+	private List<Categoria> elementos = new ArrayList<Categoria>(
 			Arrays.asList(new Categoria("R1", 0, 150, 18.76, 0.644), new Categoria("R2", 150, 325, 35.32, 0.644),
 					new Categoria("R3", 325, 400, 60.71, 0.681), new Categoria("R4", 400, 450, 71.74, 0.738),
 					new Categoria("R5", 450, 500, 110.38, 0.794), new Categoria("R6", 500, 600, 220.75, 0.832),
@@ -20,13 +21,8 @@ public class RepositorioCategorias {
 		}
 		return instancia;
 	}
-
-	public List<Categoria> categorias() {
-		return this.categorias;
-	}
-
-	public Optional<Categoria> categoriaCorrespondiente(Double consumo) {
-		return this.categorias.stream().filter(categoria -> categoria.correspondeCategoria(consumo)).findFirst();
+	public Categoria categoriaCorrespondiente(Double consumo) {
+		return this.filtrarSegun(categoria->categoria.correspondeCategoria(consumo)).findFirst().get();
 	}
 
 }
