@@ -37,17 +37,17 @@ public class ClienteTest {
 
 	@Test
 	public void elClienteATieneDosDispositivosEncendidos() {
-		assertEquals(new Integer(2), clienteA.cantidadDeDispositivosEncendidos());
+		assertEquals(2, clienteA.cantidadDeDispositivosEncendidos());
 	}
 
 	@Test
 	public void elClienteATieneUnDispositivoApagado() {
-		assertEquals(new Integer(1), clienteA.cantidadDeDispositivosApagados());
+		assertEquals(1, clienteA.cantidadDeDispositivosApagados());
 	}
 
 	@Test
 	public void elClienteATieneTresDispositivos() {
-		assertEquals(new Integer(3), clienteA.cantidadDeDispositivos());
+		assertEquals(3, clienteA.cantidadDeDispositivos());
 	}
 
 	@Test

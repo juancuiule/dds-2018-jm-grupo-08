@@ -59,15 +59,15 @@ public class Cliente {
 		return dispositivosQueCumplen(dispositivo -> dispositivo.estaEncendido());
 	}
 
-	public Integer cantidadDeDispositivos() {
+	public int cantidadDeDispositivos() {
 		return this.dispositivos.size();
 	}
 
-	public Integer cantidadDeDispositivosEncendidos() {
+	public int cantidadDeDispositivosEncendidos() {
 		return (int) this.dispositivosEncendidos().count();
 	}
 
-	public Integer cantidadDeDispositivosApagados() {
+	public int cantidadDeDispositivosApagados() {
 		return this.cantidadDeDispositivos() - this.cantidadDeDispositivosEncendidos();
 	}
 
