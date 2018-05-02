@@ -72,7 +72,7 @@ public class ClienteTest {
 		clienteA.agregarDispositivo(lavaplatos);
 		clienteA.agregarDispositivo(plancha);
 		clienteA.recategorizar();
-		assertEquals("R4", clienteA.categoria().getCategoria());
+		assertEquals("R4", clienteA.categoria().getNombre());
 	}
 
 	@Test
@@ -82,6 +82,6 @@ public class ClienteTest {
 		clienteB.agregarDispositivo(heladera);
 		clienteB.agregarDispositivo(tostadora);
 		clienteB.recategorizar();
-		assertEquals("R1", clienteB.categoria().getCategoria());
+		assertEquals("R1", clienteB.categoria().getNombre());
 	}
 }

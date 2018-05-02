@@ -1,23 +1,23 @@
 package dominio;
 
 public class Categoria {
-	private String categoria;
+	private String nombre;
 	private Integer limiteInferiorDeConsumo;
 	private Integer limiteSuperiorDeConsumo;
 	private Double valorFijo;
 	private Double valorVariable;
 
-	public Categoria(String categoria, Integer limiteInferiorDeConsumo, Integer limiteSuperiorDeConsumo,
+	public Categoria(String nombre, Integer limiteInferiorDeConsumo, Integer limiteSuperiorDeConsumo,
 			Double valorFijo, Double valorVariable) {
-		this.categoria = categoria;
+		this.nombre = nombre;
 		this.limiteInferiorDeConsumo = limiteInferiorDeConsumo;
 		this.limiteSuperiorDeConsumo = limiteSuperiorDeConsumo;
 		this.valorFijo = valorFijo;
 		this.valorVariable = valorVariable;
 	}
 
-	public String getCategoria() {
-		return this.categoria;
+	public String getNombre() {
+		return this.nombre;
 	}
 
 	public double cargoFijo(Integer meses) {
