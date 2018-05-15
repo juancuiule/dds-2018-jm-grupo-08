@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dominio.Cliente;
-import dominio.Dispositivo;
+import dominio.DispositivoEstandar;
 import dominio.TipoDeDocumento;
 
 public class ClienteTest {
@@ -22,12 +22,12 @@ public class ClienteTest {
 	public void generarCliente() {
 		clienteA = new Cliente("Marjorie", "Shaw", TipoDeDocumento.DNI, 32516843, 42000000, LocalDate.now(),
 				"7807 Samaritan Dr", "majshaw", "hudson",
-				new ArrayList<Dispositivo>(Arrays.asList(
-						new Dispositivo("Aire Acondicionado 2200 Frigorias", 1.350, true),
-						new Dispositivo("Heladera con Freezer", 0.4, true), new Dispositivo("Tostadora", 1.0, false))));
+				new ArrayList<DispositivoEstandar>(Arrays.asList(
+						new DispositivoEstandar("Aire Acondicionado 2200 Frigorias", 1.350, true),
+						new DispositivoEstandar("Heladera con Freezer", 0.4, true), new DispositivoEstandar("Tostadora", 1.0, false))));
 
 		clienteB = new Cliente("Arthur", "Howell", TipoDeDocumento.LC, 27662834, 42000001, LocalDate.now(),
-				"8944 Red Saturn Dr", "arthhow", "hotshot", new ArrayList<Dispositivo>());
+				"8944 Red Saturn Dr", "arthhow", "hotshot", new ArrayList<DispositivoEstandar>());
 	}
 
 	@Test
@@ -67,8 +67,8 @@ public class ClienteTest {
 
 	@Test
 	public void elClienteACambiaDeCategoria() {
-		Dispositivo lavaplatos = new Dispositivo("Heladera", 320.023, true);
-		Dispositivo plancha = new Dispositivo("Tostadora", 120.123, true);
+		DispositivoEstandar lavaplatos = new DispositivoEstandar("Heladera", 320.023, true);
+		DispositivoEstandar plancha = new DispositivoEstandar("Tostadora", 120.123, true);
 		clienteA.agregarDispositivo(lavaplatos);
 		clienteA.agregarDispositivo(plancha);
 		clienteA.recategorizar();
@@ -77,8 +77,8 @@ public class ClienteTest {
 
 	@Test
 	public void elClienteBCambiaDeCategoria() {
-		Dispositivo heladera = new Dispositivo("Heladera con Freezer", 0.4, true);
-		Dispositivo tostadora = new Dispositivo("Tostadora", 1.0, true);
+		DispositivoEstandar heladera = new DispositivoEstandar("Heladera con Freezer", 0.4, true);
+		DispositivoEstandar tostadora = new DispositivoEstandar("Tostadora", 1.0, true);
 		clienteB.agregarDispositivo(heladera);
 		clienteB.agregarDispositivo(tostadora);
 		clienteB.recategorizar();

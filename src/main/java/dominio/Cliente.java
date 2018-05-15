@@ -15,7 +15,7 @@ public class Cliente {
 	private String domicilio;
 	private String nombreDeUsuario;
 	private String contrasena;
-	private List<Dispositivo> dispositivos;
+	private List<DispositivoEstandar> dispositivos;
 	private Categoria categoria;
 
 	public TipoDeDocumento getTipoDeDocumento() {
@@ -30,13 +30,13 @@ public class Cliente {
 		return this.categoria;
 	}
 
-	public void agregarDispositivo(Dispositivo dispositivo) {
+	public void agregarDispositivo(DispositivoEstandar dispositivo) {
 		this.dispositivos.add(dispositivo);
 	}
 
 	public Cliente(String nombre, String apellido, TipoDeDocumento tipoDeDocumento, Integer numeroDeDocumento,
 			Integer telefono, LocalDate fechaDeAlta, String domicilio, String nombreDeUsuario, String contrasena,
-			List<Dispositivo> dispositivos) {
+			List<DispositivoEstandar> dispositivos) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.tipoDeDocumento = tipoDeDocumento;
@@ -51,11 +51,11 @@ public class Cliente {
 		this.recategorizar();
 	}
 
-	public Stream<Dispositivo> dispositivosQueCumplen(Predicate<Dispositivo> unaCondicion) {
+	public Stream<DispositivoEstandar> dispositivosQueCumplen(Predicate<DispositivoEstandar> unaCondicion) {
 		return this.dispositivos.stream().filter(unaCondicion);
 	}
 
-	public Stream<Dispositivo> dispositivosEncendidos() {
+	public Stream<DispositivoEstandar> dispositivosEncendidos() {
 		return dispositivosQueCumplen(dispositivo -> dispositivo.estaEncendido());
 	}
 
@@ -76,7 +76,7 @@ public class Cliente {
 	}
 
 	public Double consumo() {
-		return this.dispositivosEncendidos().mapToDouble((Dispositivo dispositivo) -> dispositivo.getkWh()).sum();
+		return this.dispositivosEncendidos().mapToDouble((DispositivoEstandar dispositivo) -> dispositivo.getkWh()).sum();
 	}
 
 	public void recategorizar() {

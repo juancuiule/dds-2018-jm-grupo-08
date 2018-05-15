@@ -1,6 +1,9 @@
 package dominio;
 
-public class Dispositivo {
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
+public class DispositivoEstandar implements Dispositivo {
 	private String nombre;
 	private Double kWh;
 	private Boolean encendido;
@@ -17,7 +20,7 @@ public class Dispositivo {
 		return encendido;
 	}
 
-	public Dispositivo(String nombre, Double kWh, Boolean encendido) {
+	public DispositivoEstandar(String nombre, Double kWh, Boolean encendido) {
 		this.nombre = nombre;
 		this.kWh = kWh;
 		this.encendido = encendido;
@@ -25,7 +28,7 @@ public class Dispositivo {
 
 	public void apagar() { 
 		this.encendido = false;
-	}
+	} 
 
 	public void encender() {
 		this.encendido = true;
@@ -39,9 +42,15 @@ public class Dispositivo {
 		return !this.estaEncendido();
 	}
 
-	public Boolean esIgualA(Dispositivo dispositivoAComparar) { /*usar esto directamente en los test*/
+	public Boolean esIgualA(DispositivoEstandar dispositivoAComparar) { /*usar esto directamente en los test*/
 		return nombre.equals(dispositivoAComparar.getNombre()) && kWh == dispositivoAComparar.getkWh()
 				&& encendido == dispositivoAComparar.getEncendido();
 	}
+
+    @Override
+    public Double consumoEntre(LocalDate inicio, LocalDate fin) {
+        Double horasEntreInicioYFin = new Double(ChronoUnit.HOURS.between(inicio, fin));
+        return horasEntreInicioYFin * kWh;
+    }
 
 }
