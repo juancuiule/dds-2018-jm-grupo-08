@@ -2,12 +2,17 @@ package dominio;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.Optional;
 
-public class DispositivoInteligente {
+public class DispositivoInteligente implements Dispositivo{
     private String nombre;
     private Double kWh;
     private Boolean encendido;
     private Boolean ahorroDeEnergia;
+    private List<Uptime> uptime;
+    private Optional<LocalDate> fechaDeEncendido;
 
     public String getNombre() {
         return nombre;
@@ -36,11 +41,19 @@ public class DispositivoInteligente {
 
     public void apagar() { 
         this.encendido = false;
+        registrarConsumo();
+        fechaDeEncendido = Optional.empty();
     }
 
     public void encender() {
         this.ahorroDeEnergia = false;
         this.encendido = true;
+        registrarConsumo();
+    }
+    
+    public void activarAhorroDeEnergia() {
+        this.ahorroDeEnergia = true;
+        registrarConsumo();
     }
 
     public Boolean estaEncendido() {
@@ -50,21 +63,22 @@ public class DispositivoInteligente {
     public Boolean estaApagado() { 
         return !this.estaEncendido();
     }
+    
+    public Double consumoUltimasHoras(Integer horas) {
+        return consumoEntre(LocalDate.now(), LocalDate.now().minus(horas,ChronoUnit.HOURS));
+    }
+    
+    private void registrarConsumo() {
+        fechaDeEncendido.ifPresent((fechaDeEncendido) ->
+            uptime.add(new Uptime(kWh, fechaDeEncendido, LocalDate.now()))
+        );
+        fechaDeEncendido = Optional.of(LocalDate.now());
+    }
 
-    public Boolean esIgualA(DispositivoInteligente dispositivoAComparar) { /*usar esto directamente en los test*/
-        return nombre.equals(dispositivoAComparar.getNombre()) && kWh == dispositivoAComparar.getkWh()
-                && encendido == dispositivoAComparar.getEncendido();
+    @Override
+    public Double consumoEntre(LocalDate inicio, LocalDate fin) {
+        return uptime.stream().mapToDouble((uptime)->uptime.consumoEntre(inicio, fin)).sum();
     }
     
-    public Double cantidadConsumidaEnHoras(Integer horas) {
-        return kWh * horas;
-    }
-    
-    public Double cantidadConsumidaEnPeriodo(LocalDate inicio, LocalDate fin) {
-        return Period.between(inicio, fin).getDays() * cantidadConsumidaEnHoras(24);
-    }
-    
-    public void activarAhorroDeEnergia() {
-        this.ahorroDeEnergia = true;
-    }
+
 }
