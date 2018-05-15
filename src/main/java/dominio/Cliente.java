@@ -17,6 +17,7 @@ public class Cliente {
 	private String contrasena;
 	private List<DispositivoEstandar> dispositivos;
 	private Categoria categoria;
+	private Integer puntaje;
 
 	public TipoDeDocumento getTipoDeDocumento() {
 		return tipoDeDocumento;
@@ -82,6 +83,10 @@ public class Cliente {
 	public void recategorizar() {
 		RepositorioCategorias repositorio = RepositorioCategorias.getInstance();
 		this.categoria = repositorio.categoriaCorrespondiente(this.consumo());
+	}
+	
+	   public void agregarPuntaje(Integer puntaje) {
+	        this.puntaje += puntaje;
 	}
 
 }
