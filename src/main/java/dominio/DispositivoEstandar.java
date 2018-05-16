@@ -7,6 +7,7 @@ public class DispositivoEstandar implements Dispositivo {
 	private String nombre;
 	private Double kWh;
 	private Boolean encendido;
+	private Integer horasDeUsoXDia;
 
 	public String getNombre() {
 		return nombre;
@@ -20,10 +21,11 @@ public class DispositivoEstandar implements Dispositivo {
 		return encendido;
 	}
 
-	public DispositivoEstandar(String nombre, Double kWh, Boolean encendido) {
+	public DispositivoEstandar(String nombre, Double kWh,Integer horasDeUsoXDia , Boolean encendido) {
 		this.nombre = nombre;
 		this.kWh = kWh;
 		this.encendido = encendido;
+		this.horasDeUsoXDia = horasDeUsoXDia;
 	}
 
 	public void apagar() { 
@@ -44,8 +46,8 @@ public class DispositivoEstandar implements Dispositivo {
 
     @Override
     public Double consumoEntre(LocalDate inicio, LocalDate fin) {
-        Double horasEntreInicioYFin = new Double(ChronoUnit.HOURS.between(inicio, fin));
-        return horasEntreInicioYFin * kWh;
+        Double diasEntreInicioYFin = new Double(ChronoUnit.DAYS.between(inicio, fin));
+        return diasEntreInicioYFin * horasDeUsoXDia * kWh;
     }
 
 }
