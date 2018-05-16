@@ -1,6 +1,7 @@
 package dominio;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -15,7 +16,7 @@ public class Cliente {
 	private String domicilio;
 	private String nombreDeUsuario;
 	private String contrasena;
-	private List<DispositivoEstandar> dispositivos;
+	private List<Dispositivo> dispositivos;
 	private Categoria categoria;
 	private Integer puntaje;
 
@@ -31,13 +32,13 @@ public class Cliente {
 		return this.categoria;
 	}
 
-	public void agregarDispositivo(DispositivoEstandar dispositivo) {
+	public void agregarDispositivo(Dispositivo dispositivo) {
 		this.dispositivos.add(dispositivo);
 	}
 
 	public Cliente(String nombre, String apellido, TipoDeDocumento tipoDeDocumento, Integer numeroDeDocumento,
 			Integer telefono, LocalDate fechaDeAlta, String domicilio, String nombreDeUsuario, String contrasena,
-			List<DispositivoEstandar> dispositivos) {
+			List<Dispositivo> dispositivos) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.tipoDeDocumento = tipoDeDocumento;
@@ -52,11 +53,11 @@ public class Cliente {
 		this.recategorizar();
 	}
 
-	public Stream<DispositivoEstandar> dispositivosQueCumplen(Predicate<DispositivoEstandar> unaCondicion) {
+	public Stream<Dispositivo> dispositivosQueCumplen(Predicate<Dispositivo> unaCondicion) {
 		return this.dispositivos.stream().filter(unaCondicion);
 	}
 
-	public Stream<DispositivoEstandar> dispositivosEncendidos() {
+	public Stream<Dispositivo> dispositivosEncendidos() {
 		return dispositivosQueCumplen(dispositivo -> dispositivo.estaEncendido());
 	}
 
@@ -76,13 +77,13 @@ public class Cliente {
 		return this.cantidadDeDispositivosEncendidos() > 0;
 	}
 
-	public Double consumo() {
-		return this.dispositivosEncendidos().mapToDouble((DispositivoEstandar dispositivo) -> dispositivo.getkWh()).sum();
+	public Double consumo(LocalDate inicio, LocalDate fin) {
+		return this.dispositivos.stream().mapToDouble((Dispositivo dispositivo) -> dispositivo.consumoEntre(inicio, fin)).sum();
 	}
 
 	public void recategorizar() {
 		RepositorioCategorias repositorio = RepositorioCategorias.getInstance();
-		this.categoria = repositorio.categoriaCorrespondiente(this.consumo());
+		this.categoria = repositorio.categoriaCorrespondiente(this.consumo(LocalDate.now().minus(1,ChronoUnit.YEARS),LocalDate.now()));
 	}
 	
 	   public void agregarPuntaje(Integer puntaje) {

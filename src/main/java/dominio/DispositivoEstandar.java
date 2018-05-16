@@ -35,16 +35,11 @@ public class DispositivoEstandar implements Dispositivo {
 	}
 
 	public Boolean estaEncendido() {
-		return this.encendido;
+		return false;
 	}
 
 	public Boolean estaApagado() { 
-		return !this.estaEncendido();
-	}
-
-	public Boolean esIgualA(DispositivoEstandar dispositivoAComparar) { /*usar esto directamente en los test*/
-		return nombre.equals(dispositivoAComparar.getNombre()) && kWh == dispositivoAComparar.getkWh()
-				&& encendido == dispositivoAComparar.getEncendido();
+		return false;
 	}
 
     @Override
