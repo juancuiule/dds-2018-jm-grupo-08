@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 public class DispositivoEstandar implements Dispositivo {
 	private String nombre;
 	private Double kWh;
+	private Boolean encendido;
 	private Integer horasDeUsoXDia;
 
 	public String getNombre() {
@@ -16,10 +17,31 @@ public class DispositivoEstandar implements Dispositivo {
 		return kWh;
 	}
 
-	public DispositivoEstandar(String nombre, Double kWh, Integer horasDeUsoXDia) {
+	public Boolean getEncendido() {
+		return encendido;
+	}
+
+	public DispositivoEstandar(String nombre, Double kWh,Integer horasDeUsoXDia , Boolean encendido) {
 		this.nombre = nombre;
 		this.kWh = kWh;
+		this.encendido = encendido;
 		this.horasDeUsoXDia = horasDeUsoXDia;
+	}
+
+	public void apagar() { 
+		this.encendido = false;
+	} 
+
+	public void encender() {
+		this.encendido = true;
+	}
+
+	public Boolean estaEncendido() {
+		return false;
+	}
+
+	public Boolean estaApagado() { 
+		return false;
 	}
 
     @Override
