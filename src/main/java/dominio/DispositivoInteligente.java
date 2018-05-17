@@ -26,17 +26,17 @@ public class DispositivoInteligente implements Dispositivo{
         return encendido;
     }
 
-    public DispositivoInteligente(Cliente dueño, String nombre, Double kWh, Boolean encendido) {
+    public DispositivoInteligente(Cliente dueno, String nombre, Double kWh, Boolean encendido) {
         this.nombre = nombre;
         this.kWh = kWh;
         this.encendido = encendido;
         this.ahorroDeEnergia = false;
         
-        this.sumarPuntaje(dueño);
+        this.sumarPuntaje(dueno);
     }
     
-    public void sumarPuntaje(Cliente dueño) {
-        dueño.agregarPuntaje(15);
+    public void sumarPuntaje(Cliente dueno) {
+        dueno.agregarPuntaje(15);
     }
 
     public void apagar() { 
