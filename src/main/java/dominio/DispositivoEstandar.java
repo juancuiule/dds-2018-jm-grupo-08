@@ -3,43 +3,22 @@ package dominio;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class DispositivoEstandar implements Dispositivo {
+public class DispositivoEstandar extends Dispositivo {
 	private String nombre;
 	private Double kWh;
-	private Boolean encendido;
 	private Integer horasDeUsoXDia;
+	
+	public DispositivoEstandar(String nombre, Double kWh,Integer horasDeUsoXDia) {
+        super(nombre, kWh);
+        this.horasDeUsoXDia = horasDeUsoXDia;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public Double getkWh() {
-		return kWh;
-	}
-
-	public Boolean getEncendido() {
-		return encendido;
-	}
-
-	public DispositivoEstandar(String nombre, Double kWh,Integer horasDeUsoXDia , Boolean encendido) {
-		this.nombre = nombre;
-		this.kWh = kWh;
-		this.encendido = encendido;
-		this.horasDeUsoXDia = horasDeUsoXDia;
-	}
-
-	public void apagar() { 
-		this.encendido = false;
-	} 
-
-	public void encender() {
-		this.encendido = true;
-	}
-
+    @Override
 	public Boolean estaEncendido() {
 		return false;
 	}
-
+	
+	@Override
 	public Boolean estaApagado() { 
 		return false;
 	}

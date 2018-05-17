@@ -6,37 +6,24 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
-public class DispositivoInteligente implements Dispositivo{
+public class DispositivoInteligente extends Dispositivo{
     private String nombre;
     private Double kWh;
     private Boolean encendido;
     private Boolean ahorroDeEnergia;
     private List<Uptime> uptime;
     private Optional<LocalDate> fechaDeEncendido;
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public Double getkWh() {
-        return kWh;
-    }
-
-    public Boolean getEncendido() {
-        return encendido;
-    }
-
-    public DispositivoInteligente(Cliente dueno, String nombre, Double kWh, Boolean encendido) {
-        this.nombre = nombre;
-        this.kWh = kWh;
+    
+    public DispositivoInteligente(Cliente cliente,String nombre, Double kWh, Boolean encendido) {
+        super(nombre, kWh);
+        cliente.agregarPuntaje(15);
         this.encendido = encendido;
-        this.ahorroDeEnergia = false;
-        
-        this.sumarPuntaje(dueno);
     }
     
-    public void sumarPuntaje(Cliente dueno) {
-        dueno.agregarPuntaje(15);
+    public DispositivoInteligente(Cliente cliente,DispositivoEstandar primitivo, Boolean encendido) {
+        super(primitivo.getNombre(), primitivo.getkWh());
+        cliente.agregarPuntaje(10);
+        this.encendido = encendido;
     }
 
     public void apagar() { 
