@@ -83,8 +83,12 @@ public class Cliente {
 
 	public void recategorizar() {
 		RepositorioCategorias repositorio = RepositorioCategorias.getInstance();
-		this.categoria = repositorio.categoriaCorrespondiente(this.consumo(LocalDate.now().minus(1,ChronoUnit.MONTHS),LocalDate.now()));
+		this.categoria = repositorio.categoriaCorrespondiente(consumoUltimoMes());
 	}
+
+    private Double consumoUltimoMes() {
+        return this.consumo(LocalDate.now().minus(1,ChronoUnit.MONTHS),LocalDate.now());
+    }
 	
 	public void agregarPuntaje(Integer puntaje) {
 	        this.puntaje += puntaje;
