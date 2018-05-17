@@ -14,6 +14,10 @@ public class DispositivoInteligente extends Dispositivo{
     private List<Uptime> uptime;
     private Optional<LocalDate> fechaDeEncendido;
     
+    public Boolean getAhorroDeEnergia() {
+    	return this.ahorroDeEnergia;
+    }
+    
     public DispositivoInteligente(Cliente cliente,String nombre, Double kWh, Boolean encendido) {
         super(nombre, kWh);
         cliente.agregarPuntaje(15);

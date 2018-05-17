@@ -2,6 +2,7 @@ package dominio;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -49,6 +50,7 @@ public class Cliente {
 		this.nombreDeUsuario = nombreDeUsuario;
 		this.contrasena = contrasena;
 		this.dispositivos = dispositivos;
+		this.puntaje = 0;
 
 		this.recategorizar();
 	}
