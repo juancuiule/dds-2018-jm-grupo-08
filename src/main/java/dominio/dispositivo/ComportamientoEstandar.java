@@ -5,49 +5,55 @@ import java.time.Period;
 public class ComportamientoEstandar implements Comportamiento {
     private Double consumoPorHora;
     private Double horasDeUsoPorDia;
-    private Boolean encendido;
 
-    public ComportamientoEstandar(Double consumoPorHora, Double usoPorHora) {
+    public ComportamientoEstandar(Double consumoPorHora, Double horasDeUsoPorDia) {
         super();
+        if(horasDeUsoPorDia > 24d) {
+            throw new ComportamientoNoAdmitidoException();
+        }
         this.consumoPorHora = consumoPorHora;
-        this.horasDeUsoPorDia = usoPorHora;
+        this.horasDeUsoPorDia = horasDeUsoPorDia;
     }
 
     @Override
     public Boolean estaEncendido() {
-        return encendido;
+        // El dispositivo estandar no admite este tipo de comportamiento
+        throw new ComportamientoNoAdmitidoException();
     }
 
     @Override
     public Boolean estaApagado() {
-        return !encendido;
+        // El dispositivo estandar no admite este tipo de comportamiento
+        throw new ComportamientoNoAdmitidoException();
     }
-
 
     @Override
     public Double consumoEnUltimasHoras(Double horas) {
-        return porcentajeDeUso() * horas * consumoPorHora;
+        return consumoEnHoras(horas);
     }
 
     @Override
     public Double consumoEnElPeriodo(Period periodo) {
         Double horasDeUso = periodo.getDays() * 24d; 
-        return porcentajeDeUso() * horasDeUso * consumoPorHora;
+        return consumoEnHoras(horasDeUso);
     }
 
     @Override
     public void apagar() {
         // El dispositivo estandar no admite este tipo de comportamiento
+        throw new ComportamientoNoAdmitidoException();
     }
 
     @Override
     public void encender() {
         // El dispositivo estandar no admite este tipo de comportamiento
+        throw new ComportamientoNoAdmitidoException();
     }
 
     @Override
     public void ahorrarEnergia() {
         // El dispositivo estandar no admite este tipo de comportamiento
+        throw new ComportamientoNoAdmitidoException();
     }
     
     /* PRIVATE METHODS*/
@@ -55,5 +61,9 @@ public class ComportamientoEstandar implements Comportamiento {
         Double horasDelDia = new Double(24);
         return 100 * horasDeUsoPorDia / horasDelDia;
         
+    }
+    
+    private Double consumoEnHoras(Double horas) {
+        return porcentajeDeUso() * horas * consumoPorHora;
     }
 }
