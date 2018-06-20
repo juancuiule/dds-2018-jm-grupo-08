@@ -3,7 +3,6 @@ package dominio.dispositivo;
 import java.time.Period;
 
 public class ComportamientoInteligente implements Comportamiento {
-    private Boolean encendido;
     private InterfazDeFabrica interfazDeFabrica;
 
     public ComportamientoInteligente(InterfazDeFabrica interfazDeFabrica) {
@@ -13,12 +12,12 @@ public class ComportamientoInteligente implements Comportamiento {
 
     @Override
     public Boolean estaEncendido() {
-        return encendido;
+        return interfazDeFabrica.estaEncendido();
     }
 
     @Override
     public Boolean estaApagado() {
-        return !encendido;
+        return interfazDeFabrica.estaApagado();
     }
 
     @Override
@@ -34,13 +33,11 @@ public class ComportamientoInteligente implements Comportamiento {
     @Override
     public void apagar() {
         interfazDeFabrica.apagar();
-        encendido = false;
     }
 
     @Override
     public void encender() {
         interfazDeFabrica.encender();
-        encendido = false;
     }
 
     @Override
