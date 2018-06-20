@@ -1,9 +1,12 @@
 package dominio;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+
+import dominio.dispositivo.Dispositivo;
 
 public class Cliente {
 	private String nombre;
@@ -75,13 +78,14 @@ public class Cliente {
 		return this.cantidadDeDispositivosEncendidos() > 0;
 	}
 
-	public Double consumo() {
-		return this.dispositivosEncendidos().mapToDouble((Dispositivo dispositivo) -> dispositivo.getkWh()).sum();
+	public Double consumo(Period periodo) {
+		return this.dispositivosEncendidos().mapToDouble((Dispositivo dispositivo) -> dispositivo.consumoEnElPeriodo(periodo)).sum();
 	}
 
 	public void recategorizar() {
+	    Period ultimoMes =Period.between(LocalDate.now().plusMonths(-1) , LocalDate.now());
 		RepositorioCategorias repositorio = RepositorioCategorias.getInstance();
-		this.categoria = repositorio.categoriaCorrespondiente(this.consumo());
+		this.categoria = repositorio.categoriaCorrespondiente(this.consumo(ultimoMes));
 	}
 
 }
