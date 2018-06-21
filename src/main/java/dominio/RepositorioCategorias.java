@@ -2,7 +2,6 @@ package dominio;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class RepositorioCategorias extends Repositorio<Categoria> {
 	static RepositorioCategorias instancia;
