@@ -4,6 +4,14 @@ import java.time.Period;
 
 public class Dispositivo {
     private Comportamiento comportamiento;
+    private String nombre;
+
+    public Dispositivo(String nombre, Comportamiento comportamiento) {
+        this.comportamiento = comportamiento;
+        this.nombre = nombre;
+    }
+    
+    
     public Boolean estaEncendido() {
         try{
             return comportamiento.estaEncendido();
