@@ -57,13 +57,13 @@ public class ComportamientoEstandar implements Comportamiento {
     }
     
     /* PRIVATE METHODS*/
-    private Double porcentajeDeUso(){
+    /*private Double porcentajeDeUso(){
         Double horasDelDia = new Double(24);
         return 100 * horasDeUsoPorDia / horasDelDia;
         
-    }
+    }*/
     
     private Double consumoEnHoras(Double horas) {
-        return porcentajeDeUso() * horas * consumoPorHora;
+        return horas * consumoPorHora;
     }
 }
