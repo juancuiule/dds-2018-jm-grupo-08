@@ -49,12 +49,12 @@ public class ComportamientoEstandarTest {
     }
     
     @Test
-    public void consumoEnUltimasHoras_DadasLasUltimas12Horas_DebeSer9000() {
-        assertEquals(Double.valueOf(9000), comportamientoAProbar.consumoEnUltimasHoras(12d));
+    public void consumoEnUltimasHoras_DadasLasUltimas12Horas_DebeSer360() {
+        assertEquals(Double.valueOf(360), comportamientoAProbar.consumoEnUltimasHoras(12d));
     }
 
     @Test
-    public void consumoEnElPeriodo_EnUnPeriodoDe10Dias_DebeSer180000() {
-        assertEquals(Double.valueOf(180000),comportamientoAProbar.consumoEnElPeriodo(Period.ofDays(10)));
+    public void consumoEnElPeriodo_EnUnPeriodoDe10Dias_DebeSer1800() {
+        assertEquals(Double.valueOf(1800),comportamientoAProbar.consumoEnElPeriodo(Period.ofDays(10)));
     }
 }
