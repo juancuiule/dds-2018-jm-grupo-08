@@ -7,7 +7,6 @@ public class ComportamientoEstandar implements Comportamiento {
     private Double horasDeUsoPorDia;
 
     public ComportamientoEstandar(Double consumoPorHora, Double horasDeUsoPorDia) {
-        super();
         if(horasDeUsoPorDia > 24d) {
             throw new ComportamientoNoAdmitidoException();
         }

@@ -6,7 +6,6 @@ public class ComportamientoInteligente implements Comportamiento {
     private InterfazDeFabrica interfazDeFabrica;
 
     public ComportamientoInteligente(InterfazDeFabrica interfazDeFabrica) {
-        super();
         this.interfazDeFabrica = interfazDeFabrica;
     }
 
