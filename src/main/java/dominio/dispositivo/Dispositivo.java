@@ -11,6 +11,10 @@ public class Dispositivo {
         this.nombre = nombre;
     }
     
+    public Double consumoPorHora() {
+    	return comportamiento.consumoPorHora();
+    }
+    
     
     public Boolean estaEncendido() {
         try{

@@ -13,6 +13,10 @@ public class ComportamientoEstandar implements Comportamiento {
         this.consumoPorHora = consumoPorHora;
         this.horasDeUsoPorDia = horasDeUsoPorDia;
     }
+    @Override
+    public Double consumoPorHora() {
+    	return consumoPorHora;
+    }
 
     @Override
     public Boolean estaEncendido() {

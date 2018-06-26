@@ -17,6 +17,8 @@ public interface InterfazDeFabrica {
     void encender();
 
     void ahorrarEnergia();
+    
+    Double consumoPorHora();
 
 
 }
