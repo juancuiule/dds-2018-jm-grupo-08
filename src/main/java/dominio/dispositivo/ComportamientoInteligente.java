@@ -43,4 +43,10 @@ public class ComportamientoInteligente implements Comportamiento {
     public void ahorrarEnergia() {
         interfazDeFabrica.ahorrarEnergia();
     }
+    
+    @Override
+    public ComportamientoInteligente convertirAInteligente() {
+    	// El dispositivo estandar no admite este tipo de comportamiento
+        throw new ComportamientoNoAdmitidoException();
+    }
 }

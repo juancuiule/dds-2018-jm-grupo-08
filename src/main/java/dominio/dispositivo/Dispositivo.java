@@ -53,4 +53,11 @@ public class Dispositivo {
             // Nada
         }
     }
+    public void agregarModuloAdaptador() {
+    	try{
+    		this.comportamiento = comportamiento.convertirAInteligente();
+        }catch(ComportamientoNoAdmitidoException e){
+            // Nada
+        }
+    }
 }

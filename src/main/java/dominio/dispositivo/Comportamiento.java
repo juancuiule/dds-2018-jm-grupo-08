@@ -10,4 +10,5 @@ public interface Comportamiento {
     public void apagar();
     public void encender();
     public void ahorrarEnergia();
+    public ComportamientoInteligente convertirAInteligente();
 }
