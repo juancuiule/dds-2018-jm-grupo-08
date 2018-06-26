@@ -15,14 +15,14 @@ public class Dispositivo {
     public Boolean estaEncendido() {
         try{
             return comportamiento.estaEncendido();
-        }catch(ComportamientoNoAdmitidoException  e){
+        }catch(MensajeNoEntendidoException  e){
             return false;
         }
     }
     public Boolean estaApagado(){
         try{
             return comportamiento.estaApagado();
-        }catch(ComportamientoNoAdmitidoException  e){
+        }catch(MensajeNoEntendidoException  e){
             return false;
         }
     }
@@ -35,28 +35,28 @@ public class Dispositivo {
     public void apagar(){
         try{
             comportamiento.apagar();
-        }catch(ComportamientoNoAdmitidoException e){
+        }catch(MensajeNoEntendidoException e){
             // Nada
         }
     }
     public void encender(){
         try{
             comportamiento.encender();
-        }catch(ComportamientoNoAdmitidoException e){
+        }catch(MensajeNoEntendidoException e){
             // Nada
         }
     }
     public void ahorrarEnergia(){
         try{
             comportamiento.ahorrarEnergia();
-        }catch(ComportamientoNoAdmitidoException e){
+        }catch(MensajeNoEntendidoException e){
             // Nada
         }
     }
     public void agregarModuloAdaptador() {
     	try{
     		this.comportamiento = comportamiento.convertirAInteligente();
-        }catch(ComportamientoNoAdmitidoException e){
+        }catch(MensajeNoEntendidoException e){
             // Nada
         }
     }

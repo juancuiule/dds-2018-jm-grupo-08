@@ -47,6 +47,6 @@ public class ComportamientoInteligente implements Comportamiento {
     @Override
     public ComportamientoInteligente convertirAInteligente() {
     	// El dispositivo estandar no admite este tipo de comportamiento
-        throw new ComportamientoNoAdmitidoException();
+        throw new MensajeNoEntendidoException();
     }
 }

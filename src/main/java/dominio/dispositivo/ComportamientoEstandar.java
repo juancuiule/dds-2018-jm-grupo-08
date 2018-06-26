@@ -8,7 +8,7 @@ public class ComportamientoEstandar implements Comportamiento {
 
     public ComportamientoEstandar(Double consumoPorHora, Double horasDeUsoPorDia) {
         if(horasDeUsoPorDia > 24d) {
-            throw new ComportamientoNoAdmitidoException();
+            throw new MensajeNoEntendidoException();
         }
         this.consumoPorHora = consumoPorHora;
         this.horasDeUsoPorDia = horasDeUsoPorDia;
@@ -17,13 +17,13 @@ public class ComportamientoEstandar implements Comportamiento {
     @Override
     public Boolean estaEncendido() {
         // El dispositivo estandar no admite este tipo de comportamiento
-        throw new ComportamientoNoAdmitidoException();
+        throw new MensajeNoEntendidoException();
     }
 
     @Override
     public Boolean estaApagado() {
         // El dispositivo estandar no admite este tipo de comportamiento
-        throw new ComportamientoNoAdmitidoException();
+        throw new MensajeNoEntendidoException();
     }
 
     @Override
@@ -40,19 +40,19 @@ public class ComportamientoEstandar implements Comportamiento {
     @Override
     public void apagar() {
         // El dispositivo estandar no admite este tipo de comportamiento
-        throw new ComportamientoNoAdmitidoException();
+        throw new MensajeNoEntendidoException();
     }
 
     @Override
     public void encender() {
         // El dispositivo estandar no admite este tipo de comportamiento
-        throw new ComportamientoNoAdmitidoException();
+        throw new MensajeNoEntendidoException();
     }
 
     @Override
     public void ahorrarEnergia() {
         // El dispositivo estandar no admite este tipo de comportamiento
-        throw new ComportamientoNoAdmitidoException();
+        throw new MensajeNoEntendidoException();
     }
     
     @Override

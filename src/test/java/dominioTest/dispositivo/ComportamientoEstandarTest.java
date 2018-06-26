@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dominio.dispositivo.ComportamientoEstandar;
-import dominio.dispositivo.ComportamientoNoAdmitidoException;
+import dominio.dispositivo.MensajeNoEntendidoException;
 
 public class ComportamientoEstandarTest {
     private ComportamientoEstandar comportamientoAProbar;
@@ -18,32 +18,32 @@ public class ComportamientoEstandarTest {
         comportamientoAProbar = new ComportamientoEstandar(30d, 6d);
     }
 
-    @Test(expected = ComportamientoNoAdmitidoException.class) 
+    @Test(expected = MensajeNoEntendidoException.class) 
     public void crearComportamiento_UsoMayorA24HorasPorDia_DebeLanzarExcepcion() {
         new ComportamientoEstandar(30d, 80d);
     }
 
-    @Test(expected = ComportamientoNoAdmitidoException.class) 
+    @Test(expected = MensajeNoEntendidoException.class) 
     public void estaEncendido_DebeLanzarExcepcion() {
         comportamientoAProbar.estaEncendido();
     }
 
-    @Test(expected = ComportamientoNoAdmitidoException.class)
+    @Test(expected = MensajeNoEntendidoException.class)
     public void estaApagado_DebeLanzarExcepcion() {
         comportamientoAProbar.estaApagado();
     }
 
-    @Test(expected = ComportamientoNoAdmitidoException.class)
+    @Test(expected = MensajeNoEntendidoException.class)
     public void apagar_DebeLanzarExcepcion() {
         comportamientoAProbar.apagar();
     }
 
-    @Test(expected = ComportamientoNoAdmitidoException.class)
+    @Test(expected = MensajeNoEntendidoException.class)
     public void encender_DebeLanzarExcepcion() {
         comportamientoAProbar.encender();
     }
 
-    @Test(expected = ComportamientoNoAdmitidoException.class)
+    @Test(expected = MensajeNoEntendidoException.class)
     public void ahorrarEnergia_DebeLanzarExcepcion() {
         comportamientoAProbar.ahorrarEnergia();
     }

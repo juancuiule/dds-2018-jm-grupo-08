@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import dominio.dispositivo.ComportamientoEstandar;
 import dominio.dispositivo.ComportamientoInteligente;
-import dominio.dispositivo.ComportamientoNoAdmitidoException;
+import dominio.dispositivo.MensajeNoEntendidoException;
 
 // FALTA IMPLEMENTAR UNA CLASE FabricaPosta
 
@@ -60,7 +60,7 @@ public class ComportamientoInteligenteTest {
     }    
 
     @Test
-    public void ahorrarEnergia() { // ¿QUE DEBE HACER? -> Falta implementar la clase FabricaPosta
+    public void ahorrarEnergia() { // ï¿½QUE DEBE HACER? -> Falta implementar la clase FabricaPosta
         comportamientoAProbar.ahorrarEnergia();
     }
 }
