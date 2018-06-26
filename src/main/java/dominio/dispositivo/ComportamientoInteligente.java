@@ -8,6 +8,10 @@ public class ComportamientoInteligente implements Comportamiento {
     public ComportamientoInteligente(InterfazDeFabrica interfazDeFabrica) {
         this.interfazDeFabrica = interfazDeFabrica;
     }
+    
+    public Double consumoPorHora() {
+    	return interfazDeFabrica.consumoPorHora();
+    }
 
     @Override
     public Boolean estaEncendido() {

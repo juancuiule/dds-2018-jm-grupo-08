@@ -2,10 +2,11 @@ package dominio;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import dominio.dispositivo.Dispositivo;
 
 public class Cliente {
@@ -21,6 +22,10 @@ public class Cliente {
 	private List<Dispositivo> dispositivos;
 	private Categoria categoria;
 	private Integer puntaje;
+
+	public ArrayList<Double> consumosPorHora(){
+		return (ArrayList<Double>) dispositivos.stream().map(dispositivo -> dispositivo.consumoPorHora()).collect(Collectors.toList());
+	}
 
 	public TipoDeDocumento getTipoDeDocumento() {
 		return tipoDeDocumento;
@@ -52,6 +57,7 @@ public class Cliente {
 		this.contrasena = contrasena;
 		this.dispositivos = dispositivos;
 		this.puntaje = 0;
+
 
 		this.recategorizar();
 	}
