@@ -59,12 +59,6 @@ public class ComportamientoEstandar implements Comportamiento {
         throw new MensajeNoEntendidoException();
     }
     
-    @Override
-    public ComportamientoInteligente convertirAInteligente() {
-    	FabricaPosta unaFabrica = new FabricaPosta(); // Ver esto
-    	return new ComportamientoInteligente(FabricaPosta);
-    }
-    
     /* PRIVATE METHODS*/
     /*private Double porcentajeDeUso(){
         Double horasDelDia = new Double(24);

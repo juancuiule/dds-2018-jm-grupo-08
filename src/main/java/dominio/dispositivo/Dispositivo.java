@@ -5,6 +5,14 @@ import java.time.Period;
 public class Dispositivo {
     private Comportamiento comportamiento;
     private String nombre;
+    private Rango limiteDeConsumo;
+
+    public Dispositivo(Comportamiento comportamiento, String nombre, Rango limiteDeConsumo) {
+        super();
+        this.comportamiento = comportamiento;
+        this.nombre = nombre;
+        this.limiteDeConsumo = limiteDeConsumo;
+    }
 
     public Dispositivo(String nombre, Comportamiento comportamiento) {
         this.comportamiento = comportamiento;
@@ -57,11 +65,11 @@ public class Dispositivo {
             // Nada
         }
     }
-    public void agregarModuloAdaptador() {
-    	try{
-    		this.comportamiento = comportamiento.convertirAInteligente();
-        }catch(MensajeNoEntendidoException e){
-            // Nada
-        }
+    public void cambiarComportamiento(Comportamiento nuevoComportamiento) {
+        comportamiento = nuevoComportamiento;
+    }
+
+    public Rango restricciones() {
+        return limiteDeConsumo;
     }
 }

@@ -10,6 +10,5 @@ public interface Comportamiento {
     void apagar();
     void encender();
     void ahorrarEnergia();
-    ComportamientoInteligente convertirAInteligente();
     Double consumoPorHora();
 }
