@@ -17,20 +17,42 @@ import org.apache.commons.math3.optim.linear.SimplexSolver;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
 import dominio.dispositivo.Dispositivo;
+import dominio.dispositivo.NoExistenRestriccionesException;
 
 public class OptimizadorConsumo {
     
-    public PointValuePair optimizar(List<Dispositivo> dispositivos) {
+    public PointValuePair optimizar(List<Dispositivo> dispositivos, Double limiteMensual) {
+        // Filtrar dispositivos sin restricciones
+        List<Dispositivo> dispositivosFiltrados = dispositivos
+                                                 .stream()
+                                                 .filter(dispositivo -> {
+                                                     try {
+                                                         dispositivo.restricciones();
+                                                         return true;
+                                                     }catch(NoExistenRestriccionesException e){
+                                                         return false;
+                                                     }
+                                                 }).collect(Collectors.toList());
         
         // Funcion economica-objetivo
-        double[] coeficientes = arrayDeCoeficientes(dispositivos);
-        LinearObjectiveFunction funcionZ = new LinearObjectiveFunction(coeficientes, 0);
+        double[] arrayObjetivo = new double[dispositivosFiltrados.size()];
+        Arrays.fill(arrayObjetivo, 1);
+        LinearObjectiveFunction funcionZ = new LinearObjectiveFunction(arrayObjetivo, 0);
         
-        // Restricciones
+        
+        // RESTRICCIONES
         List<LinearConstraint> restricciones = new ArrayList<LinearConstraint>();
-        dispositivos.forEach(dispositivo -> {
-            LinearConstraint restriccionSuperior = generarRestriccion(dispositivos,dispositivo,Relationship.LEQ);
-            LinearConstraint restriccionInferior = generarRestriccion(dispositivos,dispositivo,Relationship.GEQ);
+        
+        // Restriccion mensual
+        double[] coeficientesRestriccion = arrayDeCoeficientes(dispositivosFiltrados);
+        LinearConstraint restriccionMensual = new LinearConstraint(coeficientesRestriccion, Relationship.LEQ, limiteMensual);
+        restricciones.add(restriccionMensual);
+        
+        // Restricciones por dispositivo
+        
+        dispositivosFiltrados.forEach(dispositivo -> {
+            LinearConstraint restriccionSuperior = generarRestriccion(dispositivosFiltrados,dispositivo,Relationship.LEQ);
+            LinearConstraint restriccionInferior = generarRestriccion(dispositivosFiltrados,dispositivo,Relationship.GEQ);
             restricciones.add(restriccionSuperior);
             restricciones.add(restriccionInferior);
         });
