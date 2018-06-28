@@ -9,37 +9,35 @@ public class Regla {
 
 	List<Actuador> actuadores;
 	Dispositivo dispositivo;
-	// Sensor sensor;
-	// Predicate<Sensor> condicion;
+	Sensor sensor;
+	Predicate<Sensor> condicion;
 	
 	public Regla(
 			List<Actuador> unosActuadores,
-			Dispositivo unDispositivo
-			/*, 
+			Dispositivo unDispositivo,
 			Sensor unSensor,
 			Predicate<Sensor> unaCondicion
-			*/
 	) {
-		// sensor = unSensor;
-		// condicion = unaCondicion;
+		sensor = unSensor;
+		condicion = unaCondicion;
 		actuadores = unosActuadores;
 		dispositivo = unDispositivo;
 	}
 	
-//	public ejecutarSiCorresponde() {
-//		if(this.comprobarCondicion()) {
-//			this.ejecutar();
-//		}
-//	}
+	public void ejecutarSiCorresponde() {
+		if(this.comprobarCondicion()) {
+			this.ejecutar();
+		}
+	}
 	
-//	public boolean comprobarCondicion() {
-//		return condicion.test(sensor)
-//	}
+	public boolean comprobarCondicion() {
+		return condicion.test(sensor);
+	}
 	
 	private void ejecutar() {
 		actuadores.forEach(actuador ->
 			actuador.actuar(this.dispositivo)
 		);
-	}	
+	}
 	
 }
