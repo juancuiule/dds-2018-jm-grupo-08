@@ -23,8 +23,7 @@ public class OptimizadorConsumo {
     
     public PointValuePair optimizar(List<Dispositivo> dispositivos, Double limiteMensual) {
         // Filtrar dispositivos sin restricciones
-        List<Dispositivo> dispositivosFiltrados = dispositivos
-                                                 .stream()
+        List<Dispositivo> dispositivosFiltrados = dispositivos.stream()
                                                  .filter(dispositivo -> {
                                                      try {
                                                          dispositivo.restricciones();

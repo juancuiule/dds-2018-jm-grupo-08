@@ -22,6 +22,7 @@ public class Cliente {
 	private List<Dispositivo> dispositivos;
 	private Categoria categoria;
 	private Integer puntaje;
+	private Boolean ahorroAutomatico;
 
 	public ArrayList<Double> consumosPorHora(){
 		return (ArrayList<Double>) dispositivos.stream().map(dispositivo -> dispositivo.consumoPorHora()).collect(Collectors.toList());
@@ -45,7 +46,7 @@ public class Cliente {
 
 	public Cliente(String nombre, String apellido, TipoDeDocumento tipoDeDocumento, Integer numeroDeDocumento,
 			Integer telefono, LocalDate fechaDeAlta, String domicilio, String nombreDeUsuario, String contrasena,
-			List<Dispositivo> dispositivos) {
+			List<Dispositivo> dispositivos, Boolean ahorroAutomatico) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.tipoDeDocumento = tipoDeDocumento;
@@ -56,6 +57,7 @@ public class Cliente {
 		this.nombreDeUsuario = nombreDeUsuario;
 		this.contrasena = contrasena;
 		this.dispositivos = dispositivos;
+		this.ahorroAutomatico = ahorroAutomatico;
 		this.puntaje = 0;
 
 
@@ -94,6 +96,18 @@ public class Cliente {
 	    Period ultimoMes =Period.between(LocalDate.now().plusMonths(-1) , LocalDate.now());
 		RepositorioCategorias repositorio = RepositorioCategorias.getInstance();
 		this.categoria = repositorio.categoriaCorrespondiente(this.consumo(ultimoMes));
+	}
+	
+	public Boolean getAhorroAutomatico() {
+		return ahorroAutomatico;
+	}
+
+	public void activarAhorroAutomatico() {
+		this.ahorroAutomatico = true;		
+	}
+	
+	public void desactivarAhorroAutomatico() {
+		this.ahorroAutomatico = false;
 	}
 
 }
