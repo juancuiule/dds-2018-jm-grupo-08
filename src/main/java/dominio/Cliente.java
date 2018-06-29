@@ -1,7 +1,8 @@
 package dominio;
 
 import java.time.LocalDate;
-import java.time.Period;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -20,6 +21,7 @@ public class Cliente {
 	private String contrasena;
 	private List<Dispositivo> dispositivos;
 	private Categoria categoria;
+	private Integer puntaje;
 
 	public TipoDeDocumento getTipoDeDocumento() {
 		return tipoDeDocumento;
@@ -50,6 +52,7 @@ public class Cliente {
 		this.nombreDeUsuario = nombreDeUsuario;
 		this.contrasena = contrasena;
 		this.dispositivos = dispositivos;
+		this.puntaje = 0;
 
 		this.recategorizar();
 	}
@@ -78,14 +81,22 @@ public class Cliente {
 		return this.cantidadDeDispositivosEncendidos() > 0;
 	}
 
-	public Double consumo(Period periodo) {
-		return this.dispositivosEncendidos().mapToDouble((Dispositivo dispositivo) -> dispositivo.consumoEnElPeriodo(periodo)).sum();
+	public Double consumo(LocalDate inicio, LocalDate fin) {
+		return this.dispositivos.stream().mapToDouble((Dispositivo dispositivo) -> dispositivo.consumoEntre(inicio, fin)).sum();
 	}
 
 	public void recategorizar() {
 	    Period ultimoMes =Period.between(LocalDate.now().plusMonths(-1) , LocalDate.now());
 		RepositorioCategorias repositorio = RepositorioCategorias.getInstance();
-		this.categoria = repositorio.categoriaCorrespondiente(this.consumo(ultimoMes));
+		this.categoria = repositorio.categoriaCorrespondiente(consumoUltimoMes());
+	}
+
+  private Double consumoUltimoMes() {
+      return this.consumo(LocalDate.now().minus(1,ChronoUnit.MONTHS),LocalDate.now());
+  }
+	
+	public void agregarPuntaje(Integer puntaje) {
+	        this.puntaje += puntaje;
 	}
 
 }
