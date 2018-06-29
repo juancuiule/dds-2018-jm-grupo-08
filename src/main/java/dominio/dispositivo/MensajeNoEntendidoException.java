@@ -1,6 +1,6 @@
 package dominio.dispositivo;
 
-public class ComportamientoNoAdmitidoException extends RuntimeException {
+public class MensajeNoEntendidoException extends RuntimeException {
 
     /**
      * 
