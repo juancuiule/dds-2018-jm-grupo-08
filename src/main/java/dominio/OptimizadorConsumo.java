@@ -21,9 +21,10 @@ import dominio.dispositivo.NoExistenRestriccionesException;
 
 public class OptimizadorConsumo {
     
-    public PointValuePair optimizar(List<Dispositivo> dispositivos, Double limiteMensual) {
+    public List<Double> optimizar(List<Dispositivo> dispositivos, Double limiteMensual) {
         // Filtrar dispositivos sin restricciones
-        List<Dispositivo> dispositivosFiltrados = dispositivos.stream()
+        List<Dispositivo> dispositivosFiltrados = dispositivos
+                                                 .stream()
                                                  .filter(dispositivo -> {
                                                      try {
                                                          dispositivo.restricciones();
@@ -63,9 +64,20 @@ public class OptimizadorConsumo {
                                                 , new LinearConstraintSet(restricciones)  // Restricciones
                                                 , GoalType.MAXIMIZE                       // Objetivo (Maximizar)
                                                 , new NonNegativeConstraint(true));       // Restriccion adicional ( solo positivos )
-        return solucion;
+        
+        
+        List<Double> solucionFinal = listFromDoubleArray(solucion.getPoint());
+        return solucionFinal;
     }
     
+    private List<Double> listFromDoubleArray(double[] array) {
+        List<Double> resultado = new ArrayList<Double>();
+        for(int i = 0; i < array.length; i++) {
+            resultado.add(new Double(array[i]));
+        }
+        return resultado;
+    }
+
     private LinearConstraint generarRestriccion(List<Dispositivo> dispositivos, Dispositivo dispositivo, Relationship relacion) {
         Integer posicionEnLista = dispositivos.indexOf(dispositivo);
         double[] arrayRestriccion = new double[dispositivos.size()];
