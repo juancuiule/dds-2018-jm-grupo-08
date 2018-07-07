@@ -10,13 +10,13 @@ public class Regla {
 	List<Actuador> actuadores;
 	Dispositivo dispositivo;
 	Sensor sensor;
-	Predicate<Sensor> condicion;
+	Predicate<Double> condicion;
 	
 	public Regla(
 			List<Actuador> unosActuadores,
 			Dispositivo unDispositivo,
 			Sensor unSensor,
-			Predicate<Sensor> unaCondicion
+			Predicate<Double> unaCondicion
 	) {
 		sensor = unSensor;
 		condicion = unaCondicion;
@@ -31,7 +31,7 @@ public class Regla {
 	}
 	
 	public boolean comprobarCondicion() {
-		return condicion.test(sensor);
+		return condicion.test(sensor.valorActual());
 	}
 	
 	private void ejecutar() {
