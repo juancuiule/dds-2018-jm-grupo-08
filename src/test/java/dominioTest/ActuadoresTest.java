@@ -18,11 +18,15 @@ public class ActuadoresTest {
 	Sensor sensorTemperatura100 = new SensorMock(100d); // Sensor que siempre devuelve 100
 	Dispositivo aireAcondicionado = new Dispositivo("Aire", new ComportamientoInteligente(new InterfazDeFabricaMock()));
 
+	Consumer<Dispositivo> encender = (Dispositivo unDispositivo) -> unDispositivo.encender();
+	Consumer<Dispositivo> apagar = (Dispositivo unDispositivo) -> unDispositivo.apagar();
+
+	Actuador encenderDispositivo = new Actuador(encender);
+	Actuador apagarDispositivo = new Actuador(apagar);
+
 	@Test
 	public void disparaAccionCuandoCumpleRegla() {
 		// Enciendo el dispositivo si la temperatura es mayor a 80
-		Consumer<Dispositivo> accionARealizar = (Dispositivo unDispositivo) -> unDispositivo.encender();
-		Actuador encenderDispositivo = new Actuador(accionARealizar);
 		Regla regla = new Regla(new ArrayList<Actuador>(Arrays.asList(encenderDispositivo)), aireAcondicionado,
 				sensorTemperatura100, ((Double valor) -> valor > 80));
 		regla.ejecutarSiCorresponde();
@@ -31,11 +35,23 @@ public class ActuadoresTest {
 
 	@Test
 	public void noHaceNadaSiLaCondicionNoSeCumple() {
-		Consumer<Dispositivo> accionARealizar = (Dispositivo unDispositivo) -> unDispositivo.encender();
-		Actuador encenderDispositivo = new Actuador(accionARealizar);
 		Regla regla = new Regla(new ArrayList<Actuador>(Arrays.asList(encenderDispositivo)), aireAcondicionado,
 				sensorTemperatura100, ((Double valor) -> valor < 30));
 		regla.ejecutarSiCorresponde();
 		assertFalse(aireAcondicionado.estaEncendido());
+	}
+
+	@Test
+	public void funcionaConListasDeActuadores() {
+		// Lo enciende, lo apaga y lo vuelve a encender
+		Regla regla = new Regla(
+				new ArrayList<Actuador>(Arrays.asList(encenderDispositivo, apagarDispositivo, encenderDispositivo)),
+				aireAcondicionado, sensorTemperatura100, ((Double valor) -> valor > 30));
+		// Empieza apagado
+		assertTrue(aireAcondicionado.estaApagado());
+
+		regla.ejecutarSiCorresponde();
+
+		assertTrue(aireAcondicionado.estaEncendido());
 	}
 }
