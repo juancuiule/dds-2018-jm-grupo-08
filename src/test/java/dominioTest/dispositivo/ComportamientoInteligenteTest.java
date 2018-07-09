@@ -1,25 +1,19 @@
 package dominioTest.dispositivo;
-
-import static org.junit.Assert.*;
-
-import java.time.Period;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import dominio.dispositivo.ComportamientoEstandar;
 import dominio.dispositivo.ComportamientoInteligente;
-import dominio.dispositivo.MensajeNoEntendidoException;
-
-// FALTA IMPLEMENTAR UNA CLASE FabricaPosta
+import dominioTest.mocks.InterfazDeFabricaMock;
 
 public class ComportamientoInteligenteTest {
 	private ComportamientoInteligente comportamientoAProbar;
-	// private FabricaPosta fabricaAProbar;
+	private InterfazDeFabricaMock fabricaAProbar;
 
     @Before
     public void fixture() {
-    	// fabricaAProbar = new FabricaPosta();
+    	fabricaAProbar = new InterfazDeFabricaMock();
         comportamientoAProbar = new ComportamientoInteligente(fabricaAProbar);
     }
 
@@ -60,7 +54,7 @@ public class ComportamientoInteligenteTest {
     }    
 
     @Test
-    public void ahorrarEnergia() { // �QUE DEBE HACER? -> Falta implementar la clase FabricaPosta
+    public void ahorrarEnergia() {
         comportamientoAProbar.ahorrarEnergia();
     }
 }

@@ -6,6 +6,8 @@ import dominio.dispositivo.InterfazDeFabrica;
 
 public class InterfazDeFabricaMock implements InterfazDeFabrica {
 
+	Boolean encendido = false;
+	
 	@Override
 	public Double consumoPorHora() {
 		// TODO Auto-generated method stub
@@ -28,8 +30,6 @@ public class InterfazDeFabricaMock implements InterfazDeFabrica {
 	public void ahorrarEnergia() {
 		// TODO Auto-generated method stub
 	}
-
-	Boolean encendido = false;
 
 	@Override
 	public Boolean estaEncendido() {
