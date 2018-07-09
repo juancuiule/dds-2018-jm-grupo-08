@@ -1,23 +1,43 @@
 package dominio;
 
 import java.util.List;
+import java.util.function.Predicate;
+
+import dominio.dispositivo.Dispositivo;
 
 public class Regla {
-    private Sensor sensor;
-    private List<Actuador> tareas;
-    
-    public Regla(Sensor sensor, List<Actuador> tareas) {
-        this.sensor = sensor;
-        sensor.agregarSubscripcion(this);
-        this.tareas = tareas;
-    }
-    
-    public void removerEstimulo() {
-        sensor.removerSubscripcion(this);
-    }
 
-    public void ejecutarTareas() {
-        tareas.forEach(tarea -> tarea.ejecutar());
-    }
-
+	List<Actuador> actuadores;
+	Dispositivo dispositivo;
+	Sensor sensor;
+	Predicate<Double> condicion;
+	
+	public Regla(
+			List<Actuador> unosActuadores,
+			Dispositivo unDispositivo,
+			Sensor unSensor,
+			Predicate<Double> unaCondicion
+	) {
+		sensor = unSensor;
+		condicion = unaCondicion;
+		actuadores = unosActuadores;
+		dispositivo = unDispositivo;
+	}
+	
+	public void ejecutarSiCorresponde() {
+		if(this.comprobarCondicion()) {
+			this.ejecutar();
+		}
+	}
+	
+	public boolean comprobarCondicion() {
+		return condicion.test(sensor.valorActual());
+	}
+	
+	private void ejecutar() {
+		actuadores.forEach(actuador ->
+			actuador.actuar(this.dispositivo)
+		);
+	}
+	
 }

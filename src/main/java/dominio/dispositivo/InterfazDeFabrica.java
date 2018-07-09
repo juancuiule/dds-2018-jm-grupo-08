@@ -4,21 +4,19 @@ import java.time.Period;
 
 public interface InterfazDeFabrica {
 
-    Double consumoEnLasUltimasHoras();
+	Double consumoEnLasUltimasHoras();
 
-    Double consumoEnElPeriodo(Period periodo);
+	Double consumoEnElPeriodo(Period periodo);
 
-    Boolean estaEncendido();
+	Boolean estaEncendido();
 
-    Boolean estaApagado();
+	Boolean estaApagado();
 
-    void apagar();
+	void apagar();
 
-    void encender();
+	void encender();
 
-    void ahorrarEnergia();
-    
-    Double consumoPorHora();
+	void ahorrarEnergia();
 
-
+	Double consumoPorHora();
 }
