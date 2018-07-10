@@ -1,15 +1,23 @@
 package dominio.transformadores;
 
-class Transformador {
+public class Transformador {
 	Punto punto;
 	boolean activo;
 
 	public Transformador(Punto punto, boolean activo) {
-		punto = punto;
-		activo = activo;
+		this.punto = punto;
+		this.activo = activo;
 	}
 	
 	public Double energiaQueSuministra() {
 		return 1.0;
+	}
+
+	public boolean estaActivo() {
+		return activo;
+	}
+	
+	public Punto getPunto() {
+		return punto;
 	}
 }

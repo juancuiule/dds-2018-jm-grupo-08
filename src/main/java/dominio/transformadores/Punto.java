@@ -1,12 +1,12 @@
 package dominio.transformadores;
 
-class Punto {
+public class Punto {
 	double posLat;
 	double posLong;
 
 	public Punto(double posLat, double posLong) {
-		posLat = posLat;
-		posLong = posLong;
+		this.posLat = posLat;
+		this.posLong = posLong;
 	}
 	public Double getPosLat() {
 		return posLat;

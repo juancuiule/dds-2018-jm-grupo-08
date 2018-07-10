@@ -1,6 +1,6 @@
 package dominio.transformadores;
 
-class CalculadorDeDistancia {
+public class CalculadorDeDistancia {
 	public static double distance(Punto unPunto, Punto otroPunto) {
 		double lat1 = unPunto.getPosLat();
 		double lon1 = unPunto.getPosLong();
@@ -14,7 +14,7 @@ class CalculadorDeDistancia {
 	            + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
 	            * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
 	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-	    double distance = R * c * 1000; // pasar a metros
+	    double distance = R * c; // queda en kms
 	    return distance;
 	}
 }
