@@ -17,10 +17,10 @@ public class OptimizarConsumoJob {
 		                                           .filtrarSegun(unCliente -> unCliente.getAhorroAutomatico())
 		                                           .collect(Collectors.toList());
 		
-		//clientesConAhorroAutomatico.forEach(cliente -> new OptimizadorConsumo(cliente.getDispositivos(), cliente.getLimiteMensual()));		
-		// Revisar:
-		//    * Como se comporta el limite mensual
-		//    * Tal vez haria falta una abstraccion de OPTIMIZACION
+		clientesConAhorroAutomatico.forEach(cliente -> {
+			List<Optimizacion> optimizaciones = OptimizadorConsumo.optimizar(cliente.dispositivos());
+			optimizaciones.forEach(optimizacion -> optimizacion.restringirConsumo());
+		});	
 		
 	}
 	

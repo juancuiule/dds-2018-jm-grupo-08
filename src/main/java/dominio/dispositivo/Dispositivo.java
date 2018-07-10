@@ -75,4 +75,13 @@ public class Dispositivo {
         }
         return limiteDeConsumo;
     }
+
+	public void restringirConsumo() {
+        try{
+            comportamiento.restringirConsumo();
+        }catch(MensajeNoEntendidoException e){
+            // Nada
+        }
+		
+	}
 }

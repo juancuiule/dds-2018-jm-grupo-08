@@ -54,4 +54,10 @@ public class ComportamientoInteligente implements Comportamiento {
     public void ahorrarEnergia() {
         interfazDeFabrica.ahorrarEnergia();
     }
+
+	@Override
+	public void restringirConsumo() {
+		// TODO Auto-generated method stub
+		
+	}
 }

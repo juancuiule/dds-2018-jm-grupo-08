@@ -11,4 +11,5 @@ public interface Comportamiento {
     void encender();
     void ahorrarEnergia();
     Double consumoPorHora();
+	void restringirConsumo();
 }

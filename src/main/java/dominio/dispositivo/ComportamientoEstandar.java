@@ -59,6 +59,12 @@ public class ComportamientoEstandar implements Comportamiento {
         throw new MensajeNoEntendidoException();
     }
     
+	@Override
+	public void restringirConsumo() {
+		// TODO Auto-generated method stub
+		
+	}
+    
     /* PRIVATE METHODS*/
     /*private Double porcentajeDeUso(){
         Double horasDelDia = new Double(24);
@@ -69,4 +75,5 @@ public class ComportamientoEstandar implements Comportamiento {
     private Double consumoEnHoras(Double horas) {
         return horas * consumoPorHora;
     }
+
 }
