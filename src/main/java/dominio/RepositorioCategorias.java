@@ -17,7 +17,7 @@ public class RepositorioCategorias extends Repositorio<Categoria> {
 
 	public static RepositorioCategorias getInstance() {
 		if (instancia == null) {
-			return new RepositorioCategorias();
+			instancia = new RepositorioCategorias();
 		}
 		return instancia;
 	}

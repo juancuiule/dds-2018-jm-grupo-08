@@ -14,4 +14,8 @@ public abstract class Repositorio<T> {
 	public Stream<T> filtrarSegun(Predicate<T> unaCondicion) {
 		return this.elementos().stream().filter(unaCondicion);
 	}
+	
+	public void agregar(T elemento) {
+		this.elementos.add(elemento);
+	}
 }
