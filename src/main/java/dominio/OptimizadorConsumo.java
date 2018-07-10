@@ -21,7 +21,10 @@ import dominio.dispositivo.NoExistenRestriccionesException;
 
 public class OptimizadorConsumo {
     
-    public List<Double> optimizar(List<Dispositivo> dispositivos, Double limiteMensual) {
+    public List<Double> optimizar(List<Dispositivo> dispositivos) {
+    	// Limite mensua de consumo desde configuracion
+    	Double limiteMensual = ConfiguracionApp.limiteMensualDeConsumo;
+    	
         // Filtrar dispositivos sin restricciones
         List<Dispositivo> dispositivosFiltrados = dispositivos
                                                  .stream()
@@ -49,7 +52,6 @@ public class OptimizadorConsumo {
         restricciones.add(restriccionMensual);
         
         // Restricciones por dispositivo
-        
         dispositivosFiltrados.forEach(dispositivo -> {
             LinearConstraint restriccionSuperior = generarRestriccion(dispositivosFiltrados,dispositivo,Relationship.LEQ);
             LinearConstraint restriccionInferior = generarRestriccion(dispositivosFiltrados,dispositivo,Relationship.GEQ);
