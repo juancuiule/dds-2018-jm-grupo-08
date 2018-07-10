@@ -21,7 +21,7 @@ import dominio.dispositivo.NoExistenRestriccionesException;
 
 public class OptimizadorConsumo {
     
-    public List<Restriccion> optimizar(List<Dispositivo> dispositivos) {
+    public static List<Restriccion> optimizar(List<Dispositivo> dispositivos) {
     	// Limite mensua de consumo desde configuracion
     	Double limiteMensual = ConfiguracionApp.limiteMensualDeConsumo;
     	
@@ -59,7 +59,7 @@ public class OptimizadorConsumo {
             restricciones.add(restriccionInferior);
         });
         
-        
+        // Solucionar problema
         SimplexSolver solver = new SimplexSolver();
         PointValuePair solucion = solver.optimize(new MaxIter(100)                        // Numero maximo de iteraciones
                                                 , funcionZ                                // Funcion objetivo
@@ -67,13 +67,16 @@ public class OptimizadorConsumo {
                                                 , GoalType.MAXIMIZE                       // Objetivo (Maximizar)
                                                 , new NonNegativeConstraint(true));       // Restriccion adicional ( solo positivos )
         
-        
+        // Genear solucion
         List<Double> limitesDeRestriccion = listFromDoubleArray(solucion.getPoint());
-        
         return generarRestricciones(dispositivosFiltrados,limitesDeRestriccion);
     }
     
-    private List<Double> listFromDoubleArray(double[] array) {
+    /////////////////
+    /////////////////
+    /////////////////
+    
+    private static List<Double> listFromDoubleArray(double[] array) {
         List<Double> resultado = new ArrayList<Double>();
         for(int i = 0; i < array.length; i++) {
             resultado.add(new Double(array[i]));
@@ -81,7 +84,7 @@ public class OptimizadorConsumo {
         return resultado;
     }
 
-    private LinearConstraint generarConstraint(List<Dispositivo> dispositivos, Dispositivo dispositivo, Relationship relacion) {
+    private static LinearConstraint generarConstraint(List<Dispositivo> dispositivos, Dispositivo dispositivo, Relationship relacion) {
         Integer posicionEnLista = dispositivos.indexOf(dispositivo);
         double[] arrayRestriccion = new double[dispositivos.size()];
         Arrays.fill(arrayRestriccion, 0d);
@@ -99,7 +102,7 @@ public class OptimizadorConsumo {
         return restriccion;
     }
 
-    private double[] arrayDeCoeficientes(List<Dispositivo> dispositivos) {
+    private static double[] arrayDeCoeficientes(List<Dispositivo> dispositivos) {
         Double[] coeficientes = new Double[dispositivos.size()];
         coeficientes = dispositivos.stream()
                                    .map(dispositivo -> dispositivo.consumoPorHora())
@@ -109,7 +112,7 @@ public class OptimizadorConsumo {
         return coeficientesPrimitivos;
     }
     
-    private List<Restriccion> generarRestricciones(List<Dispositivo> dispositivos, List<Double> limites){
+    private static List<Restriccion> generarRestricciones(List<Dispositivo> dispositivos, List<Double> limites){
     	List<Restriccion> restricciones= new ArrayList<Restriccion>();
     	
 		for(int i = 0; i< dispositivos.size(); i++){
