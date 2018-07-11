@@ -2,6 +2,7 @@ package dominioTest;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -53,4 +54,16 @@ public class TransformadorTest {
 		Transformador primero = new Transformador(new Punto(10, 10), true);
 		assertEquals(primero, RepositorioTransformadores.getInstance().transformadorMasCercano(clienteDePrueba));
 	}
+	
+	@Test
+	public void transformadorCalculaBienConsumo() {
+		clienteDePrueba.asignarTransformador();
+		Transformador transformadorCorrespondiente = new Transformador(new Punto(10, 10), true);
+		assertEquals(clienteDePrueba.consumo(periodoUltimoMes()), transformadorCorrespondiente.consumo(periodoUltimoMes()));
+	}
+	
+	private Period periodoUltimoMes() {
+		return Period.between(LocalDate.now().plusMonths(-1), LocalDate.now());
+	}
+	
 }
