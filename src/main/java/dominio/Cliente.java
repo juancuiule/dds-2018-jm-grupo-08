@@ -8,6 +8,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import dominio.dispositivo.Dispositivo;
+import dominio.transformadores.Punto;
+import dominio.transformadores.RepositorioTransformadores;
+import dominio.transformadores.Transformador;
 
 public class Cliente {
 	private String nombre;
@@ -23,6 +26,7 @@ public class Cliente {
 	private Categoria categoria;
 	private Integer puntaje;
 	private Boolean ahorroAutomatico;
+	private Punto punto;
 
 	public ArrayList<Double> consumosPorHora() {
 		return (ArrayList<Double>) dispositivos.stream().map(dispositivo -> dispositivo.consumoPorHora())
@@ -51,7 +55,7 @@ public class Cliente {
 
 	public Cliente(String nombre, String apellido, TipoDeDocumento tipoDeDocumento, Integer numeroDeDocumento,
 			Integer telefono, LocalDate fechaDeAlta, String domicilio, String nombreDeUsuario, String contrasena,
-			List<Dispositivo> dispositivos, Boolean ahorroAutomatico) {
+			List<Dispositivo> dispositivos, Boolean ahorroAutomatico, Punto punto) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.tipoDeDocumento = tipoDeDocumento;
@@ -64,8 +68,19 @@ public class Cliente {
 		this.dispositivos = dispositivos;
 		this.ahorroAutomatico = ahorroAutomatico;
 		this.puntaje = 0;
-
+		this.punto = punto;
+		
 		this.recategorizar();
+		this.asignarTransformador();
+	}
+	
+	public void asignarTransformador() {
+		RepositorioTransformadores repositorioTransformadores = RepositorioTransformadores.getInstance();
+		repositorioTransformadores.asignarTransformador(this);
+	}
+
+	public Punto getPunto() {
+		return punto;
 	}
 
 	public Stream<Dispositivo> dispositivosQueCumplen(Predicate<Dispositivo> unaCondicion) {
