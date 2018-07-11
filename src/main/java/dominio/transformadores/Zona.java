@@ -22,6 +22,9 @@ public class Zona {
 	}
 
 	public Double consumoDeZona(Period periodo) {
-		return transformadoresDeLaZona().mapToDouble(transformador -> transformador.consumo(periodo)).sum();
+		return transformadoresDeLaZona()
+				.filter(transformador -> transformador.estaActivo())
+				.mapToDouble(transformador -> transformador.consumo(periodo))
+				.sum();
 	}
 }
