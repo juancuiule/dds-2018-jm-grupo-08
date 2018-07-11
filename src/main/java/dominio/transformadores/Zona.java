@@ -1,6 +1,6 @@
 package dominio.transformadores;
 
-import java.util.function.Predicate;
+import java.time.Period;
 import java.util.stream.Stream;
 
 public class Zona {
@@ -21,8 +21,7 @@ public class Zona {
 				.filtrarSegun(transformador -> estaDentroDelRadio(transformador));
 	}
 
-	public Double consumoDeZona() {
-		// Buscar transormadores dentro del radio
-		return 1.0;
+	public Double consumoDeZona(Period periodo) {
+		return transformadoresDeLaZona().mapToDouble(transformador -> transformador.consumo(periodo)).sum();
 	}
 }
