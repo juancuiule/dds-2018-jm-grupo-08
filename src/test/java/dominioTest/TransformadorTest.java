@@ -11,7 +11,6 @@ import org.junit.Test;
 import dominio.Cliente;
 import dominio.TipoDeDocumento;
 import dominio.dispositivo.ComportamientoEstandar;
-import dominio.dispositivo.ComportamientoInteligente;
 import dominio.dispositivo.Dispositivo;
 import dominio.transformadores.Punto;
 import dominio.transformadores.RepositorioTransformadores;
