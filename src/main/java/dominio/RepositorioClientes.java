@@ -12,7 +12,7 @@ public class RepositorioClientes extends Repositorio<Cliente> {
 	
 	public static RepositorioClientes getInstance() {
 		if(instancia == null) {
-			return new RepositorioClientes();
+			instancia =  new RepositorioClientes();
 		}
 		return instancia;
 	}
