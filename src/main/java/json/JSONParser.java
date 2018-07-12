@@ -11,7 +11,7 @@ import com.google.gson.GsonBuilder;
 
 
 public class JSONParser{
-    public <T> List<T> objetosDesdeArchivo(String url, Class<T[]> claseDeObjeto){
+    public static <T> List<T> objetosDesdeArchivo(String url, Class<T[]> claseDeObjeto){
         
         FileReader archivo = readerDesdeArchivo(url);
         Gson gson = generarGson();
@@ -22,14 +22,14 @@ public class JSONParser{
     
     /* PRIVATE METHODS*/
     
-    private Gson generarGson() {
+    private static Gson generarGson() {
         Gson gson = new GsonBuilder()
                        .registerTypeAdapter(LocalDate.class, new LocalTimeDeserializer())
                        .create();
         return gson;
     }
     
-    private FileReader readerDesdeArchivo(String url) {
+    private static FileReader readerDesdeArchivo(String url) {
         FileReader archivo = null;
         try {
             archivo = new FileReader(url);
