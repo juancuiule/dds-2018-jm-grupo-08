@@ -4,10 +4,7 @@ import dominio.Cliente;
 import dominio.Repositorio;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Stream;
-import java.util.Comparator;
-import static dominio.transformadores.CalculadorDeDistancia.distance;
 
 public class RepositorioTransformadores extends Repositorio<Transformador> {
 	static RepositorioTransformadores instancia;

@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import dominio.Cliente;
 import dominio.dispositivo.Dispositivo;
+import dominio.transformadores.Punto;
 import dominioTest.mocks.InterfazDeFabricaMock;
 import dominio.dispositivo.ComportamientoEstandar;
 import dominio.dispositivo.ComportamientoInteligente;
@@ -26,17 +27,17 @@ public class ClienteTest {
 	@Before
 	public void generarCliente() {
 		interfazDeFabrica = new InterfazDeFabricaMock();
-
+		
 		clienteA = new Cliente("Marjorie", "Shaw", TipoDeDocumento.DNI, 32516843, 42000000, LocalDate.now(),
 				"7807 Samaritan Dr", "majshaw", "hudson",
 				new ArrayList<Dispositivo>(Arrays.asList(
 						new Dispositivo("Aire Acondicionado 2200 Frigorias", new ComportamientoEstandar(1.35, 12.0)),
 						new Dispositivo("Heladera con Freezer", new ComportamientoEstandar(0.4, 12.0)),
 						new Dispositivo("Tostadora", new ComportamientoInteligente(interfazDeFabrica)))),
-				false);
+				false, new Punto(20, 15));
 
 		clienteB = new Cliente("Arthur", "Howell", TipoDeDocumento.LC, 27662834, 42000001, LocalDate.now(),
-				"8944 Red Saturn Dr", "arthhow", "hotshot", new ArrayList<Dispositivo>(), false);
+				"8944 Red Saturn Dr", "arthhow", "hotshot", new ArrayList<Dispositivo>(), false, new Punto(40, 75));
 	}
 
 	@Test
