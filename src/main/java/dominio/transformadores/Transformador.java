@@ -1,13 +1,14 @@
 package dominio.transformadores;
 
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 import dominio.Cliente;
 
 public class Transformador {
 	Punto punto;
 	boolean activo;
-	List<Cliente> clientesSuministrados;
+	List<Cliente> clientesSuministrados = new ArrayList<Cliente>();
 
 	public Transformador(Punto punto, boolean activo) {
 		this.punto = punto;
@@ -27,11 +28,11 @@ public class Transformador {
 	}
 	
 	public void conectarCliente(Cliente cliente) {
-		clientesSuministrados.add(cliente);
+		this.clientesSuministrados.add(cliente);
 	}
 
 	public Double consumo(Period periodo) {
-		return clientesSuministrados.stream()
+		return this.clientesSuministrados.stream()
 				.mapToDouble(cliente -> cliente.consumo(periodo)).sum();
 	}
 }
