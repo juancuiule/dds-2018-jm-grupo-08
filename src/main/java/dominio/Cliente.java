@@ -7,26 +7,55 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import dominio.dispositivo.Dispositivo;
 import dominio.transformadores.Punto;
 import dominio.transformadores.RepositorioTransformadores;
 import dominio.transformadores.Transformador;
 
+@Entity
+@Table(name = "Cliente")
 public class Cliente {
+	
+	@Id @GeneratedValue
+	private Long id;
+	
 	private String nombre;
 	private String apellido;
-	private TipoDeDocumento tipoDeDocumento;
 	private Integer numeroDeDocumento;
 	private Integer telefono;
 	private LocalDate fechaDeAlta;
 	private String domicilio;
 	private String nombreDeUsuario;
 	private String contrasena;
-	private List<Dispositivo> dispositivos;
-	private Categoria categoria;
 	private Integer puntaje;
 	private Boolean ahorroAutomatico;
+	
+	@OneToOne
 	private Punto punto;
+	
+	@Enumerated(value = EnumType.STRING)
+	private TipoDeDocumento tipoDeDocumento;
+	
+	@OneToOne
+	private Categoria categoria;
+	
+	@OneToMany
+	@JoinColumn(name = "cliente_id")
+	private List<Dispositivo> dispositivos;
+	
+	@SuppressWarnings("unused")
+	private Cliente() {}
 
 	public ArrayList<Double> consumosPorHora() {
 		return (ArrayList<Double>) dispositivos.stream().map(dispositivo -> dispositivo.consumoPorHora())

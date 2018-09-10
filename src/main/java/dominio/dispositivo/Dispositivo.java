@@ -2,9 +2,28 @@ package dominio.dispositivo;
 
 import java.time.Period;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Dispositivo")
 public class Dispositivo {
+	
+	@Id @GeneratedValue
+	private Long id;
+	
+	@OneToOne
     private Comportamiento comportamiento;
+	
     private String nombre;
+    
+    @ManyToOne
+    @JoinColumn(name="rango_id")
     private Rango limiteDeConsumo;
 
     public Dispositivo(Comportamiento comportamiento, String nombre, Rango limiteDeConsumo) {

@@ -2,9 +2,15 @@ package dominio.dispositivo;
 
 import java.time.Period;
 
-public class ComportamientoInteligente implements Comportamiento {
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
+@Entity
+public class ComportamientoInteligente extends Comportamiento {
+	
+	@OneToOne
     private InterfazDeFabrica interfazDeFabrica;
-    private Double consumoPorHora;
+ //   private Double consumoPorHora;
 
     public ComportamientoInteligente(InterfazDeFabrica interfazDeFabrica) {
         this.interfazDeFabrica = interfazDeFabrica;
@@ -16,9 +22,7 @@ public class ComportamientoInteligente implements Comportamiento {
         this.consumoPorHora = consumoPorHora;
     }
 
-    public Double consumoPorHora() {
-    	return consumoPorHora;
-    }
+   
 
     @Override
     public Boolean estaEncendido() {
