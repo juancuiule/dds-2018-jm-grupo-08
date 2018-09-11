@@ -4,7 +4,7 @@ import java.time.Period;
 
 import dominio.dispositivo.InterfazDeFabrica;
 
-public class InterfazDeFabricaMock implements InterfazDeFabrica {
+public class InterfazDeFabricaMock extends InterfazDeFabrica {
 
 	Boolean encendido = false;
 
