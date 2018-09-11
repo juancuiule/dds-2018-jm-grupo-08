@@ -36,8 +36,8 @@ public class ComportamientoEstandar implements Comportamiento {
     }
 
     @Override
-    public Double consumoEnElPeriodo(Period periodo) {
-        Double horasDeUso = periodo.getDays() * horasDeUsoPorDia; 
+    public Double consumoEnElPeriodo(Double diasUltimoMes) {
+        Double horasDeUso = diasUltimoMes * horasDeUsoPorDia; 
         return consumoEnHoras(horasDeUso);
     }
 

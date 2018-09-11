@@ -1,8 +1,9 @@
 package dominioTest;
+
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
-import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -20,17 +21,18 @@ import dominio.transformadores.Zona;
 
 public class TransformadorTest {
 	Zona unaZonaDePrueba;
+	Transformador primero = new Transformador(new Punto(10, 10), true);
 	Cliente clienteDePrueba;
-	
+
 	@Before
 	public void fixture() {
-		RepositorioTransformadores.getInstance().agregar(new Transformador(new Punto(10, 10), true));
+		RepositorioTransformadores.getInstance().agregar(primero);
 		RepositorioTransformadores.getInstance().agregar(new Transformador(new Punto(10, 15), true));
 		RepositorioTransformadores.getInstance().agregar(new Transformador(new Punto(3, 15), false));
 		RepositorioTransformadores.getInstance().agregar(new Transformador(new Punto(10, 5), false));
 		RepositorioTransformadores.getInstance().agregar(new Transformador(new Punto(5, 5), true));
-		
-		unaZonaDePrueba = new Zona(new Punto(10, 12), 330);
+
+		unaZonaDePrueba = new Zona(new Punto(10, 12), 300);
 		clienteDePrueba = new Cliente("Marjorie", "Shaw", TipoDeDocumento.DNI, 32516843, 42000000, LocalDate.now(),
 				"7807 Samaritan Dr", "majshaw", "hudson",
 				new ArrayList<Dispositivo>(Arrays.asList(
@@ -40,30 +42,34 @@ public class TransformadorTest {
 
 	@Test
 	public void elPrimeroPertenece() {
-		Transformador primero = new Transformador(new Punto(10, 10), true);
 		assertTrue(unaZonaDePrueba.estaDentroDelRadio(primero));
 	}
-	
+
 	@Test
-	public void laZonaDePruebaTiene2Transformadores() {
-		assertEquals(2, unaZonaDePrueba.transformadoresDeLaZona().count());
+	public void laZonaDePruebaTiene3Transformadores() {
+		assertEquals(4, unaZonaDePrueba.transformadoresDeLaZona().count());
 	}
-	
+
 	@Test
 	public void elPrimeroEsElTransformadorMasCercano() {
-		Transformador primero = new Transformador(new Punto(10, 10), true);
 		assertEquals(primero, RepositorioTransformadores.getInstance().transformadorMasCercano(clienteDePrueba));
+	}
+
+	@Test
+	public void elTransformadorSeAsignaAlCliente() {
+		primero.conectarCliente(clienteDePrueba);
+		assertTrue(primero.tieneAlCliente(clienteDePrueba));
 	}
 	
 	@Test
 	public void transformadorCalculaBienConsumo() {
-		clienteDePrueba.asignarTransformador();
-		Transformador transformadorCorrespondiente = new Transformador(new Punto(10, 10), true);
-		assertEquals(clienteDePrueba.consumo(periodoUltimoMes()), transformadorCorrespondiente.consumo(periodoUltimoMes()));
+		primero.conectarCliente(clienteDePrueba);
+		assertEquals(clienteDePrueba.consumo(periodoUltimoMes()), primero.consumo(periodoUltimoMes()));
 	}
-	
-	private Period periodoUltimoMes() {
-		return Period.between(LocalDate.now().plusMonths(-1), LocalDate.now());
+
+	private Double periodoUltimoMes() {
+		double cantidad = ChronoUnit.DAYS.between(LocalDate.now().plusMonths(-1), LocalDate.now());
+		return cantidad;
 	}
-	
+
 }
