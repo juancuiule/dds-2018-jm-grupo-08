@@ -1,5 +1,5 @@
 package dominio;
 
-public interface Sensor {
+public interface SensorLegacy {
 	double valorActual();
 }

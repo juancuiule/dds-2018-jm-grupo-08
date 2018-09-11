@@ -5,20 +5,20 @@ import java.util.function.Predicate;
 
 import dominio.dispositivo.Dispositivo;
 
-public class Regla {
+public class ReglaLegacy {
 
-	List<Actuador> actuadores;
+	List<ActuadorLegacy> actuadores;
 	Dispositivo dispositivo;
-	Sensor sensor;
+	SensorLegacy sensorLegacy;
 	Predicate<Double> condicion;
 	
-	public Regla(
-			List<Actuador> unosActuadores,
+	public ReglaLegacy(
+			List<ActuadorLegacy> unosActuadores,
 			Dispositivo unDispositivo,
-			Sensor unSensor,
+			SensorLegacy unSensorLegacy,
 			Predicate<Double> unaCondicion
 	) {
-		sensor = unSensor;
+		sensorLegacy = unSensorLegacy;
 		condicion = unaCondicion;
 		actuadores = unosActuadores;
 		dispositivo = unDispositivo;
@@ -31,7 +31,7 @@ public class Regla {
 	}
 	
 	public boolean comprobarCondicion() {
-		return condicion.test(sensor.valorActual());
+		return condicion.test(sensorLegacy.valorActual());
 	}
 	
 	private void ejecutar() {

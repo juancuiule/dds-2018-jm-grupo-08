@@ -1,11 +1,11 @@
 package dominioTest.mocks;
 
-import dominio.Sensor;
+import dominio.SensorLegacy;
 
-public class SensorMock implements Sensor {
+public class SensorLegacyMock implements SensorLegacy {
 	double valorDeRetorno;
 
-	public SensorMock(double valorARetornar) {
+	public SensorLegacyMock(double valorARetornar) {
 		this.valorDeRetorno = valorARetornar;
 	}
 

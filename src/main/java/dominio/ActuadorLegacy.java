@@ -5,11 +5,11 @@ import java.util.function.Function;
 
 import dominio.dispositivo.Dispositivo;;
 
-public class Actuador {
+public class ActuadorLegacy {
 
 	private Consumer<Dispositivo> accion;
 
-	public Actuador(Consumer<Dispositivo> accionARealizar) {
+	public ActuadorLegacy(Consumer<Dispositivo> accionARealizar) {
 		accion = accionARealizar;
 	}
 
