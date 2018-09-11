@@ -1,6 +1,5 @@
 package dominio.transformadores;
 
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import dominio.Cliente;
@@ -29,6 +28,10 @@ public class Transformador {
 
 	public void conectarCliente(Cliente cliente) {
 		this.clientesSuministrados.add(cliente);
+	}
+	
+	public boolean tieneAlCliente(Cliente cliente) {
+		return clientesSuministrados.contains(cliente);
 	}
 
 	public Double consumo(Double diasUltimoMes) {

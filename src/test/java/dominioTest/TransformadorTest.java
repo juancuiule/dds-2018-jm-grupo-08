@@ -3,7 +3,6 @@ package dominioTest;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,7 +47,7 @@ public class TransformadorTest {
 
 	@Test
 	public void laZonaDePruebaTiene3Transformadores() {
-		assertEquals(3, unaZonaDePrueba.transformadoresDeLaZona().count());
+		assertEquals(4, unaZonaDePrueba.transformadoresDeLaZona().count());
 	}
 
 	@Test
@@ -57,17 +56,20 @@ public class TransformadorTest {
 	}
 
 	@Test
+	public void elTransformadorSeAsignaAlCliente() {
+		primero.conectarCliente(clienteDePrueba);
+		assertTrue(primero.tieneAlCliente(clienteDePrueba));
+	}
+	
+	@Test
 	public void transformadorCalculaBienConsumo() {
-		clienteDePrueba.asignarTransformador();
-		Transformador transformadorCorrespondiente = primero;
-		assertEquals(clienteDePrueba.consumo(periodoUltimoMes()),
-				transformadorCorrespondiente.consumo(periodoUltimoMes()));
+		primero.conectarCliente(clienteDePrueba);
+		assertEquals(clienteDePrueba.consumo(periodoUltimoMes()), primero.consumo(periodoUltimoMes()));
 	}
 
 	private Double periodoUltimoMes() {
 		double cantidad = ChronoUnit.DAYS.between(LocalDate.now().plusMonths(-1), LocalDate.now());
 		return cantidad;
-
 	}
 
 }
