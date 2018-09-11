@@ -5,7 +5,7 @@ import dominio.PersistentObject;
 import javax.persistence.*;
 
 @Embeddable
-public class Rango extends PersistentObject {
+public class Rango {
 
     private Double cotaSuperior;
     private Double cotaInferior;

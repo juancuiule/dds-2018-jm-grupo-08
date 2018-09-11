@@ -9,15 +9,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import dominio.dispositivo.Dispositivo;
 import dominio.transformadores.Punto;
@@ -38,7 +30,7 @@ public class Cliente extends PersistentObject{
     private Integer puntaje;
     private Boolean ahorroAutomatico;
 
-    @OneToOne
+    @Embedded
     private Punto punto;
 
     @Enumerated(value = EnumType.STRING)

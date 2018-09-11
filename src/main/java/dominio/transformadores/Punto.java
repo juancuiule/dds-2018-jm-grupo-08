@@ -1,28 +1,33 @@
 package dominio.transformadores;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.Embeddable;
 
-@Entity
-@Table(name = "Coordenada")
+@Embeddable
 public class Punto {
-	
-	@Id @GeneratedValue
-	private Long id;
-	
-	double posLat;
-	double posLong;
+    double posLat;
+    double posLong;
 
-	public Punto(double posLat, double posLong) {
-		this.posLat = posLat;
-		this.posLong = posLong;
-	}
-	public Double getPosLat() {
-		return posLat;
-	}
-	public Double getPosLong() {
-		return posLong;
-	}
+    public Punto() {
+    }
+
+    public Punto(double posLat, double posLong) {
+        this.posLat = posLat;
+        this.posLong = posLong;
+    }
+
+    public double getPosLat() {
+        return posLat;
+    }
+
+    public void setPosLat(double posLat) {
+        this.posLat = posLat;
+    }
+
+    public double getPosLong() {
+        return posLong;
+    }
+
+    public void setPosLong(double posLong) {
+        this.posLong = posLong;
+    }
 }
