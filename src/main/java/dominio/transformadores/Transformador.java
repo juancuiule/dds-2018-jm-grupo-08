@@ -30,8 +30,8 @@ public class Transformador {
 		clientesSuministrados.add(cliente);
 	}
 
-	public Double consumo(Period periodo) {
+	public Double consumo(Double diasUltimoMes) {
 		return clientesSuministrados.stream()
-				.mapToDouble(cliente -> cliente.consumo(periodo)).sum();
+				.mapToDouble(cliente -> cliente.consumo(diasUltimoMes)).sum();
 	}
 }

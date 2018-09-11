@@ -3,6 +3,7 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -49,11 +50,13 @@ public class TransformadorTest {
 		assertEquals(2, unaZonaDePrueba.transformadoresDeLaZona().count());
 	}
 	
+	
 	@Test
 	public void elPrimeroEsElTransformadorMasCercano() {
-		Transformador primero = new Transformador(new Punto(10, 10), true);
-		assertEquals(primero, RepositorioTransformadores.getInstance().transformadorMasCercano(clienteDePrueba));
+		Transformador adecuado = RepositorioTransformadores.getInstance().transformadorMasCercano(clienteDePrueba);
+		assertEquals(new Double(10), adecuado.getPunto().getPosLong());
 	}
+	
 	
 	@Test
 	public void transformadorCalculaBienConsumo() {
@@ -62,8 +65,10 @@ public class TransformadorTest {
 		assertEquals(clienteDePrueba.consumo(periodoUltimoMes()), transformadorCorrespondiente.consumo(periodoUltimoMes()));
 	}
 	
-	private Period periodoUltimoMes() {
-		return Period.between(LocalDate.now().plusMonths(-1), LocalDate.now());
-	}
+	private Double periodoUltimoMes() {
+		 double cantidad = ChronoUnit.DAYS.between( LocalDate.now().plusMonths(-1),LocalDate.now());
+		 return cantidad;
+	
+}
 	
 }

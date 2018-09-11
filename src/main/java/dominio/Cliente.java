@@ -2,6 +2,7 @@ package dominio;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -100,7 +101,7 @@ public class Cliente {
 		this.punto = punto;
 		
 		this.recategorizar();
-		this.asignarTransformador();
+		//this.asignarTransformador();
 	}
 	
 	public void asignarTransformador() {
@@ -136,15 +137,15 @@ public class Cliente {
 		return this.cantidadDeDispositivosEncendidos() > 0;
 	}
 
-	public Double consumo(Period periodo) {
+	public Double consumo(Double diasUltimoMes) {
 		return this.dispositivos().stream()
-				.mapToDouble((Dispositivo dispositivo) -> dispositivo.consumoEnElPeriodo(periodo)).sum();
+				.mapToDouble((Dispositivo dispositivo) -> dispositivo.consumoEnElPeriodo(diasUltimoMes)).sum();
 	}
 
 	public void recategorizar() {
-		Period ultimoMes = Period.between(LocalDate.now().plusMonths(-1), LocalDate.now());
+		double diasUltimoMes = ChronoUnit.DAYS.between( LocalDate.now().plusMonths(-1),LocalDate.now());
 		RepositorioCategorias repositorio = RepositorioCategorias.getInstance();
-		this.categoria = repositorio.categoriaCorrespondiente(this.consumo(ultimoMes));
+		this.categoria = repositorio.categoriaCorrespondiente(this.consumo(diasUltimoMes));
 	}
 
 	public Boolean getAhorroAutomatico() {

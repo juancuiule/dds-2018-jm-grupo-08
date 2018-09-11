@@ -16,7 +16,7 @@ public abstract class InterfazDeFabrica {
 
 	abstract public Double consumoEnLasUltimasHoras();
 
-	abstract public Double consumoEnElPeriodo(Period periodo);
+	abstract public Double consumoEnElPeriodo(Double diasUltimoMes);
 
 	abstract public Boolean estaEncendido();
 

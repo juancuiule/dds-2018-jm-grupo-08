@@ -17,6 +17,7 @@ import dominio.dispositivo.ComportamientoEstandar;
 import dominio.dispositivo.ComportamientoInteligente;
 import dominio.TipoDeDocumento;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 
 public class ClienteTest {
 
@@ -36,15 +37,19 @@ public class ClienteTest {
 						new Dispositivo("Tostadora", new ComportamientoInteligente(interfazDeFabrica)))),
 				false, new Punto(20, 15));
 
+		
 		clienteB = new Cliente("Arthur", "Howell", TipoDeDocumento.LC, 27662834, 42000001, LocalDate.now(),
-				"8944 Red Saturn Dr", "arthhow", "hotshot", new ArrayList<Dispositivo>(), false, new Punto(40, 75));
+		"8944 Red Saturn Dr", "arthhow", "hotshot", new ArrayList<Dispositivo>(), false, new Punto(40, 75));
 	}
-
+	  
+	
 	@Test
 	public void elClienteATieneUnDispositivoEncendido() {
 		clienteA.dispositivos().forEach(dispositivo -> dispositivo.encender());
 		assertTrue(clienteA.hayAlgunDispositivoEncendido());
 	}
+	
+	
 
 	@Test
 	public void elClienteATieneUnSoloDispositivoEncendido() {
@@ -60,7 +65,7 @@ public class ClienteTest {
 
 	@Test
 	public void consumoDelClienteA() {
-		assertEquals(new Double(1.75), clienteA.consumo(periodoUltimoMes()));
+		assertEquals(new Double(751), clienteA.consumo(periodoUltimoMes()));
 	}
 
 	@Test
@@ -82,22 +87,32 @@ public class ClienteTest {
 		clienteA.agregarDispositivo(plancha);
 		clienteA.recategorizar();
 
-		assertEquals("R4", clienteA.categoria().getNombre());
+		assertEquals("R9", clienteA.categoria().getNombre());
 	}
+
 
 	@Test
 	public void elClienteBCambiaDeCategoria() {
 		Dispositivo heladera = new Dispositivo("Heladera con Freezer", new ComportamientoEstandar(0.4, 12.0));
 		Dispositivo tostadora = new Dispositivo("Tostadora", new ComportamientoEstandar(1.0, 12.0));
-		clienteB.agregarDispositivo(heladera);
 
+		
+		
+		clienteB.agregarDispositivo(heladera);
 		clienteB.agregarDispositivo(tostadora);
+
+		
 		clienteB.recategorizar();
 
-		assertEquals("R1", clienteB.categoria().getNombre());
+		assertEquals("R6", clienteB.categoria().getNombre());
 	}
+	
+	
+	
+	
+	private Double periodoUltimoMes() {
+		 double cantidad = ChronoUnit.DAYS.between( LocalDate.now().plusMonths(-1),LocalDate.now());
+		 return cantidad;
 
-	private Period periodoUltimoMes() {
-		return Period.between(LocalDate.now().plusMonths(-1), LocalDate.now());
 	}
 }

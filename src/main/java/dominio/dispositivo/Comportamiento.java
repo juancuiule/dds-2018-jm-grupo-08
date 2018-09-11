@@ -15,23 +15,22 @@ import javax.persistence.Table;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name ="Tipo")
 public abstract class Comportamiento {
-	
+
 	@Id @GeneratedValue
 	private Long id;
-	
+
 	public Double consumoPorHora;
-	
+
 	public Double consumoPorHora() {
 	    	return consumoPorHora;
-	    }
-	 
+	}
+
     abstract Boolean estaEncendido();
     abstract Boolean estaApagado();
     abstract Double consumoEnUltimasHoras(Double horas);
-    abstract Double consumoEnElPeriodo(Period periodo);
+    abstract Double consumoEnElPeriodo(Double diasUltimoMes);
     abstract void apagar();
     abstract void encender();
     abstract void ahorrarEnergia();
-   // abstract Double consumoPorHora();
 	abstract void restringirConsumo();
 }
