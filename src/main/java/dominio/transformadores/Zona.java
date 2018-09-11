@@ -21,10 +21,10 @@ public class Zona {
 				.filtrarSegun(transformador -> estaDentroDelRadio(transformador));
 	}
 
-	public Double consumoDeZona(Period periodo) {
+	public Double consumoDeZona(Double diasUltimoMes) {
 		return transformadoresDeLaZona()
 				.filter(transformador -> transformador.estaActivo())
-				.mapToDouble(transformador -> transformador.consumo(periodo))
+				.mapToDouble(transformador -> transformador.consumo(diasUltimoMes))
 				.sum();
 	}
 }

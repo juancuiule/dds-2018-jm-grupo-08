@@ -55,6 +55,6 @@ public class ComportamientoEstandarTest {
 
     @Test
     public void consumoEnElPeriodo_EnUnPeriodoDe10Dias_DebeSer1800() {
-        assertEquals(Double.valueOf(1800),comportamientoAProbar.consumoEnElPeriodo(Period.ofDays(10)));
+        assertEquals(Double.valueOf(1800),comportamientoAProbar.consumoEnElPeriodo(10.0));
     }
 }

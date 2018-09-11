@@ -43,8 +43,8 @@ public class Dispositivo {
 		return comportamiento.consumoEnUltimasHoras(horas);
 	}
 
-	public Double consumoEnElPeriodo(Period periodo) {
-		return comportamiento.consumoEnElPeriodo(periodo);
+	public Double consumoEnElPeriodo(Double diasUltimoMes) {
+		return comportamiento.consumoEnElPeriodo(diasUltimoMes);
 	}
 
 	public void apagar() {

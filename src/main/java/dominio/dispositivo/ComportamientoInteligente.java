@@ -36,8 +36,8 @@ public class ComportamientoInteligente implements Comportamiento {
 	}
 
 	@Override
-	public Double consumoEnElPeriodo(Period periodo) {
-		return interfazDeFabrica.consumoEnElPeriodo(periodo);
+	public Double consumoEnElPeriodo(Double diasUltimoMes) {
+		return interfazDeFabrica.consumoEnElPeriodo(diasUltimoMes);
 	}
 
 	@Override

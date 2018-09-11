@@ -14,7 +14,7 @@ public class Transformador {
 		this.punto = punto;
 		this.activo = activo;
 	}
-	
+
 	public Double energiaQueSuministra() {
 		return 1.0;
 	}
@@ -22,17 +22,16 @@ public class Transformador {
 	public boolean estaActivo() {
 		return activo;
 	}
-	
+
 	public Punto getPunto() {
 		return punto;
 	}
-	
+
 	public void conectarCliente(Cliente cliente) {
 		this.clientesSuministrados.add(cliente);
 	}
 
-	public Double consumo(Period periodo) {
-		return this.clientesSuministrados.stream()
-				.mapToDouble(cliente -> cliente.consumo(periodo)).sum();
+	public Double consumo(Double diasUltimoMes) {
+		return clientesSuministrados.stream().mapToDouble(cliente -> cliente.consumo(diasUltimoMes)).sum();
 	}
 }

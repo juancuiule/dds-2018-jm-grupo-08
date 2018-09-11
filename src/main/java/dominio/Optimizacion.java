@@ -2,6 +2,7 @@ package dominio;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 
 import dominio.dispositivo.Dispositivo;
 
@@ -16,8 +17,8 @@ public class Optimizacion {
 	}
 
 	public void restringirConsumo() {
-		Period periodoUltimoMes = Period.between(LocalDate.now().plusMonths(-1), LocalDate.now());
-		if(dispositivo.consumoEnElPeriodo(periodoUltimoMes) > limite) {
+		double diasUltimoMes = ChronoUnit.DAYS.between( LocalDate.now().plusMonths(-1),LocalDate.now());
+		if(dispositivo.consumoEnElPeriodo(diasUltimoMes) > limite) {
 			dispositivo.restringirConsumo();
 		}
 	}

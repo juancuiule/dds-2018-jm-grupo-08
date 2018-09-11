@@ -6,7 +6,7 @@ public interface InterfazDeFabrica {
 
 	Double consumoEnLasUltimasHoras();
 
-	Double consumoEnElPeriodo(Period periodo);
+	Double consumoEnElPeriodo(Double diasUltimoMes);
 
 	Boolean estaEncendido();
 

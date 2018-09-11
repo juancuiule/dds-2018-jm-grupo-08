@@ -6,7 +6,7 @@ public interface Comportamiento {
     Boolean estaEncendido();
     Boolean estaApagado();
     Double consumoEnUltimasHoras(Double horas);
-    Double consumoEnElPeriodo(Period periodo);
+    Double consumoEnElPeriodo(Double diasUltimoMes);
     void apagar();
     void encender();
     void ahorrarEnergia();

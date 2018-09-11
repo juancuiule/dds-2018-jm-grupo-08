@@ -19,7 +19,7 @@ public class InterfazDeFabricaMock implements InterfazDeFabrica {
 	}
 
 	@Override
-	public Double consumoEnElPeriodo(Period periodo) {
+	public Double consumoEnElPeriodo(Double diasUltimoMes) {
 		return (double) 100;
 	}
 
