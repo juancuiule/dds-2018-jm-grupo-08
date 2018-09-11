@@ -14,7 +14,7 @@ import dominio.Regla;
 import dominio.dispositivo.*;
 import dominioTest.mocks.*;
 
-public class ActuadoresTest {
+public class ActuadorTest {
 	Sensor sensorTemperatura100 = new SensorMock(100d); // Sensor que siempre devuelve 100
 	Dispositivo aireAcondicionado = new Dispositivo("Aire", new ComportamientoInteligente(new InterfazDeFabricaMock()));
 

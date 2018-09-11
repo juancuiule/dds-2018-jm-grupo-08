@@ -101,12 +101,11 @@ public class Cliente {
 		this.punto = punto;
 		
 		this.recategorizar();
-		//this.asignarTransformador();
+		this.asignarTransformador();
 	}
 	
 	public void asignarTransformador() {
-		RepositorioTransformadores repositorioTransformadores = RepositorioTransformadores.getInstance();
-		repositorioTransformadores.asignarTransformador(this);
+		RepositorioTransformadores.getInstance().asignarTransformador(this);
 	}
 
 	public Punto getPunto() {

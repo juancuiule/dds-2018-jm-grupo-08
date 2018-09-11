@@ -13,15 +13,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Dispositivo")
 public class Dispositivo {
-	
+
 	@Id @GeneratedValue
 	private Long id;
-	
+
 	@OneToOne
     private Comportamiento comportamiento;
-	
+
     private String nombre;
-    
+
     @ManyToOne
     @JoinColumn(name="rango_id")
     private Rango limiteDeConsumo;
