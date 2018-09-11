@@ -26,11 +26,8 @@ import dominio.transformadores.Transformador;
 
 @Entity
 @Table(name = "Cliente")
-public class Cliente {
-	
-	@Id @GeneratedValue
-	private Long id;
-	
+public class Cliente extends PersistentObject{
+
 	private String nombre;
 	private String apellido;
 	private Integer numeroDeDocumento;

@@ -1,5 +1,7 @@
 package dominio.dispositivo;
 
+import dominio.PersistentObject;
+
 import java.time.Period;
 
 import javax.persistence.Entity;
@@ -12,10 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Dispositivo")
-public class Dispositivo {
-
-	@Id @GeneratedValue
-	private Long id;
+public class Dispositivo extends PersistentObject {
 
 	@OneToOne
     private Comportamiento comportamiento;

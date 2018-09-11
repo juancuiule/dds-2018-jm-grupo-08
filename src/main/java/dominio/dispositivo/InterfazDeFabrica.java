@@ -1,5 +1,7 @@
 package dominio.dispositivo;
 
+import dominio.PersistentObject;
+
 import java.time.Period;
 
 import javax.persistence.Entity;
@@ -9,10 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name= "Fabrica")
-public abstract class InterfazDeFabrica {
-	
-	@Id @GeneratedValue
-	private Long id;
+public abstract class InterfazDeFabrica extends PersistentObject {
 
 	abstract public Double consumoEnLasUltimasHoras();
 

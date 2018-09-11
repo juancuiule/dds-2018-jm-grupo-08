@@ -1,5 +1,7 @@
 package dominio.dispositivo;
 
+import dominio.PersistentObject;
+
 import java.time.Period;
 
 import javax.persistence.DiscriminatorColumn;
@@ -14,10 +16,7 @@ import javax.persistence.Table;
 @Table(name = "Comportamiento")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name ="Tipo")
-public abstract class Comportamiento {
-
-	@Id @GeneratedValue
-	private Long id;
+public abstract class Comportamiento extends PersistentObject {
 
 	public Double consumoPorHora;
 

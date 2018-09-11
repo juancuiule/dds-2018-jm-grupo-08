@@ -7,11 +7,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Categoria")
-public class Categoria {
-	
-	@Id @GeneratedValue
-	private Long id;
-	
+public class Categoria extends PersistentObject{
+
 	private String nombre;
 	private Integer limiteInferiorDeConsumo;
 	private Integer limiteSuperiorDeConsumo;
