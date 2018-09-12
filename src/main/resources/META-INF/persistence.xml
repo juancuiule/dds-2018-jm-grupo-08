@@ -15,6 +15,9 @@
         <class>dominio.dispositivo.ComportamientoEstandar</class>
         <class>dominio.dispositivo.ComportamientoInteligente</class>
         <class>dominio.dispositivo.InterfazDeFabrica</class>
+        <class>dominio.transformadores.Punto</class>
+        <class>dominio.transformadores.Transformador</class>
+        <class>dominio.transformadores.Zona</class>
     	
     	 
         <properties> 
