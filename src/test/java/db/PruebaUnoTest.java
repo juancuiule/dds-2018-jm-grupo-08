@@ -16,9 +16,14 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.Cliente;
 import dominio.TipoDeDocumento;
+import dominio.dispositivo.Comportamiento;
+import dominio.dispositivo.ComportamientoEstandar;
+import dominio.dispositivo.ComportamientoInteligente;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoFactory;
+import dominio.dispositivo.Rango;
 import dominio.transformadores.Punto;
+import dominioTest.mocks.InterfazDeFabricaMock;
 
 public class PruebaUnoTest {
 
@@ -58,9 +63,13 @@ public class PruebaUnoTest {
 	
 	private List<Dispositivo> listaDeDispositivos(){
 		
+		
+		ComportamientoInteligente comportamientoI = new ComportamientoInteligente(new InterfazDeFabricaMock(),0.2);
+		ComportamientoEstandar conportamientoE = new ComportamientoEstandar(1.2, 6d);
 		List<Dispositivo> dispositivos = new ArrayList<Dispositivo>();
-		Dispositivo aire3500 = new DispositivoFactory().aire3500();
-		Dispositivo ventiladorPie = new DispositivoFactory().ventiladorPie();
+		Dispositivo aire3500 = new Dispositivo(comportamientoI, "aire", new Rango(0.1, 0.72));
+		Dispositivo ventiladorPie = new Dispositivo(conportamientoE, "ventilador", new Rango(0.24, 0.745));
+		
 		
 		dispositivos.add(ventiladorPie);
 		dispositivos.add(aire3500);	
