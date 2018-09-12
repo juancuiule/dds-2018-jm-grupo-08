@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -75,11 +76,7 @@ public class OptimizadorConsumo {
 	/////////////////
 
 	private static List<Double> listFromDoubleArray(double[] array) {
-		List<Double> resultado = new ArrayList<Double>();
-		for (int i = 0; i < array.length; i++) {
-			resultado.add(new Double(array[i]));
-		}
-		return resultado;
+		return DoubleStream.of(array).boxed().collect(Collectors.toList());
 	}
 
 	private static LinearConstraint generarRestricciones(List<Dispositivo> dispositivos, Dispositivo dispositivo,
