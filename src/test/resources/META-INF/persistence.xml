@@ -18,7 +18,9 @@
         <class>dominio.transformadores.Punto</class>
         <class>dominio.transformadores.Transformador</class>
         <class>dominio.transformadores.Zona</class>
-    	
+    	<class>dominio.reactores.Regla</class>
+    	<class>dominio.reactores.Sensor</class>
+    	<class>dominio.reactores.Actuador</class>
     	 
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
