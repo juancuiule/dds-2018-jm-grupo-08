@@ -14,7 +14,7 @@ public class InterfazDeFabricaMock implements InterfazDeFabrica {
 	}
 
 	@Override
-	public Double consumoEnLasUltimasHoras() {
+	public Double consumoEnLasUltimasHoras(Double horas) {
 		return null;
 	}
 

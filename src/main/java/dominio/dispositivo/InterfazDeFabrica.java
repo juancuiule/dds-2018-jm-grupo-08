@@ -4,7 +4,7 @@ import java.time.Period;
 
 public interface InterfazDeFabrica {
 
-	Double consumoEnLasUltimasHoras();
+	Double consumoEnLasUltimasHoras(Double horas);
 
 	Double consumoEnElPeriodo(Double diasUltimoMes);
 

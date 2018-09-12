@@ -32,7 +32,7 @@ public class ComportamientoInteligente implements Comportamiento {
 
 	@Override
 	public Double consumoEnUltimasHoras(Double horas) {
-		return interfazDeFabrica.consumoEnLasUltimasHoras();
+		return interfazDeFabrica.consumoEnLasUltimasHoras(horas);
 	}
 
 	@Override
