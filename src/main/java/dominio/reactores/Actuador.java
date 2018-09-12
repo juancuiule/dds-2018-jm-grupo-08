@@ -1,20 +1,23 @@
-package domain;
+package dominio.reactores;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dominio.dispositivo.Dispositivo;
+
 public class Actuador {
 	
-	private List<DispositivoInteligente> dispositivos = new ArrayList<DispositivoInteligente>();
+	private List<Dispositivo> dispositivos = new ArrayList<Dispositivo>();
 	
+	public List<Dispositivo> getDispositivos() {
+		return dispositivos;
+	}
+
 	public void enviarAcciones() {
-		//realizarAcciones
-		//System.out.println("Mensaje del Actuador");
-		//un ejemplo
-		//dispositivos.forEach(dispositivo -> dispositivo.encender());
+		//cada actuador define una accion
 	}
 	
-	public void agregarDispositivo(DispositivoInteligente unDispositivo) {
+	public void agregarDispositivo(Dispositivo unDispositivo) {
 		dispositivos.add(unDispositivo);
 	}
 	

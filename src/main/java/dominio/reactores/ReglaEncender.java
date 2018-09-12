@@ -1,4 +1,4 @@
-package domain;
+package dominio.reactores;
 
 public class ReglaEncender extends Regla{
 	

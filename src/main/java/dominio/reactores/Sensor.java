@@ -1,6 +1,7 @@
-package domain;
+package dominio.reactores;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Sensor {
@@ -8,19 +9,24 @@ public class Sensor {
 	//Attributes
 	
 	
-	private ArrayList<Regla> reglas;
-	private int magnitud;
+	private List<Regla> reglas= new ArrayList<Regla>();
+	private FabricanteDeSensor sensorFisico;
 	
 	
-    //Methods
+	
+    public Sensor(FabricanteDeSensor sensorFisico) {
+		super();
+		this.sensorFisico = sensorFisico;
+	}
+
+	//Methods
 	
 	public void comunicar() {
 			reglas.forEach(regla -> regla.evaluar(this));
-	 	  //System.out.println("Mensaje del sensor!");
 	}
 
-	public int getMagnitud() {
-		return magnitud;
+	public double getMagnitud() {
+		return sensorFisico.getMagnitud();
 	}
 
 	public void agregarRegla(Regla regla1) {
@@ -28,12 +34,6 @@ public class Sensor {
 		
 	}
 	
-	// un sensor puede medir la temperatura, humedad, etc
-	
-	public void medirMagnitud() {
-		//aca se incrementa o disminuye la magnitud 
-	}
-
 	
 }
 	

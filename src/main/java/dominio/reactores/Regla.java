@@ -1,4 +1,4 @@
-package domain;
+package dominio.reactores;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,10 @@ public abstract class Regla {
 		if(cumpleConCondiciones(unSensor)) {
 			actuadores.forEach(actuador -> actuador.enviarAcciones());
 		}
+	}
+	
+	public void agregarActuador(Actuador actuador) {
+		actuadores.add(actuador);
 	}
 	
 }

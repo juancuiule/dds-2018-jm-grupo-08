@@ -1,17 +1,17 @@
-package domain;
+package dominio.reactores;
 
-import org.quartz.CronScheduleBuilder;
-import org.quartz.JobBuilder;
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
-import org.quartz.impl.StdSchedulerFactory;
+//import org.quartz.CronScheduleBuilder;
+//import org.quartz.JobBuilder;
+//import org.quartz.JobDetail;
+//import org.quartz.Scheduler;
+//import org.quartz.SchedulerException;
+//import org.quartz.Trigger;
+//import org.quartz.TriggerBuilder;
+//import org.quartz.impl.StdSchedulerFactory;
 
 public class CronComunicarSensor {
 
-	public static void main(String[] args) throws SchedulerException{
+//	public static void main(String[] args) throws SchedulerException{
 		
 		/*JobDetail job = JobBuilder.newJob(JobComunicarSensor.class).build();
 		
@@ -24,6 +24,6 @@ public class CronComunicarSensor {
 		sr.start();
 		sr.scheduleJob(job, trigger);
 		*/
-	}
+//	}
 
 }
