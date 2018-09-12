@@ -36,10 +36,10 @@ public class Cliente extends PersistentObject{
     @Enumerated(value = EnumType.STRING)
     private TipoDeDocumento tipoDeDocumento;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Categoria categoria;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "cliente_id")
     private List<Dispositivo> dispositivos;
 

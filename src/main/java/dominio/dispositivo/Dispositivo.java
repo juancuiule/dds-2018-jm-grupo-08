@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "Dispositivo")
 public class Dispositivo extends PersistentObject {
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
     private Comportamiento comportamiento;
 
     private String nombre;

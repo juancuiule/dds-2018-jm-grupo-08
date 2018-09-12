@@ -1,10 +1,12 @@
 package dominio.dispositivo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 @Entity
-public class ComportamientoInteligente extends Comportamiento {@OneToOne
+public class ComportamientoInteligente extends Comportamiento {
+	@OneToOne(cascade = CascadeType.PERSIST)
     private InterfazDeFabrica interfazDeFabrica;
     //private Double consumoPorHora;
 
