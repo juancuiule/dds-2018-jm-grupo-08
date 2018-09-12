@@ -3,8 +3,15 @@ package dominio.reactores;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Regla {
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+
+import dominio.PersistentObject;
+
+@Entity
+public abstract class Regla extends PersistentObject {
 	
+	@ManyToMany
 	private List<Actuador> actuadores = new ArrayList<Actuador>();
 	
 	// Methods 
