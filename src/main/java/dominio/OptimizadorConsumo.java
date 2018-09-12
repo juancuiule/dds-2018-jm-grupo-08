@@ -3,7 +3,9 @@ package dominio;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.math3.optim.MaxIter;
@@ -18,6 +20,7 @@ import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.NoExistenRestriccionesException;
+import utils.Utils;
 
 public class OptimizadorConsumo {
 
@@ -25,13 +28,13 @@ public class OptimizadorConsumo {
 		// Limite mensua de consumo desde configuracion
 		Double limiteMensual = ConfiguracionApp.limiteMensualDeConsumo;
 
-		// Filtrar dispositivos sin restricciones
-		List<Dispositivo> dispositivosFiltrados = dispositivos.stream().filter(dispositivo -> {
+		// filter: me quedo con dispositivos que tienen restricciones
+		List<Dispositivo> dispositivosConRestricciones = dispositivos.stream().filter(dispositivo -> {
 			return dispositivo.tieneRestricciones();
 		}).collect(Collectors.toList());
 
 		// Funcion economica-objetivo
-		double[] arrayObjetivo = new double[dispositivosFiltrados.size()];
+		double[] arrayObjetivo = new double[dispositivosConRestricciones.size()];
 		Arrays.fill(arrayObjetivo, 1);
 		LinearObjectiveFunction funcionZ = new LinearObjectiveFunction(arrayObjetivo, 0);
 
@@ -39,16 +42,16 @@ public class OptimizadorConsumo {
 		List<LinearConstraint> restricciones = new ArrayList<LinearConstraint>();
 
 		// Restriccion mensual
-		double[] coeficientesRestriccion = arrayDeCoeficientes(dispositivosFiltrados);
+		double[] coeficientesRestriccion = arrayDeCoeficientes(dispositivosConRestricciones);
 		LinearConstraint restriccionMensual = new LinearConstraint(coeficientesRestriccion, Relationship.LEQ,
 				limiteMensual);
 		restricciones.add(restriccionMensual);
 
 		// Restricciones por dispositivo
-		dispositivosFiltrados.forEach(dispositivo -> {
-			LinearConstraint restriccionSuperior = generarRestricciones(dispositivosFiltrados, dispositivo,
+		dispositivosConRestricciones.forEach(dispositivo -> {
+			LinearConstraint restriccionSuperior = generarRestricciones(dispositivosConRestricciones, dispositivo,
 					Relationship.LEQ);
-			LinearConstraint restriccionInferior = generarRestricciones(dispositivosFiltrados, dispositivo,
+			LinearConstraint restriccionInferior = generarRestricciones(dispositivosConRestricciones, dispositivo,
 					Relationship.GEQ);
 			restricciones.add(restriccionSuperior);
 			restricciones.add(restriccionInferior);
@@ -64,7 +67,7 @@ public class OptimizadorConsumo {
 
 		// Genear solucion
 		List<Double> limitesDeRestriccion = listFromDoubleArray(solucion.getPoint());
-		return generarOptimizaciones(dispositivosFiltrados, limitesDeRestriccion);
+		return generarOptimizaciones(dispositivosConRestricciones, limitesDeRestriccion);
 	}
 
 	/////////////////
@@ -99,23 +102,14 @@ public class OptimizadorConsumo {
 	}
 
 	private static double[] arrayDeCoeficientes(List<Dispositivo> dispositivos) {
-		Double[] coeficientes = new Double[dispositivos.size()];
-		coeficientes = dispositivos.stream().map(dispositivo -> dispositivo.consumoPorHora())
-				.collect(Collectors.toList()).toArray(coeficientes);
-		double[] coeficientesPrimitivos = ArrayUtils.toPrimitive(coeficientes);
-		return coeficientesPrimitivos;
+		return (double[]) ArrayUtils.toPrimitive(
+				dispositivos.stream().map(dispositivo -> dispositivo.consumoPorHora()).collect(Collectors.toList()));
 	}
 
 	private static List<Optimizacion> generarOptimizaciones(List<Dispositivo> dispositivos, List<Double> limites) {
-		List<Optimizacion> restricciones = new ArrayList<Optimizacion>();
-
-		for (int i = 0; i < dispositivos.size(); i++) {
-			Dispositivo dispositivo = dispositivos.get(i);
-			Double limite = limites.get(i);
-
-			restricciones.add(new Optimizacion(dispositivo, limite));
-		}
-		return restricciones;
+		return Utils.zip(dispositivos.stream(), limites.stream(), (dispositivo, limite) -> {
+			return new Optimizacion(dispositivo, limite);
+		}).collect(Collectors.toList());
 	}
 
 }
