@@ -76,10 +76,14 @@ public class Dispositivo {
 	}
 
 	public Rango restricciones() {
-		if (limiteDeConsumo == null) {
+		if (!tieneRestricciones()) {
 			throw new NoExistenRestriccionesException();
 		}
 		return limiteDeConsumo;
+	}
+
+	public boolean tieneRestricciones() {
+		return limiteDeConsumo != null;
 	}
 
 	public void restringirConsumo() {

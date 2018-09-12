@@ -29,12 +29,7 @@ public class OptimizadorConsumo {
         List<Dispositivo> dispositivosFiltrados = dispositivos
                                                  .stream()
                                                  .filter(dispositivo -> {
-                                                     try {
-                                                         dispositivo.restricciones();
-                                                         return true;
-                                                     }catch(NoExistenRestriccionesException e){
-                                                         return false;
-                                                     }
+                                                     return dispositivo.tieneRestricciones();
                                                  }).collect(Collectors.toList());
         
         // Funcion economica-objetivo
