@@ -1,40 +1,77 @@
 package dominio.transformadores;
 
+import dominio.Cliente;
+import dominio.PersistentObject;
+
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-import dominio.Cliente;
 
-public class Transformador {
-	Punto punto;
-	boolean activo;
-	List<Cliente> clientesSuministrados = new ArrayList<Cliente>();
+@Entity
+public class Transformador extends PersistentObject {
+    @Embedded
+    Punto punto;
+    boolean activo;
 
-	public Transformador(Punto punto, boolean activo) {
-		this.punto = punto;
-		this.activo = activo;
-	}
+    @OneToMany
+    @JoinColumn(name = "transformador_id")
+    List<Cliente> clientesSuministrados = new ArrayList<Cliente>();
 
-	public Double energiaQueSuministra() {
-		return 1.0;
-	}
+    // Constructors
+    public Transformador() {
+    }
 
-	public boolean estaActivo() {
-		return activo;
-	}
+    public Transformador(Punto punto, boolean activo) {
+        this.punto = punto;
+        this.activo = activo;
+    }
 
-	public Punto getPunto() {
-		return punto;
-	}
+    // Accessors
+    public Punto getPunto() {
+        return punto;
+    }
 
-	public void conectarCliente(Cliente cliente) {
-		this.clientesSuministrados.add(cliente);
-	}
-	
-	public boolean tieneAlCliente(Cliente cliente) {
-		return clientesSuministrados.contains(cliente);
-	}
+    public void setPunto(Punto punto) {
+        this.punto = punto;
+    }
 
-	public Double consumo(Double diasUltimoMes) {
-		return clientesSuministrados.stream().mapToDouble(cliente -> cliente.consumo(diasUltimoMes)).sum();
-	}
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public List<Cliente> getClientesSuministrados() {
+        return clientesSuministrados;
+    }
+
+    public void setClientesSuministrados(List<Cliente> clientesSuministrados) {
+        this.clientesSuministrados = clientesSuministrados;
+    }
+
+    // Public methods
+    public Double energiaQueSuministra() {
+        return 1.0;
+    }
+
+    public boolean estaActivo() {
+        return activo;
+    }
+
+    public void conectarCliente(Cliente cliente) {
+        this.clientesSuministrados.add(cliente);
+    }
+
+    public boolean tieneAlCliente(Cliente cliente) {
+        return clientesSuministrados.contains(cliente);
+    }
+
+    public Double consumo(Double diasUltimoMes) {
+        return clientesSuministrados.stream().mapToDouble(cliente -> cliente.consumo(diasUltimoMes)).sum();
+    }
 }
