@@ -1,21 +1,24 @@
 package dominio.reactores;
 
+import dominio.PersistentObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
-public class Sensor {
+public class Sensor extends PersistentObject {
 	
 	//Attributes
 	
 	@OneToMany
 	private List<Regla> reglas= new ArrayList<Regla>();
 	
-	@OneToOne
+	@Transient
 	private FabricanteDeSensor sensorFisico;
 	
 	

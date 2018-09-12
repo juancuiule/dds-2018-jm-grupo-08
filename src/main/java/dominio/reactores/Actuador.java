@@ -6,10 +6,11 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
+import dominio.PersistentObject;
 import dominio.dispositivo.Dispositivo;
 
 @Entity
-public class Actuador {
+public class Actuador extends PersistentObject {
 	
 	@ManyToMany
 	private List<Dispositivo> dispositivos = new ArrayList<Dispositivo>();
