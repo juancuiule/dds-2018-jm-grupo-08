@@ -46,14 +46,12 @@ public class PruebaUnoTest extends AbstractPersistenceTest implements WithGlobal
     public void persistirCambiosGeolocalizacion() {
     	entityManager().persist(raul);
     	
-    	Query query= entityManager().createQuery("from Cliente");
-    	List<Cliente> clienteRaul = query.getResultList();
+    	List<Cliente> clienteRaul = entityManager().createQuery("from Cliente").getResultList();
     	Punto nuevoPunto = new Punto(2d,1d);
     	clienteRaul.get(0).setPunto(nuevoPunto);
     	entityManager().persist(clienteRaul.get(0));
     	
-    	Query query2 = entityManager().createQuery("from Cliente");
-    	clienteRaul = query2.getResultList();
+    	clienteRaul = entityManager().createQuery("from Cliente").getResultList();
     	Assert.assertEquals(clienteRaul.get(0).getPunto(), nuevoPunto);
     }
 
