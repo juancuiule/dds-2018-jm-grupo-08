@@ -35,8 +35,10 @@ public class OptimizadorConsumo {
 		}).collect(Collectors.toList());
 
 		// Funcion economica-objetivo
-		double[] arrayObjetivo = new double[dispositivosConRestricciones.size()];
-		Arrays.fill(arrayObjetivo, 1);
+		double[] arrayObjetivo = (double[]) ArrayUtils.toPrimitive(dispositivosConRestricciones.stream().map(disp -> {
+			return 1;
+		}).collect(Collectors.toList()));
+
 		LinearObjectiveFunction funcionZ = new LinearObjectiveFunction(arrayObjetivo, 0);
 
 		// RESTRICCIONES
@@ -71,25 +73,25 @@ public class OptimizadorConsumo {
 		return generarOptimizaciones(dispositivosConRestricciones, limitesDeRestriccion);
 	}
 
-	/////////////////
-	/////////////////
-	/////////////////
-
 	private static List<Double> listFromDoubleArray(double[] array) {
 		return DoubleStream.of(array).boxed().collect(Collectors.toList());
 	}
 
 	private static LinearConstraint generarRestricciones(List<Dispositivo> dispositivos, Dispositivo dispositivo,
 			Relationship relacion) {
-		Integer posicionEnLista = dispositivos.indexOf(dispositivo);
-		double[] arrayRestriccion = new double[dispositivos.size()];
-		Arrays.fill(arrayRestriccion, 0d);
-		arrayRestriccion[posicionEnLista] = 1;
+		double[] arrayRestriccion = (double[]) ArrayUtils.toPrimitive(dispositivos.stream().map(disp -> {
+			if (disp == dispositivo) {
+				return 1d;
+			} else {
+				return 0d;
+			}
+		}).collect(Collectors.toList()));
+
 		double limite;
 		if (relacion == Relationship.LEQ) {
-			limite = dispositivos.get(posicionEnLista).restricciones().getCotaSuperior().doubleValue();
+			limite = dispositivo.restricciones().getCotaSuperior().doubleValue();
 		} else if (relacion == Relationship.GEQ) {
-			limite = dispositivos.get(posicionEnLista).restricciones().getCotaInferior().doubleValue();
+			limite = dispositivo.restricciones().getCotaInferior().doubleValue();
 		} else {
 			throw new RuntimeException("Relacion no admitida");
 		}
