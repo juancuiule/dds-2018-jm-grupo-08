@@ -56,19 +56,43 @@ public class PruebaUnoTest {
 		 List<Cliente> clienteRaul = query.getResultList();
 		 
 		 Assert.assertEquals(clienteRaul.get(0), raul);
+		 
 	}
 	
 	
+	@Test
+	public void persistirCambiosGeolocalizacion() {
+		 manager.persist(raul);
+		 
+		 Query query= manager.createQuery("from Cliente");
+		 
+		 List<Cliente> clienteRaul = query.getResultList();
+		 
+		 Punto nuevoPunto = new Punto(2d,1d);
+		 
+		 clienteRaul.get(0).setPunto(nuevoPunto);
+		 
+		 transaction.rollback();
+		 
+		 manager.persist(clienteRaul.get(0));
+		 
+		 Query query2 = manager.createQuery("from Cliente");
+		 
+		 List<Cliente> clienteRaul2 = query2.getResultList();
+		 
+		 Assert.assertEquals(clienteRaul.get(0).getPunto(), nuevoPunto);
+		 
+		 
+	}
 	
 	
 	private List<Dispositivo> listaDeDispositivos(){
-		
-		
+				
 		ComportamientoInteligente comportamientoI = new ComportamientoInteligente(new InterfazDeFabricaMock(),0.2);
-		ComportamientoEstandar conportamientoE = new ComportamientoEstandar(1.2, 6d);
+		ComportamientoEstandar comportamientoE = new ComportamientoEstandar(1.2, 6d);
 		List<Dispositivo> dispositivos = new ArrayList<Dispositivo>();
 		Dispositivo aire3500 = new Dispositivo(comportamientoI, "aire", new Rango(0.1, 0.72));
-		Dispositivo ventiladorPie = new Dispositivo(conportamientoE, "ventilador", new Rango(0.24, 0.745));
+		Dispositivo ventiladorPie = new Dispositivo(comportamientoE, "ventilador", new Rango(0.24, 0.745));
 		
 		
 		dispositivos.add(ventiladorPie);
@@ -77,7 +101,5 @@ public class PruebaUnoTest {
 		return dispositivos;
 		
 	}
-	
-	
 	
 }
