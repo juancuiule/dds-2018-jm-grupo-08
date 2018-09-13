@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name= "Fabrica")
 public abstract class InterfazDeFabrica extends PersistentObject {
 
-	abstract public Double consumoEnLasUltimasHoras();
+	abstract public Double consumoEnLasUltimasHoras(Double horas);
 
 	abstract public Double consumoEnElPeriodo(Double diasUltimoMes);
 

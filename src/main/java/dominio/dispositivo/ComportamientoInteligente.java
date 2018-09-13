@@ -35,13 +35,13 @@ public class ComportamientoInteligente extends Comportamiento {
     }
 
     @Override
-    public Double consumoEnUltimasHoras(Double horas) {
-        return interfazDeFabrica.consumoEnLasUltimasHoras();
-    }
-
-    @Override
     public Double consumoEnElPeriodo(Double diasUltimoMes) {
         return interfazDeFabrica.consumoEnElPeriodo(diasUltimoMes);
+    }
+  
+    @Override
+    public Double consumoEnUltimasHoras(Double horas) {
+      return interfazDeFabrica.consumoEnLasUltimasHoras(horas);
     }
 
     @Override
