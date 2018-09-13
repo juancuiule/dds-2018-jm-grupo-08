@@ -36,13 +36,16 @@ public class PruebaUnoTest extends AbstractPersistenceTest implements WithGlobal
 
     @Test
     public void persistirAraul() {
+    	beginTransaction();
         entityManager().persist(raul);
         List<Cliente> clienteRaul = entityManager().createQuery("from Cliente").getResultList();
+        commitTransaction();
         Assert.assertEquals(clienteRaul.get(0), raul);
     }
-
+    
     @Test
     public void persistirCambiosGeolocalizacion() {
+    	beginTransaction();
     	entityManager().persist(raul);
     	
     	List<Cliente> clienteRaul = entityManager().createQuery("from Cliente").getResultList();
@@ -51,9 +54,10 @@ public class PruebaUnoTest extends AbstractPersistenceTest implements WithGlobal
     	entityManager().persist(clienteRaul.get(0));
     	
     	clienteRaul = entityManager().createQuery("from Cliente").getResultList();
+    	commitTransaction();
     	Assert.assertEquals(clienteRaul.get(0).getPunto(), nuevoPunto);
     }
-
+    
     // Private methods
     private List<Dispositivo> listaDeDispositivos(){
         ComportamientoInteligente comportamientoI = new ComportamientoInteligente(new InterfazDeFabricaMock(),0.2);
