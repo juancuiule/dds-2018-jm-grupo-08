@@ -37,8 +37,7 @@ public class PruebaUnoTest extends AbstractPersistenceTest implements WithGlobal
     @Test
     public void persistirAraul() {
         entityManager().persist(raul);
-        Query query= entityManager().createQuery("from Cliente");
-        List<Cliente> clienteRaul = query.getResultList();
+        List<Cliente> clienteRaul = entityManager().createQuery("from Cliente").getResultList();
         Assert.assertEquals(clienteRaul.get(0), raul);
     }
 
