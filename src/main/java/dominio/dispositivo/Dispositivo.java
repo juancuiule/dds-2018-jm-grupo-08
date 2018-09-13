@@ -18,6 +18,9 @@ public class Dispositivo extends PersistentObject {
 	@Embedded
 	private Rango limiteDeConsumo;
 
+	public Dispositivo() {
+	}
+
 	public Dispositivo(Comportamiento comportamiento, String nombre, Rango limiteDeConsumo) {
 		super();
 		this.comportamiento = comportamiento;

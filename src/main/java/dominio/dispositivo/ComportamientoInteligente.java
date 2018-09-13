@@ -10,6 +10,10 @@ public class ComportamientoInteligente extends Comportamiento {
     private InterfazDeFabrica interfazDeFabrica;
     //private Double consumoPorHora;
 
+
+    public ComportamientoInteligente() {
+    }
+
     public ComportamientoInteligente(InterfazDeFabrica interfazDeFabrica) {
         this.interfazDeFabrica = interfazDeFabrica;
     }

@@ -9,6 +9,9 @@ public class ComportamientoEstandar extends Comportamiento {
     //private Double consumoPorHora;
     private Double horasDeUsoPorDia;
 
+    public ComportamientoEstandar() {
+    }
+
     public ComportamientoEstandar(Double consumoPorHora, Double horasDeUsoPorDia) {
         if(horasDeUsoPorDia > 24d) {
             throw new MensajeNoEntendidoException();

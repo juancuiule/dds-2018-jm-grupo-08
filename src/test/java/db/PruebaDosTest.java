@@ -42,14 +42,14 @@ public class PruebaDosTest extends AbstractPersistenceTest implements WithGlobal
     @Test
     public void persistirNuevoNombre() {
         entityManager().persist(pc);
-        List<Dispositivo> dispositivoPC = entityManager().createQuery("from Dispositivo").getResultList();
-        
+        List<Dispositivo> dispositivoPC = entityManager().createQuery("from Dispositivo where nombre='pc'").getResultList();
+
         // Mostrar por pantalla todos los intervalos en los que estuvo encendido el ultimo mes
         //System.out.println("Intervalos en los que estuvo encendido durante el ultimo mes:\n");
-        
+
         dispositivoPC.get(0).setNombre("pcGamer");
         entityManager().persist(dispositivoPC.get(0));
-        
+
         dispositivoPC = entityManager().createQuery("from Dispositivo").getResultList();
         Assert.assertEquals(dispositivoPC.get(0).getNombre(), "pcGamer");
     }
