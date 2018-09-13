@@ -21,13 +21,13 @@ public class Dispositivo extends PersistentObject {
     public Dispositivo(Comportamiento comportamiento, String nombre, Rango limiteDeConsumo) {
         super();
         this.comportamiento = comportamiento;
-        this.nombre = nombre;
+        this.setNombre(nombre);
         this.limiteDeConsumo = limiteDeConsumo;
     }
 
     public Dispositivo(String nombre, Comportamiento comportamiento) {
         this.comportamiento = comportamiento;
-        this.nombre = nombre;
+        this.setNombre(nombre);
     }
     
     public Double consumoPorHora() {
@@ -94,5 +94,13 @@ public class Dispositivo extends PersistentObject {
             // Nada
         }
 		
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 }
