@@ -28,33 +28,29 @@ public class PruebaUnoTest extends AbstractPersistenceTest implements WithGlobal
     @Before
     public void fixture() {
         RepositorioTransformadores.getInstance().agregar(new Transformador(new Punto(2d,2d),true));
-        raul = new Cliente("Raul","Gomez",TipoDeDocumento.DNI,
-                new Integer(33333334), new Integer(800445),
-                LocalDate.of(2018, 01, 11), "Lujan","raulG","1234",
-                this.listaDeDispositivos(),true,new Punto(1d,2d));
+        beginTransaction();
+            raul = new Cliente("Raul","Gomez",TipoDeDocumento.DNI,
+                    new Integer(33333334), new Integer(800445),
+                    LocalDate.of(2018, 01, 11), "Lujan","raulG","1234",
+                    this.listaDeDispositivos(),true,new Punto(1d,2d));
+            entityManager().persist(raul);
+        commitTransaction();
     }
 
     @Test
     public void persistirAraul() {
-    	beginTransaction();
-        entityManager().persist(raul);
         List<Cliente> clienteRaul = entityManager().createQuery("from Cliente").getResultList();
-        commitTransaction();
         Assert.assertEquals(clienteRaul.get(0), raul);
     }
     
     @Test
     public void persistirCambiosGeolocalizacion() {
-    	beginTransaction();
-    	entityManager().persist(raul);
-    	
     	List<Cliente> clienteRaul = entityManager().createQuery("from Cliente").getResultList();
     	Punto nuevoPunto = new Punto(2d,1d);
     	clienteRaul.get(0).setPunto(nuevoPunto);
     	entityManager().persist(clienteRaul.get(0));
     	
     	clienteRaul = entityManager().createQuery("from Cliente").getResultList();
-    	commitTransaction();
     	Assert.assertEquals(clienteRaul.get(0).getPunto(), nuevoPunto);
     }
     
