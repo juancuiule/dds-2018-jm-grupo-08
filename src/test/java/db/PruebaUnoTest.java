@@ -36,6 +36,7 @@ public class PruebaUnoTest {
 			LocalDate.of(2018, 01, 11), "Lujan","raulG","1234",
 			this.listaDeDispositivos(),true,new Punto(1d,2d));
 	
+	
 	@Before
 	public void transaccionBegin() {
 		transaction.begin();
@@ -50,6 +51,8 @@ public class PruebaUnoTest {
 	@Test
 	public void persistirAraul() {
 		 manager.persist(raul);
+		 
+		
 		 
 		 Query query= manager.createQuery("from Cliente");
 		 
