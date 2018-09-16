@@ -37,12 +37,13 @@ public class ClienteTest extends AbstractPersistenceTest implements WithGlobalEn
 	Categoria R7 = new Categoria("R7", 600, 700, 443.59, 0.851);
 	Categoria R8 = new Categoria("R8", 700, 1400, 545.96, 0.851);
 	Categoria R9 = new Categoria("R9", 1400, Integer.MAX_VALUE, 887.19, 0.851);
-	
+
 	RepositorioTransformadores repoTransformadores = RepositorioTransformadores.getInstance();
 	Transformador transformador1015 = new Transformador(new Punto(10, 15), true);
 	boolean configured = false;
+
 	public void dbConfig() {
-		if (configured == false) {
+		if (!configured) {
 			repoCategorias.agregar(R1);
 			repoCategorias.agregar(R2);
 			repoCategorias.agregar(R3);

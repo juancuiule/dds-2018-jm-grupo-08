@@ -62,7 +62,7 @@ public class TransformadorTest extends AbstractPersistenceTest implements WithGl
 		primero.conectarCliente(clienteDePrueba);
 		assertTrue(primero.tieneAlCliente(clienteDePrueba));
 	}
-	
+
 	@Test
 	public void transformadorCalculaBienConsumo() {
 		primero.conectarCliente(clienteDePrueba);

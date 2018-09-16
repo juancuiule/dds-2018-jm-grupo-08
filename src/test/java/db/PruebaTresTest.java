@@ -27,85 +27,66 @@ import dominioTest.mocks.ReglaLuminosidadMock;
 import dominioTest.mocks.ReglaLuminosidadMock2;
 
 public class PruebaTresTest {
-	
-	EntityManager entityManager =  PerThreadEntityManagers.getEntityManager();
-	EntityTransaction transaction =  entityManager.getTransaction();
-	
-	Sensor luminosidadAmbiente = new Sensor (new FabricanteSensorMock());
-	ReglaLuminosidadMock reglaLuminosidad = new ReglaLuminosidadMock(); 
+
+	EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+	EntityTransaction transaction = entityManager.getTransaction();
+
+	Sensor luminosidadAmbiente = new Sensor(new FabricanteSensorMock());
+	ReglaLuminosidadMock reglaLuminosidad = new ReglaLuminosidadMock();
 	ActuadorLuminosidadMock actuadorLuminosidad = new ActuadorLuminosidadMock();
-	
+
 	// Segundo Test
-	
+
 	ReglaLuminosidadMock2 reglaLuminosidadAhorro = new ReglaLuminosidadMock2();
 	ActuadorLuminosidadMock2 actuadorLuminosidadAhorro = new ActuadorLuminosidadMock2();
-	
-	Dispositivo lamparaHalogena = new Dispositivo("LamparaLed", new ComportamientoInteligente(new InterfazDeFabricaMock()));
-	
+
+	Dispositivo lamparaHalogena = new Dispositivo("LamparaLed",
+			new ComportamientoInteligente(new InterfazDeFabricaMock()));
+
 	@Before
 	public void transaccionBegin() {
 		transaction.begin();
-	
+
 		luminosidadAmbiente.agregarRegla(reglaLuminosidad);
 		reglaLuminosidad.agregarActuador(actuadorLuminosidad);
-		actuadorLuminosidad.agregarDispositivo(lamparaHalogena);	
-		
+		actuadorLuminosidad.agregarDispositivo(lamparaHalogena);
+
 	}
-	
+
 	@After
 	public void transaccionRollback() {
 		transaction.rollback();
 	}
-	
+
 	@Test
 	public void persistirRegla() {
-		
-			
+
 		entityManager.persist(luminosidadAmbiente);
-		 
-		
-		 List<Sensor> sensores = entityManager
-					.createQuery("from Sensor")
-					.getResultList();
-		 
-		 		 
-		 Sensor deLuz = sensores.get(0);
-		 deLuz.comunicar();
-		 
-		
-		 
-		 assertTrue(lamparaHalogena.estaEncendido());
-		 }
-	
-		 
-		@Test
-		public void persistirNuevoCambio() {
-			
-			luminosidadAmbiente.agregarRegla(reglaLuminosidadAhorro);	
-			reglaLuminosidadAhorro.agregarActuador(actuadorLuminosidadAhorro);
-			actuadorLuminosidadAhorro.agregarDispositivo(lamparaHalogena);
-			
-			
-			entityManager.persist(luminosidadAmbiente);
-			 
-			
-			 List<Sensor> sensores = entityManager
-						.createQuery("from Sensor")
-						.getResultList();
-			 
-			 		 
-			 Sensor deLuz = sensores.get(0);
-			 deLuz.comunicar();
-			 
-			
-			 
-			 assertTrue(lamparaHalogena.estaApagado());
-			 
-			
-		}
-	
-		
-		
-	
-			
+
+		List<Sensor> sensores = entityManager.createQuery("from Sensor").getResultList();
+
+		Sensor deLuz = sensores.get(0);
+		deLuz.comunicar();
+
+		assertTrue(lamparaHalogena.estaEncendido());
+	}
+
+	@Test
+	public void persistirNuevoCambio() {
+
+		luminosidadAmbiente.agregarRegla(reglaLuminosidadAhorro);
+		reglaLuminosidadAhorro.agregarActuador(actuadorLuminosidadAhorro);
+		actuadorLuminosidadAhorro.agregarDispositivo(lamparaHalogena);
+
+		entityManager.persist(luminosidadAmbiente);
+
+		List<Sensor> sensores = entityManager.createQuery("from Sensor").getResultList();
+
+		Sensor deLuz = sensores.get(0);
+		deLuz.comunicar();
+
+		assertTrue(lamparaHalogena.estaApagado());
+
+	}
+
 }

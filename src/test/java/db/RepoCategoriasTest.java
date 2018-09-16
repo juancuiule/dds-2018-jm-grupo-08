@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +30,6 @@ public class RepoCategoriasTest extends AbstractPersistenceTest implements WithG
 
 	@Before
 	public void fixture() {
-		beginTransaction();
 		repo.agregar(R1);
 		repo.agregar(R2);
 		repo.agregar(R3);
