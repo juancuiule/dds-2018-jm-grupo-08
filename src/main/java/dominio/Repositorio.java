@@ -1,8 +1,7 @@
 package dominio;
 
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
+
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 public abstract class Repositorio<T> implements WithGlobalEntityManager {

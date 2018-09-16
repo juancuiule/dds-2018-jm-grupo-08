@@ -1,34 +1,19 @@
 package db;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
-
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
-import dominio.Cliente;
-import dominio.TipoDeDocumento;
-import dominio.dispositivo.Comportamiento;
-import dominio.dispositivo.ComportamientoEstandar;
 import dominio.dispositivo.ComportamientoInteligente;
 import dominio.dispositivo.Dispositivo;
-import dominio.dispositivo.DispositivoFactory;
 import dominio.dispositivo.Rango;
-import dominio.transformadores.Punto;
-import dominio.transformadores.RepositorioTransformadores;
-import dominio.transformadores.Transformador;
 import dominioTest.mocks.InterfazDeFabricaMock;
 
+// TODO: Cambiar esto por un test de RepositorioDispositivos o algo similar
 public class PruebaDosTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
     Dispositivo pc;

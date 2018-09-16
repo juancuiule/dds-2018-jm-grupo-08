@@ -1,42 +1,23 @@
 package dominio.transformadores;
 
 import dominio.Cliente;
-// import dominio.Repositorio;
+import dominio.Repositorio;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class RepositorioTransformadores {
+public class RepositorioTransformadores extends Repositorio<Transformador> {
 	static RepositorioTransformadores instancia;
-	private List<Transformador> elementos;
-
-	/* esto venia de Repositorio... lo dejo acá para que pasen los tests,
-	 * despues lo ajusto al nuevo comportamiento de los demas repos
-	 */
-	public List<Transformador> elementos() {
-		return this.elementos;
-	}
-
-	public Stream<Transformador> filtrarSegun(Predicate<Transformador> unaCondicion) {
-		return this.elementos().stream().filter(unaCondicion);
-	}
-	
-	public void agregar(Transformador elemento) {
-		this.elementos.add(elemento);
-	}
-	/**/
 	
 	public static RepositorioTransformadores getInstance() {
 		if (instancia == null) {
-			instancia = new RepositorioTransformadores();
+			instancia = new RepositorioTransformadores("Transformador");
 		}
 		return instancia;
 	}
 
-	public RepositorioTransformadores() {
-		this.elementos = new ArrayList<Transformador>();
+	public RepositorioTransformadores(String tableName) {
+		super(tableName);
 	}
 	
 	public Stream<Transformador> tranformadoresActivos() {
@@ -44,10 +25,15 @@ public class RepositorioTransformadores {
 	}
 	
 	public Transformador transformadorMasCercano(Cliente cliente) {
-		return this.elementos.stream().min(new ComparadorDistancias(cliente)).get();
+		return this.findAll().stream().min(new ComparadorDistancias(cliente)).get();
 	}
 	
 	public void asignarTransformador(Cliente cliente) {
 		transformadorMasCercano(cliente).conectarCliente(cliente);
+	}
+
+	public Stream<Transformador> filtrarSegun(Predicate<Transformador> unaCondicion) {
+		// estaria bueno si podemos hacer algunos de estos filtros desde la db... y no en memoria trayendo todo
+		return this.findAll().stream().filter(unaCondicion);
 	}
 }

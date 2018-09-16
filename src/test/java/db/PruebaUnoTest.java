@@ -24,18 +24,31 @@ import java.util.List;
 public class PruebaUnoTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
 	Cliente raul;
+	Transformador transformador;
+
+	boolean configured = false;
+
+	public void dbConfig() {
+		if (!configured) {
+			transformador = new Transformador(new Punto(2d, 2d), true);
+			RepositorioTransformadores.getInstance().agregar(transformador);
+
+			raul = new Cliente("Raul", "Gomez", TipoDeDocumento.DNI, new Integer(33333334), new Integer(800445),
+					LocalDate.of(2018, 01, 11), "Lujan", "raulG", "1234", this.listaDeDispositivos(), true,
+					new Punto(1d, 2d));
+			RepositorioClientes.getInstance().agregar(raul);
+
+			configured = true;
+		}
+	}
 
 	@Before
 	public void fixture() {
-		RepositorioTransformadores.getInstance().agregar(new Transformador(new Punto(2d, 2d), true));
-		raul = new Cliente("Raul", "Gomez", TipoDeDocumento.DNI, new Integer(33333334), new Integer(800445),
-				LocalDate.of(2018, 01, 11), "Lujan", "raulG", "1234", this.listaDeDispositivos(), true,
-				new Punto(1d, 2d));
-		RepositorioClientes.getInstance().agregar(raul);
+		this.dbConfig();
 	}
 
 	@Test
-	public void persistirAraul() {
+	public void persistirARaul() {
 		Cliente clienteRaul = RepositorioClientes.getInstance().findOne("numeroDeDocumento = 33333334");
 		Assert.assertEquals(clienteRaul, raul);
 	}
@@ -45,13 +58,12 @@ public class PruebaUnoTest extends AbstractPersistenceTest implements WithGlobal
 		Cliente clienteRaul = RepositorioClientes.getInstance().findOne("numeroDeDocumento = 33333334");
 		Punto nuevoPunto = new Punto(2d, 1d);
 		clienteRaul.setPunto(nuevoPunto);
-		entityManager().persist(clienteRaul);
 
 		clienteRaul = RepositorioClientes.getInstance().findOne("numeroDeDocumento = 33333334");
 		Assert.assertEquals(clienteRaul.getPunto(), nuevoPunto);
 	}
 
-//    // Private methods
+	// Private methods
 	private List<Dispositivo> listaDeDispositivos() {
 		ComportamientoInteligente comportamientoI = new ComportamientoInteligente(new InterfazDeFabricaMock(), 0.2);
 		ComportamientoEstandar conportamientoE = new ComportamientoEstandar(1.2, 6d);

@@ -9,6 +9,8 @@ import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import dominio.Cliente;
 import dominio.TipoDeDocumento;
@@ -19,7 +21,7 @@ import dominio.transformadores.RepositorioTransformadores;
 import dominio.transformadores.Transformador;
 import dominio.transformadores.Zona;
 
-public class TransformadorTest {
+public class TransformadorTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 	Zona unaZonaDePrueba;
 	Transformador primero = new Transformador(new Punto(10, 10), true);
 	Cliente clienteDePrueba;
@@ -46,7 +48,7 @@ public class TransformadorTest {
 	}
 
 	@Test
-	public void laZonaDePruebaTiene3Transformadores() {
+	public void laZonaDePruebaTiene4Transformadores() {
 		assertEquals(4, unaZonaDePrueba.transformadoresDeLaZona().count());
 	}
 
