@@ -1,11 +1,25 @@
 package dominio.dispositivo;
 
+import dominio.PersistentObject;
+
 import java.time.Period;
 
-public class Dispositivo {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Dispositivo")
+public class Dispositivo extends PersistentObject {
+
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Comportamiento comportamiento;
+
 	private String nombre;
+
+	@Embedded
 	private Rango limiteDeConsumo;
+
+	public Dispositivo() {
+	}
 
 	public Dispositivo(Comportamiento comportamiento, String nombre, Rango limiteDeConsumo) {
 		super();
@@ -75,6 +89,14 @@ public class Dispositivo {
 		comportamiento = nuevoComportamiento;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 	public Rango restricciones() {
 		if (!tieneRestricciones()) {
 			throw new NoExistenRestriccionesException();
@@ -92,6 +114,5 @@ public class Dispositivo {
 		} catch (MensajeNoEntendidoException e) {
 			// Nada
 		}
-
 	}
 }

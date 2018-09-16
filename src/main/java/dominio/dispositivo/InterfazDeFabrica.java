@@ -1,22 +1,31 @@
 package dominio.dispositivo;
 
+import dominio.PersistentObject;
+
 import java.time.Period;
 
-public interface InterfazDeFabrica {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-	Double consumoEnLasUltimasHoras(Double horas);
+@Entity
+@Table(name= "Fabrica")
+public abstract class InterfazDeFabrica extends PersistentObject {
 
-	Double consumoEnElPeriodo(Double diasUltimoMes);
+	abstract public Double consumoEnLasUltimasHoras(Double horas);
 
-	Boolean estaEncendido();
+	abstract public Double consumoEnElPeriodo(Double diasUltimoMes);
 
-	Boolean estaApagado();
+	abstract public Boolean estaEncendido();
 
-	void apagar();
+	abstract public Boolean estaApagado();
 
-	void encender();
+	abstract public void apagar();
 
-	void ahorrarEnergia();
+	abstract public  void encender();
 
-	Double consumoPorHora();
+	abstract public void ahorrarEnergia();
+
+	abstract public Double consumoPorHora();
 }

@@ -1,30 +1,59 @@
 package dominio.transformadores;
 
-import java.time.Period;
+import dominio.PersistentObject;
+
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.stream.Stream;
+@Entity
+@Table(name = "Zona")
+public class Zona extends PersistentObject {
+    // Atributes
+    @Embedded
+    Punto punto;
+    double radioQueCubre;
 
-public class Zona {
-	Punto punto;
-	double radioQueCubre;
+    // Constructors
+    public Zona() {
+    }
 
-	public Zona(Punto punto, double radioQueCubre) {
-		this.punto = punto;
-		this.radioQueCubre = radioQueCubre;
-	}
+    public Zona(Punto punto, double radioQueCubre) {
+        this.punto = punto;
+        this.radioQueCubre = radioQueCubre;
+    }
 
-	public Boolean estaDentroDelRadio(Transformador transformador) {
-		return CalculadorDeDistancia.distance(transformador.getPunto(), this.punto) <= this.radioQueCubre;
-	}
+    // Accessors
+    public Punto getPunto() {
+        return punto;
+    }
 
-	public Stream<Transformador> transformadoresDeLaZona() {
-		return RepositorioTransformadores.getInstance()
-				.filtrarSegun(transformador -> estaDentroDelRadio(transformador));
-	}
+    public void setPunto(Punto punto) {
+        this.punto = punto;
+    }
 
-	public Double consumoDeZona(Double diasUltimoMes) {
-		return transformadoresDeLaZona()
-				.filter(transformador -> transformador.estaActivo())
-				.mapToDouble(transformador -> transformador.consumo(diasUltimoMes))
-				.sum();
-	}
+    public double getRadioQueCubre() {
+        return radioQueCubre;
+    }
+
+    public void setRadioQueCubre(double radioQueCubre) {
+        this.radioQueCubre = radioQueCubre;
+    }
+
+    // Public methods
+    public Boolean estaDentroDelRadio(Transformador transformador) {
+        return CalculadorDeDistancia.distance(transformador.getPunto(), this.punto) <= this.radioQueCubre;
+    }
+
+    public Stream<Transformador> transformadoresDeLaZona() {
+        return RepositorioTransformadores.getInstance()
+                .filtrarSegun(transformador -> estaDentroDelRadio(transformador));
+    }
+
+    public Double consumoDeZona(Double diasUltimoMes) {
+        return transformadoresDeLaZona()
+                .filter(transformador -> transformador.estaActivo())
+                .mapToDouble(transformador -> transformador.consumo(diasUltimoMes))
+                .sum();
+    }
 }

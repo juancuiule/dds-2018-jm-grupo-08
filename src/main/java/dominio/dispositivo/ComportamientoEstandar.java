@@ -2,9 +2,15 @@ package dominio.dispositivo;
 
 import java.time.Period;
 
-public class ComportamientoEstandar implements Comportamiento {
-    private Double consumoPorHora;
+import javax.persistence.Entity;
+
+@Entity
+public class ComportamientoEstandar extends Comportamiento {
+    //private Double consumoPorHora;
     private Double horasDeUsoPorDia;
+
+    public ComportamientoEstandar() {
+    }
 
     public ComportamientoEstandar(Double consumoPorHora, Double horasDeUsoPorDia) {
         if(horasDeUsoPorDia > 24d) {
@@ -13,10 +19,10 @@ public class ComportamientoEstandar implements Comportamiento {
         this.consumoPorHora = consumoPorHora;
         this.horasDeUsoPorDia = horasDeUsoPorDia;
     }
-    @Override
-    public Double consumoPorHora() {
-    	return consumoPorHora;
-    }
+//    @Override
+//    public Double consumoPorHora() {
+//    	return consumoPorHora;
+//    }
 
     @Override
     public Boolean estaEncendido() {
