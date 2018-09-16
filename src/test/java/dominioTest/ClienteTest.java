@@ -16,7 +16,7 @@ import dominio.dispositivo.Dispositivo;
 import dominio.transformadores.Punto;
 import dominio.transformadores.RepositorioTransformadores;
 import dominio.transformadores.Transformador;
-import dominioTest.mocks.InterfazDeFabricaMock;
+import dominioTest.mocks.DispositivoFisicoMock;
 import dominio.dispositivo.ComportamientoEstandar;
 import dominio.dispositivo.ComportamientoInteligente;
 import dominio.TipoDeDocumento;
@@ -60,18 +60,18 @@ public class ClienteTest extends AbstractPersistenceTest implements WithGlobalEn
 
 	Cliente clienteA;
 	Cliente clienteB;
-	InterfazDeFabricaMock interfazDeFabrica;
+	DispositivoFisicoMock dispositivoFisico;
 
 	@Before
 	public void generarCliente() {
 		this.dbConfig();
-		interfazDeFabrica = new InterfazDeFabricaMock();
+		dispositivoFisico = new DispositivoFisicoMock();
 		clienteA = new Cliente("Marjorie", "Shaw", TipoDeDocumento.DNI, 32516843, 42000000, LocalDate.now(),
 				"7807 Samaritan Dr", "majshaw", "hudson",
 				new ArrayList<Dispositivo>(Arrays.asList(
 						new Dispositivo("Aire Acondicionado 2200 Frigorias", new ComportamientoEstandar(1.35, 12.0)),
 						new Dispositivo("Heladera con Freezer", new ComportamientoEstandar(0.4, 12.0)),
-						new Dispositivo("Tostadora", new ComportamientoInteligente(interfazDeFabrica)))),
+						new Dispositivo("Tostadora", new ComportamientoInteligente(dispositivoFisico)))),
 				false, new Punto(20, 15));
 
 		clienteB = new Cliente("Arthur", "Howell", TipoDeDocumento.LC, 27662834, 42000001, LocalDate.now(),

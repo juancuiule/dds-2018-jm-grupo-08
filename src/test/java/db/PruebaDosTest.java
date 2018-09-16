@@ -11,7 +11,7 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import dominio.dispositivo.ComportamientoInteligente;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.Rango;
-import dominioTest.mocks.InterfazDeFabricaMock;
+import dominioTest.mocks.DispositivoFisicoMock;
 
 // TODO: Cambiar esto por un test de RepositorioDispositivos o algo similar
 public class PruebaDosTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
@@ -20,7 +20,7 @@ public class PruebaDosTest extends AbstractPersistenceTest implements WithGlobal
 
     @Before
     public void fixture() {
-    	ComportamientoInteligente comportamientoI = new ComportamientoInteligente(new InterfazDeFabricaMock(),0.4);
+    	ComportamientoInteligente comportamientoI = new ComportamientoInteligente(new DispositivoFisicoMock(),0.4);
     	pc = new Dispositivo(comportamientoI, "pc", new Rango(60d,360d));
     }
 

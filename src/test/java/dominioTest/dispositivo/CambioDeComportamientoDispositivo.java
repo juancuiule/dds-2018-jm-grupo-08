@@ -7,23 +7,22 @@ import org.junit.Test;
 import dominio.dispositivo.ComportamientoInteligente;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.DispositivoFactory;
-import dominio.dispositivo.InterfazDeFabrica;
-
+import dominio.dispositivo.DispositivoFisico;
 
 public class CambioDeComportamientoDispositivo {
-	
-	DispositivoFactory tvEstandar= new DispositivoFactory();
+
+	DispositivoFactory tvEstandar = new DispositivoFactory();
 	Dispositivo tv = new Dispositivo(null, null, null);
-	InterfazDeFabrica fabrica;
-	
+	DispositivoFisico dispositivoFisico;
+
 	@Before
 	public void instanciaTvEstandar() {
 		tv = tvEstandar.tvFluo21();
 	}
-	
+
 	@Test
 	public void cambiarElComportamientoAinteligente() {
-		tv.cambiarComportamiento(new ComportamientoInteligente(fabrica, 1d));
+		tv.cambiarComportamiento(new ComportamientoInteligente(dispositivoFisico, 1d));
 		Assert.assertTrue(tv.consumoPorHora() == 1d);
 //		Assert.assertEquals(tv.consumoPorHora(), 1d);
 	}

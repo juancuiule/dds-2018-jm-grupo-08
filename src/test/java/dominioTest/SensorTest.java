@@ -8,14 +8,14 @@ import dominio.dispositivo.Dispositivo;
 import dominio.reactores.Sensor;
 import dominioTest.mocks.ActuadorLuminosidadMock;
 import dominioTest.mocks.FabricanteSensorMock;
-import dominioTest.mocks.InterfazDeFabricaMock;
+import dominioTest.mocks.DispositivoFisicoMock;
 import dominioTest.mocks.ReglaLuminosidadMock;
 import static org.junit.Assert.*;
 
 public class SensorTest {
 
-	Dispositivo lamparaLed = new Dispositivo("LamparaLed", new ComportamientoInteligente(new InterfazDeFabricaMock()));
-	Dispositivo lamparaLed2 = new Dispositivo("LamparaLed", new ComportamientoInteligente(new InterfazDeFabricaMock()));
+	Dispositivo lamparaLed = new Dispositivo("LamparaLed", new ComportamientoInteligente(new DispositivoFisicoMock()));
+	Dispositivo lamparaLed2 = new Dispositivo("LamparaLed", new ComportamientoInteligente(new DispositivoFisicoMock()));
 	
 	ReglaLuminosidadMock reglaLuminosidad = new ReglaLuminosidadMock();
 	

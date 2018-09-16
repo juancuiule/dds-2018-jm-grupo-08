@@ -10,7 +10,7 @@ import dominio.dispositivo.Rango;
 import dominio.transformadores.Punto;
 import dominio.transformadores.RepositorioTransformadores;
 import dominio.transformadores.Transformador;
-import dominioTest.mocks.InterfazDeFabricaMock;
+import dominioTest.mocks.DispositivoFisicoMock;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,7 +65,7 @@ public class PruebaUnoTest extends AbstractPersistenceTest implements WithGlobal
 
 	// Private methods
 	private List<Dispositivo> listaDeDispositivos() {
-		ComportamientoInteligente comportamientoI = new ComportamientoInteligente(new InterfazDeFabricaMock(), 0.2);
+		ComportamientoInteligente comportamientoI = new ComportamientoInteligente(new DispositivoFisicoMock(), 0.2);
 		ComportamientoEstandar conportamientoE = new ComportamientoEstandar(1.2, 6d);
 		List<Dispositivo> dispositivos = new ArrayList<Dispositivo>();
 		Dispositivo aire3500 = new Dispositivo(comportamientoI, "aire", new Rango(0.1, 0.72));
@@ -76,5 +76,4 @@ public class PruebaUnoTest extends AbstractPersistenceTest implements WithGlobal
 
 		return dispositivos;
 	}
-
 }

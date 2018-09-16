@@ -7,20 +7,20 @@ import javax.persistence.OneToOne;
 @Entity
 public class ComportamientoInteligente extends Comportamiento {
 	@OneToOne(cascade = CascadeType.PERSIST)
-    private InterfazDeFabrica interfazDeFabrica;
+    private DispositivoFisico dispositivoFisico;
     //private Double consumoPorHora;
 
 
     public ComportamientoInteligente() {
     }
 
-    public ComportamientoInteligente(InterfazDeFabrica interfazDeFabrica) {
-        this.interfazDeFabrica = interfazDeFabrica;
+    public ComportamientoInteligente(DispositivoFisico dispositivoFisico) {
+        this.dispositivoFisico = dispositivoFisico;
     }
     
-    public ComportamientoInteligente(InterfazDeFabrica interfazDeFabrica, Double consumoPorHora) {
+    public ComportamientoInteligente(DispositivoFisico dispositivoFisico, Double consumoPorHora) {
         super();
-        this.interfazDeFabrica = interfazDeFabrica;
+        this.dispositivoFisico = dispositivoFisico;
         this.consumoPorHora = consumoPorHora;
     }
 
@@ -30,37 +30,37 @@ public class ComportamientoInteligente extends Comportamiento {
 
     @Override
     public Boolean estaEncendido() {
-        return interfazDeFabrica.estaEncendido();
+        return dispositivoFisico.estaEncendido();
     }
 
     @Override
     public Boolean estaApagado() {
-        return interfazDeFabrica.estaApagado();
+        return dispositivoFisico.estaApagado();
     }
 
     @Override
     public Double consumoEnElPeriodo(Double diasUltimoMes) {
-        return interfazDeFabrica.consumoEnElPeriodo(diasUltimoMes);
+        return dispositivoFisico.consumoEnElPeriodo(diasUltimoMes);
     }
   
     @Override
     public Double consumoEnUltimasHoras(Double horas) {
-      return interfazDeFabrica.consumoEnLasUltimasHoras(horas);
+      return dispositivoFisico.consumoEnLasUltimasHoras(horas);
     }
 
     @Override
     public void apagar() {
-        interfazDeFabrica.apagar();
+        dispositivoFisico.apagar();
     }
 
     @Override
     public void encender() {
-        interfazDeFabrica.encender();
+        dispositivoFisico.encender();
     }
 
     @Override
     public void ahorrarEnergia() {
-        interfazDeFabrica.ahorrarEnergia();
+        dispositivoFisico.ahorrarEnergia();
     }
 
 	@Override

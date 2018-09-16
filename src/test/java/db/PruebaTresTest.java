@@ -6,23 +6,19 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import dominio.Cliente;
 import dominio.dispositivo.ComportamientoInteligente;
 import dominio.dispositivo.Dispositivo;
-import dominio.dispositivo.DispositivoFactory;
 import dominio.reactores.Sensor;
 import dominioTest.mocks.ActuadorLuminosidadMock;
 import dominioTest.mocks.ActuadorLuminosidadMock2;
 import dominioTest.mocks.FabricanteSensorMock;
-import dominioTest.mocks.InterfazDeFabricaMock;
+import dominioTest.mocks.DispositivoFisicoMock;
 import dominioTest.mocks.ReglaLuminosidadMock;
 import dominioTest.mocks.ReglaLuminosidadMock2;
 
@@ -39,10 +35,8 @@ public class PruebaTresTest {
 
 	ReglaLuminosidadMock2 reglaLuminosidadAhorro = new ReglaLuminosidadMock2();
 	ActuadorLuminosidadMock2 actuadorLuminosidadAhorro = new ActuadorLuminosidadMock2();
-
-	Dispositivo lamparaHalogena = new Dispositivo("LamparaLed",
-			new ComportamientoInteligente(new InterfazDeFabricaMock()));
-
+	Dispositivo lamparaHalogena = new Dispositivo("LamparaLed", new ComportamientoInteligente(new DispositivoFisicoMock()));
+	
 	@Before
 	public void transaccionBegin() {
 		transaction.begin();

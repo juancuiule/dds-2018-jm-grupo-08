@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name= "Fabrica")
-public abstract class InterfazDeFabrica extends PersistentObject {
+@Table(name= "DispositivoFisico")
+public abstract class DispositivoFisico extends PersistentObject {
 
 	abstract public Double consumoEnLasUltimasHoras(Double horas);
 
