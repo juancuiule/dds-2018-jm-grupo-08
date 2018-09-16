@@ -65,8 +65,8 @@ public class Cliente extends PersistentObject{
         this.puntaje = 0;
         this.punto = punto;
 
-        this.recategorizar();
-        this.asignarTransformador();
+        // this.recategorizar();
+        // this.asignarTransformador();
     }
 
     // Accessors
@@ -235,7 +235,7 @@ public class Cliente extends PersistentObject{
     }
 
     public void recategorizar() {
-        double diasUltimoMes = ChronoUnit.DAYS.between( LocalDate.now().plusMonths(-1),LocalDate.now());
+        double diasUltimoMes = ChronoUnit.DAYS.between(LocalDate.now().plusMonths(-1),LocalDate.now());
         RepositorioCategorias repositorio = RepositorioCategorias.getInstance();
         this.categoria = repositorio.categoriaCorrespondiente(this.consumo(diasUltimoMes));
     }

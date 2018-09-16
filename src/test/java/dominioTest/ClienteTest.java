@@ -9,7 +9,9 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import dominio.Categoria;
 import dominio.Cliente;
+import dominio.RepositorioCategorias;
 import dominio.dispositivo.Dispositivo;
 import dominio.transformadores.Punto;
 import dominioTest.mocks.InterfazDeFabricaMock;
@@ -19,12 +21,39 @@ import dominio.TipoDeDocumento;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
-public class ClienteTest {
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
+
+public class ClienteTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
 	Cliente clienteA;
 	Cliente clienteB;
 	InterfazDeFabricaMock interfazDeFabrica;
 
+	RepositorioCategorias repo = RepositorioCategorias.getInstance();
+	Categoria R1 = new Categoria("R1", 0, 150, 18.76, 0.644);
+	Categoria R2 = new Categoria("R2", 150, 325, 35.32, 0.644);
+	Categoria R3 = new Categoria("R3", 325, 400, 60.71, 0.681);
+	Categoria R4 = new Categoria("R4", 400, 450, 71.74, 0.738);
+	Categoria R5 = new Categoria("R5", 450, 500, 110.38, 0.794);
+	Categoria R6 = new Categoria("R6", 500, 600, 220.75, 0.832);
+	Categoria R7 = new Categoria("R7", 600, 700, 443.59, 0.851);
+	Categoria R8 = new Categoria("R8", 700, 1400, 545.96, 0.851);
+	Categoria R9 = new Categoria("R9", 1400, Integer.MAX_VALUE, 887.19, 0.851);
+
+	@Before
+	public void fixture() {
+		repo.agregar(R1);
+		repo.agregar(R2);
+		repo.agregar(R3);
+		repo.agregar(R4);
+		repo.agregar(R5);
+		repo.agregar(R6);
+		repo.agregar(R7);
+		repo.agregar(R8);
+		repo.agregar(R9);
+	}
+	
 	@Before
 	public void generarCliente() {
 		interfazDeFabrica = new InterfazDeFabricaMock();
