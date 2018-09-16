@@ -5,16 +5,16 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import dominio.dispositivo.ComportamientoInteligente;
-import dominioTest.mocks.InterfazDeFabricaMock;
+import dominioTest.mocks.DispositivoFisicoMock;
 
 public class ComportamientoInteligenteTest {
 	private ComportamientoInteligente comportamientoAProbar;
-	private InterfazDeFabricaMock fabricaAProbar;
+	private DispositivoFisicoMock dispositivoFisico;
 
     @Before
     public void fixture() {
-    	fabricaAProbar = new InterfazDeFabricaMock();
-        comportamientoAProbar = new ComportamientoInteligente(fabricaAProbar);
+    	dispositivoFisico = new DispositivoFisicoMock();
+        comportamientoAProbar = new ComportamientoInteligente(dispositivoFisico);
     }
 
     @Test

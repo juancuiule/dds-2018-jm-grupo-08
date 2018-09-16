@@ -27,7 +27,7 @@ import dominio.dispositivo.Rango;
 import dominio.transformadores.Punto;
 import dominio.transformadores.RepositorioTransformadores;
 import dominio.transformadores.Transformador;
-import dominioTest.mocks.InterfazDeFabricaMock;
+import dominioTest.mocks.DispositivoFisicoMock;
 
 public class PruebaDosTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
@@ -35,7 +35,7 @@ public class PruebaDosTest extends AbstractPersistenceTest implements WithGlobal
 
     @Before
     public void fixture() {
-    	ComportamientoInteligente comportamientoI = new ComportamientoInteligente(new InterfazDeFabricaMock(),0.4);
+    	ComportamientoInteligente comportamientoI = new ComportamientoInteligente(new DispositivoFisicoMock(),0.4);
     	pc = new Dispositivo(comportamientoI, "pc", new Rango(60d,360d));
     }
 

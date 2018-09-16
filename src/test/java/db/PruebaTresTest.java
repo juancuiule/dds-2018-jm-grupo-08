@@ -22,7 +22,7 @@ import dominio.reactores.Sensor;
 import dominioTest.mocks.ActuadorLuminosidadMock;
 import dominioTest.mocks.ActuadorLuminosidadMock2;
 import dominioTest.mocks.FabricanteSensorMock;
-import dominioTest.mocks.InterfazDeFabricaMock;
+import dominioTest.mocks.DispositivoFisicoMock;
 import dominioTest.mocks.ReglaLuminosidadMock;
 import dominioTest.mocks.ReglaLuminosidadMock2;
 
@@ -40,7 +40,7 @@ public class PruebaTresTest {
 	ReglaLuminosidadMock2 reglaLuminosidadAhorro = new ReglaLuminosidadMock2();
 	ActuadorLuminosidadMock2 actuadorLuminosidadAhorro = new ActuadorLuminosidadMock2();
 	
-	Dispositivo lamparaHalogena = new Dispositivo("LamparaLed", new ComportamientoInteligente(new InterfazDeFabricaMock()));
+	Dispositivo lamparaHalogena = new Dispositivo("LamparaLed", new ComportamientoInteligente(new DispositivoFisicoMock()));
 	
 	@Before
 	public void transaccionBegin() {

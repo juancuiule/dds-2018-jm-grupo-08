@@ -1,10 +1,8 @@
 package dominioTest.mocks;
 
-import java.time.Period;
+import dominio.dispositivo.DispositivoFisico;
 
-import dominio.dispositivo.InterfazDeFabrica;
-
-public class InterfazDeFabricaMock extends InterfazDeFabrica {
+public class DispositivoFisicoMock extends DispositivoFisico {
 
 	Boolean encendido = false;
 

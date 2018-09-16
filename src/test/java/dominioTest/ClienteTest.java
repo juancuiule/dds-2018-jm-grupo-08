@@ -12,7 +12,7 @@ import org.junit.Test;
 import dominio.Cliente;
 import dominio.dispositivo.Dispositivo;
 import dominio.transformadores.Punto;
-import dominioTest.mocks.InterfazDeFabricaMock;
+import dominioTest.mocks.DispositivoFisicoMock;
 import dominio.dispositivo.ComportamientoEstandar;
 import dominio.dispositivo.ComportamientoInteligente;
 import dominio.TipoDeDocumento;
@@ -23,18 +23,18 @@ public class ClienteTest {
 
 	Cliente clienteA;
 	Cliente clienteB;
-	InterfazDeFabricaMock interfazDeFabrica;
+	DispositivoFisicoMock dispositivoFisico;
 
 	@Before
 	public void generarCliente() {
-		interfazDeFabrica = new InterfazDeFabricaMock();
+		dispositivoFisico = new DispositivoFisicoMock();
 		
 		clienteA = new Cliente("Marjorie", "Shaw", TipoDeDocumento.DNI, 32516843, 42000000, LocalDate.now(),
 				"7807 Samaritan Dr", "majshaw", "hudson",
 				new ArrayList<Dispositivo>(Arrays.asList(
 						new Dispositivo("Aire Acondicionado 2200 Frigorias", new ComportamientoEstandar(1.35, 12.0)),
 						new Dispositivo("Heladera con Freezer", new ComportamientoEstandar(0.4, 12.0)),
-						new Dispositivo("Tostadora", new ComportamientoInteligente(interfazDeFabrica)))),
+						new Dispositivo("Tostadora", new ComportamientoInteligente(dispositivoFisico)))),
 				false, new Punto(20, 15));
 
 		
