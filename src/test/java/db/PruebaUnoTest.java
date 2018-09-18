@@ -25,18 +25,20 @@ public class PruebaUnoTest extends AbstractPersistenceTest implements WithGlobal
 
 	Cliente raul;
 	Transformador transformador;
+	RepositorioClientes repoClientes = RepositorioClientes.getInstance();
+	RepositorioTransformadores repoTransformadores = RepositorioTransformadores.getInstance();
 
 	boolean configured = false;
 
 	public void dbConfig() {
 		if (!configured) {
 			transformador = new Transformador(new Punto(2d, 2d), true);
-			RepositorioTransformadores.getInstance().agregar(transformador);
+			repoTransformadores.agregar(transformador);
 
 			raul = new Cliente("Raul", "Gomez", TipoDeDocumento.DNI, new Integer(33333334), new Integer(800445),
 					LocalDate.of(2018, 01, 11), "Lujan", "raulG", "1234", this.listaDeDispositivos(), true,
 					new Punto(1d, 2d));
-			RepositorioClientes.getInstance().agregar(raul);
+			repoClientes.agregar(raul);
 
 			configured = true;
 		}
@@ -49,17 +51,17 @@ public class PruebaUnoTest extends AbstractPersistenceTest implements WithGlobal
 
 	@Test
 	public void persistirARaul() {
-		Cliente clienteRaul = RepositorioClientes.getInstance().findOne("numeroDeDocumento = 33333334");
+		Cliente clienteRaul = repoClientes.findOne("numeroDeDocumento = 33333334");
 		Assert.assertEquals(clienteRaul, raul);
 	}
 
 	@Test
 	public void persistirCambiosGeolocalizacion() {
-		Cliente clienteRaul = RepositorioClientes.getInstance().findOne("numeroDeDocumento = 33333334");
+		Cliente clienteRaul = repoClientes.findOne("numeroDeDocumento = 33333334");
 		Punto nuevoPunto = new Punto(2d, 1d);
 		clienteRaul.setPunto(nuevoPunto);
 
-		clienteRaul = RepositorioClientes.getInstance().findOne("numeroDeDocumento = 33333334");
+		clienteRaul = repoClientes.findOne("numeroDeDocumento = 33333334");
 		Assert.assertEquals(clienteRaul.getPunto(), nuevoPunto);
 	}
 
