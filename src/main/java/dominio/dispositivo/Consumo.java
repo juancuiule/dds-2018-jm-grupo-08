@@ -1,6 +1,7 @@
 package dominio.dispositivo;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import javax.persistence.*;
 
@@ -8,9 +9,10 @@ import dominio.Cliente;
 import dominio.PersistentObject;
 
 @Entity
-public class ConsumoPorDispositivo extends PersistentObject{
+public class Consumo extends PersistentObject{
 
-	@OneToOne
+	@OneToMany
+	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	
 	@ManyToOne
@@ -19,14 +21,21 @@ public class ConsumoPorDispositivo extends PersistentObject{
 	
 	private LocalDate fechaInicio;
 	private LocalDate fechaFin;
+	private double kwConsumidos;
 	
 	
-	public ConsumoPorDispositivo(Cliente cliente, Dispositivo dispositivo, LocalDate fechaInicio, LocalDate fechaFin) {
+	public Consumo(Cliente cliente, Dispositivo dispositivo, LocalDate fechaInicio, LocalDate fechaFin) {
 		super();
 		this.cliente = cliente;
 		this.dispositivo = dispositivo;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
+		this.setConsumo();
+	}
+	
+	private void setConsumo() {
+		double cantidad = ChronoUnit.DAYS.between(fechaInicio,fechaFin);
+		kwConsumidos = dispositivo.consumoEnElPeriodo(cantidad);
 	}
 
 
