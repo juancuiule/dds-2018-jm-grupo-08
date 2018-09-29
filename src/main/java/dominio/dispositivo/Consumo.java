@@ -11,7 +11,7 @@ import dominio.PersistentObject;
 @Entity
 public class Consumo extends PersistentObject{
 
-	@OneToMany
+	@OneToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	

@@ -19,7 +19,7 @@
 		<class>dominio.transformadores.Punto</class>
 		<class>dominio.transformadores.Transformador</class>
 		<class>dominio.transformadores.Zona</class>
-		<class>dominio.dispositivo.ConsumoPorDispositivo</class>
+		<class>dominio.dispositivo.Consumo</class>
 
 
 		<properties>
