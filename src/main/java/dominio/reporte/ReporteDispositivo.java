@@ -12,7 +12,8 @@ public class ReporteDispositivo {
 
 	EntityManager manager =  PerThreadEntityManagers.getEntityManager();
 	
-	public void consumoPromedioPorDispositivo(Cliente cliente) {
+	public String consumoPromedioPorDispositivo(Cliente cliente) {
+		//seria mejor que se filtre por el id del cliente y no por su dni??
 		String dni = cliente.getNumeroDeDocumento().toString();
 		
 		Query query= manager.createQuery("select avg(kwConsumidos), dispositivo.nombre\r\n" + 
@@ -21,5 +22,11 @@ public class ReporteDispositivo {
 				"group by nombre");
 		
 		query.setParameter("dni",dni);
+		
+		//
+		String kwConsumidos = query.getParameter(0).toString();
+		
+		return kwConsumidos;
+		
 	}
 }
