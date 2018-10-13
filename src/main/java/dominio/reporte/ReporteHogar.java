@@ -16,9 +16,9 @@ public class ReporteHogar {
 	public String consumoHogar(LocalDate fechaDesde, LocalDate fechaHasta, Cliente cliente) {
 		String dni = cliente.getNumeroDeDocumento().toString();
 		
-		Query query= manager.createQuery("select sum(kwConsumidos)\r\n" + 
-				"from consumo JOIN cliente ON consumo.cliente_id = cliente.id\r\n" + 
-				"where (fechaDesde<= fechaInicio and fechaHasta>=fechaFin) and cliente.numeroDeDocumento =: dni\r\n");
+		Query query= manager.createQuery("select sum(kwConsumidos) "+
+		"from consumo JOIN cliente ON consumo.cliente_id = cliente.id "+
+				"where (fechaDesde<=: fechaInicio and fechaHasta>=:fechaFin) and cliente.numeroDeDocumento =: dni");
 		
 		query.setParameter("fechaDesde",fechaDesde);
 		query.setParameter("fechaHasta",fechaHasta);

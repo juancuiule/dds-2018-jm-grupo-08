@@ -14,14 +14,20 @@ public class ReporteDispositivo {
 	
 	public String consumoPromedioPorDispositivo(Cliente cliente) {
 		//seria mejor que se filtre por el id del cliente y no por su dni??
-		String dni = cliente.getNumeroDeDocumento().toString();
+		Integer dni = cliente.getNumeroDeDocumento();
 		
-		Query query= manager.createQuery("select avg(kwConsumidos), dispositivo.nombre\r\n" + 
-				"from consumo LEFT JOIN dispositivo ON dispositivo_id= dispositivo.id JOIN cliente ON consumo.cliente_id = cliente.id\r\n" + 
-				"where cliente.numeroDeDocumento =: dni\r\n" + 
-				"group by nombre");
+		Query query= manager.createQuery("select avg(c.kwConsumidos), d.nombre " + 
+				"from consumo c LEFT JOIN dispositivo d ON c.dispositivo_id= d.id JOIN cliente ON d.cliente_id = c.cliente.id " + 
+				"where c.numeroDeDocumento = ? " + 
+				"group by d.nombre");
 		
-		query.setParameter("dni",dni);
+		
+		
+//		Query query= manager.createQuery("from consumo as c " + 
+//				"join c.cliente_id as clie " + 
+//				"join c.dispositivo_id as dis");
+				
+		query.setParameter(0,dni);
 		
 		//
 		String kwConsumidos = query.getParameter(0).toString();
