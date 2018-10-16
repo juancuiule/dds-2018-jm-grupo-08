@@ -1,5 +1,6 @@
-package dominio;
+package simplex;
 
+import dominio.ConfiguracionApp;
 import dominio.dispositivo.Dispositivo;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.math3.optim.linear.LinearConstraint;

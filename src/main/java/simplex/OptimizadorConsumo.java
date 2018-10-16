@@ -1,4 +1,4 @@
-package dominio;
+package simplex;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,8 +53,6 @@ public class OptimizadorConsumo {
     private static List<Double> listFromDoubleArray(double[] array) {
         return DoubleStream.of(array).boxed().collect(Collectors.toList());
     }
-
-
 
     private static List<Optimizacion> generarOptimizaciones(List<Dispositivo> dispositivos, List<Double> limites) {
         return Utils.zip(dispositivos.stream(), limites.stream(), (dispositivo, limite) -> {

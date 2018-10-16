@@ -1,4 +1,9 @@
-package dominio;
+package dominio.jobs;
+
+import dominio.Cliente;
+import dominio.RepositorioClientes;
+import simplex.Optimizacion;
+import simplex.OptimizadorConsumo;
 
 import java.util.List;
 import java.util.stream.Collectors;
