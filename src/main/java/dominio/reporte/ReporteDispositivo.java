@@ -1,6 +1,8 @@
 package dominio.reporte;
 
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -12,25 +14,20 @@ public class ReporteDispositivo {
 
 	EntityManager manager =  PerThreadEntityManagers.getEntityManager();
 	
-	public String consumoPromedioPorDispositivo(Cliente cliente) {
+	public List<Object[]> consumoPromedioPorDispositivo(Integer dni) {
 		//seria mejor que se filtre por el id del cliente y no por su dni??
-		Integer dni = cliente.getNumeroDeDocumento();
+//		Integer dni = cliente.getNumeroDeDocumento();
 		
-		Query query= manager.createQuery("select avg(c.kwConsumidos), d.nombre " + 
-				"from consumo c LEFT JOIN dispositivo d ON c.dispositivo_id= d.id JOIN cliente ON d.cliente_id = c.cliente.id " + 
-				"where c.numeroDeDocumento = ? " + 
-				"group by d.nombre");
-		
-		
-		
-//		Query query= manager.createQuery("from consumo as c " + 
-//				"join c.cliente_id as clie " + 
-//				"join c.dispositivo_id as dis");
+		Query query= manager.createNativeQuery("select avg(kwConsumidos) promedioKw, D.nombre\r\n" + 
+				"from consumo C left join dispositivo D on C.dispositivo_id= D.id join cliente CL on C.cliente_id = CL.id\r\n" + 
+				"where CL.numeroDeDocumento = ?1\r\n" + 
+				"group by D.nombre");
 				
-		query.setParameter(0,dni);
+		query.setParameter(1,dni);
 		
 		//
-		String kwConsumidos = query.getParameter(0).toString();
+		
+		List<Object[]> kwConsumidos =  query.getResultList();
 		
 		return kwConsumidos;
 		

@@ -3,8 +3,18 @@ package dominio.reporte;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Parameter;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.mockito.Mock.*;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import static org.mockito.Mockito.*;
 
 import dominio.Cliente;
@@ -19,27 +29,35 @@ import dominioTest.mocks.DispositivoFisicoMock;
 public class prueba {
 
 	public static void main(String[] args) {
-		ReporteHogar reporteHogar = new ReporteHogar();
-		ReporteDispositivo reporteDispositivo = new ReporteDispositivo();
-		Cliente cli = mock(Cliente.class);
-		when(cli.getNumeroDeDocumento()).thenReturn(new Integer(33333334));
+//		ReporteHogar reporteHogar = new ReporteHogar();
+	ReporteDispositivo reporteDispositivo = new ReporteDispositivo();
+		EntityManager manager =  PerThreadEntityManagers.getEntityManager();
+
+//		Query query= manager.createNativeQuery("select avg(kwConsumidos) promedioKw\r\n" + 
+//				"from consumo C left join dispositivo D on C.dispositivo_id= D.id join cliente CL on C.cliente_id = CL.id\r\n" + 
+//				"where CL.numeroDeDocumento = ?1\r\n" + 
+//				"group by D.nombre");
+//		query.setParameter(1,new Integer(33333334));
+//		
+//		List<Double> result = query.getResultList();
 		
-//		DispositivoFisico dispositivoFisico = new DispositivoFisicoMock();
-		LocalDate fechaDesde= LocalDate.of(2018,02,25);
+		// query para los nombresde los dispositivos
+//		Query query2= manager.createNativeQuery("select avg(kwConsumidos) promedioKw, D.nombre\r\n" + 
+//				"from consumo C left join dispositivo D on C.dispositivo_id= D.id join cliente CL on C.cliente_id = CL.id\r\n" + 
+//				"where CL.numeroDeDocumento = ?1\r\n" + 
+//				"group by D.nombre");
+//		
+//		query2.setParameter(1,new Integer(33333334));
 		
-		LocalDate fechaHasta = LocalDate.of(2018,03,11);
-//		Cliente cliente = new Cliente("Marjorie", "Shaw", TipoDeDocumento.DNI, 33333334, 42000000, LocalDate.now(),
-//				"7807 Samaritan Dr", "majshaw", "hudson",
-//				new ArrayList<Dispositivo>(Arrays.asList(
-//						new Dispositivo("Aire Acondicionado 2200 Frigorias", new ComportamientoEstandar(1.35, 12.0)),
-//						new Dispositivo("Heladera con Freezer", new ComportamientoEstandar(0.4, 12.0)),
-//						new Dispositivo("Tostadora", new ComportamientoInteligente(dispositivoFisico)))),
-//				false, new Punto(20, 15));
+//		List<Map<Double,String>> resultAvg = query2.getResultList();
+	
+		List<Object[]> listDatos2=reporteDispositivo.consumoPromedioPorDispositivo(new Integer(33333334));
+//		List<Object[]> listDatos =  query2.getResultList();
+		 for (Object[] datos : listDatos2) {
+		     System.out.println(datos[0] + "--" + datos[1]);
+		 }
 		
-//		String reporte = reporteHogar.consumoHogar(fechaDesde, fechaHasta, cli);
-		
-		String reporte2 = reporteDispositivo.consumoPromedioPorDispositivo(cli);
-		System.out.println(cli);
+	      
 
 	}
 

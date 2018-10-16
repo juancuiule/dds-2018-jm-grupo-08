@@ -24,6 +24,6 @@ public class ReporteHogar {
 		query.setParameter("fechaHasta",fechaHasta);
 		query.setParameter("dni",dni);
 		
-		return query.getParameter(0).toString();
+		return query.getParameterValue(0).toString();
 	}
 }
