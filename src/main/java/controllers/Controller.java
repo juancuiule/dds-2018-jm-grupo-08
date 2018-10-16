@@ -14,8 +14,8 @@ public abstract class Controller<tipoDeDominio> {
     }
 
     public  ModelAndView showResultado(Request req, Response res) {
-        return new ModelAndView(generarModelo(), hbsTemplate);
+        return new ModelAndView(generarModelo(this.objetoDeDominio), hbsTemplate);
     }
 
-    public abstract Object generarModelo();
+    public abstract Object generarModelo(tipoDeDominio objetoDeDominio);
 }
