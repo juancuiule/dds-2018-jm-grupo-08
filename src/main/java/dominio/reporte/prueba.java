@@ -15,10 +15,10 @@ import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
-import org.mockito.Mock.*;
+
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import static org.mockito.Mockito.*;
+
 
 import dominio.Cliente;
 import dominio.TipoDeDocumento;
@@ -67,21 +67,39 @@ public class prueba {
 //		     System.out.println(datos[0] + "--" + datos[1]);
 //		 }
 		
-		 Query query= manager.createNativeQuery("select sum(kwConsumidos) totalDeKw,CL.nombre, CL.apellido, CL.numeroDeDocumento\r\n" + 
+		 Query query= manager.createNativeQuery("select sum(kwConsumidos) totalDeKw\r\n" + 
 		 		"from consumo C join cliente CL on C.cliente_id = CL.id\r\n" + 
 		 		"where (C.fechaInicio <= ?1 and C.fechaFin >= ?2 ) and CL.numeroDeDocumento = ?3\r\n" + 
-		 		"group by CL.nombre, CL.apellido, CL.numeroDeDocumento");
+		 		"group by CL.numeroDeDocumento");
 	      
 		 query.setParameter(1,Date.valueOf(fechaDesde));
 		 query.setParameter(2,Date.valueOf(fechaHasta));
 		 query.setParameter(3,new Integer(33333334));
 		 
-		 List<Object[]> listDatos =  query.getResultList();
-		 for (Object[] datos : listDatos) {
-		     System.out.println(datos[0]+ "--"+datos[1]+"--"+datos[2]+"--"+datos[3]);
-		 }
+		 List<Object> listDatos =  query.getResultList();
 		 
-		 System.out.println(listDatos.size());
+		 Double re = Double.parseDouble(listDatos.get(0).toString());
+		 System.out.println(re);
+//		 for (Object[] datos : listDatos) {
+//		     System.out.println(datos[0]);
+//		 }
+//		 
+//		 Query query3= manager.createNativeQuery("select sum(kwConsumidos) totalDeKw" + 
+//			 		"from consumo C join cliente CL on C.cliente_id = CL.id\r\n" + 
+//			 		"where (C.fechaInicio >= ?1 and C.fechaFin <= ?2 ) and CL.numeroDeDocumento = ?3\r\n" + 
+//			 		"group by CL.numeroDeDocumento");
+//			
+//			query3.setParameter(1,Date.valueOf(fechaDesde));
+//			query3.setParameter(2,Date.valueOf(fechaHasta));
+//			query3.setParameter(3,new Integer(33333334));
+//
+//		 
+//		 
+//		 List<Object[]> listReporteHogar =  query3.getResultList();
+//			
+//		Double resultado = Double.parseDouble((String) listReporteHogar.get(0)[0]);
+//			
+//		 System.out.println(resultado);
 		 
 		 
 	}
