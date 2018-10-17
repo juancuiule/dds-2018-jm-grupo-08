@@ -23,13 +23,13 @@ public class ReporteHogar {
 		 		"where (C.fechaInicio >= ?1 and C.fechaFin <= ?2 ) and CL.numeroDeDocumento = ?3\r\n" + 
 		 		"group by CL.nombre, CL.apellido, CL.numeroDeDocumento");
 		
-		query.setParameter("1",Date.valueOf(fechaInicio));
-		query.setParameter("2",Date.valueOf(fechaFin));
-		query.setParameter("3",dni);
+		query.setParameter(1,Date.valueOf(fechaInicio));
+		query.setParameter(2,Date.valueOf(fechaFin));
+		query.setParameter(3,dni);
 		
-		List<Object[]> listReporteHogar =  query.getResultList();
-				
-		Double resultado = Double.parseDouble((String) listReporteHogar.get(0)[0]);
+		List<Object> listDatos =  query.getResultList();
+		 
+		 Double resultado = Double.parseDouble(listDatos.get(0).toString());
 		
 		return resultado;
 	
