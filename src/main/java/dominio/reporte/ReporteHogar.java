@@ -15,22 +15,26 @@ public class ReporteHogar {
 
 	EntityManager manager =  PerThreadEntityManagers.getEntityManager();
 	
-	public List<Object[]> consumoHogar(LocalDate fechaDesde, LocalDate fechaHasta, Cliente cliente) {
+	public Double consumoHogar(LocalDate fechaInicio, LocalDate fechaFin, Cliente cliente) {
 		double dni = cliente.getNumeroDeDocumento();
 		
-		Query query= manager.createNativeQuery("select sum(kwConsumidos) totalDeKw,CL.nombre, CL.apellido, CL.numeroDeDocumento\r\n" + 
+		Query query= manager.createNativeQuery("select sum(kwConsumidos) totalDeKw" + 
 		 		"from consumo C join cliente CL on C.cliente_id = CL.id\r\n" + 
-		 		"where (C.fechaInicio <= ?1 and C.fechaFin >= ?2 ) and CL.numeroDeDocumento = ?3\r\n" + 
+		 		"where (C.fechaInicio >= ?1 and C.fechaFin <= ?2 ) and CL.numeroDeDocumento = ?3\r\n" + 
 		 		"group by CL.nombre, CL.apellido, CL.numeroDeDocumento");
 		
-		query.setParameter("fechaDesde",Date.valueOf(fechaDesde));
-		query.setParameter("fechaHasta",Date.valueOf(fechaHasta));
-		query.setParameter("dni",dni);
+		query.setParameter("1",Date.valueOf(fechaInicio));
+		query.setParameter("2",Date.valueOf(fechaFin));
+		query.setParameter("3",dni);
 		
 		List<Object[]> listReporteHogar =  query.getResultList();
+				
+		Double resultado = Double.parseDouble((String) listReporteHogar.get(0)[0]);
 		
-		return listReporteHogar;
-	}
+		return resultado;
 	
+	
+	
+	}
 	
 }
