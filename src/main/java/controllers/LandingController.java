@@ -12,29 +12,13 @@ public class LandingController {
 
         switch (role){
             case "admin":
-                return showAdminLanding(req, res);
+                res.redirect("/admin");
             case "user":
-                return showUserLanding(req, res);
+                res.redirect("/user");
             case "guest":
-                return showLoginPage(req, res);
+                res.redirect("/login");
         }
         return null;
     }
-
-    private static String showLoginPage(Request req, Response res) {
-        res.redirect("/login");
-        return null;
-    }
-
-    private static String showUserLanding(Request req, Response res) {
-        res.redirect("/user");
-        return null;
-    }
-
-    private static String showAdminLanding(Request req, Response res) {
-        res.redirect("/admin");
-        return null;
-    }
-
 
 }
