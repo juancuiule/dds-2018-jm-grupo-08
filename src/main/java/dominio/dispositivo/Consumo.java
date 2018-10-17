@@ -19,8 +19,12 @@ public class Consumo extends PersistentObject{
 	@JoinColumn(name = "dispositivo_id")
 	private Dispositivo dispositivo;
 	
+	@Convert(converter = ConversorDeFecha.class)
 	private LocalDate fechaInicio;
+	
+	@Convert(converter = ConversorDeFecha.class)
 	private LocalDate fechaFin;
+	
 	private double kwConsumidos;
 	
 	

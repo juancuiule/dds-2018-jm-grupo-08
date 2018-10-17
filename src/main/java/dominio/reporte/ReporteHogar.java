@@ -1,6 +1,8 @@
 package dominio.reporte;
 
+import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -13,17 +15,22 @@ public class ReporteHogar {
 
 	EntityManager manager =  PerThreadEntityManagers.getEntityManager();
 	
-	public String consumoHogar(LocalDate fechaDesde, LocalDate fechaHasta, Cliente cliente) {
-		String dni = cliente.getNumeroDeDocumento().toString();
+	public List<Object[]> consumoHogar(LocalDate fechaDesde, LocalDate fechaHasta, Cliente cliente) {
+		double dni = cliente.getNumeroDeDocumento();
 		
-		Query query= manager.createQuery("select sum(kwConsumidos) "+
-		"from consumo JOIN cliente ON consumo.cliente_id = cliente.id "+
-				"where (fechaDesde<=: fechaInicio and fechaHasta>=:fechaFin) and cliente.numeroDeDocumento =: dni");
+		Query query= manager.createNativeQuery("select sum(kwConsumidos) totalDeKw,CL.nombre, CL.apellido, CL.numeroDeDocumento\r\n" + 
+		 		"from consumo C join cliente CL on C.cliente_id = CL.id\r\n" + 
+		 		"where (C.fechaInicio <= ?1 and C.fechaFin >= ?2 ) and CL.numeroDeDocumento = ?3\r\n" + 
+		 		"group by CL.nombre, CL.apellido, CL.numeroDeDocumento");
 		
-		query.setParameter("fechaDesde",fechaDesde);
-		query.setParameter("fechaHasta",fechaHasta);
+		query.setParameter("fechaDesde",Date.valueOf(fechaDesde));
+		query.setParameter("fechaHasta",Date.valueOf(fechaHasta));
 		query.setParameter("dni",dni);
 		
-		return query.getParameterValue(0).toString();
+		List<Object[]> listReporteHogar =  query.getResultList();
+		
+		return listReporteHogar;
 	}
+	
+	
 }
