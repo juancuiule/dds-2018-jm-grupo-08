@@ -15,6 +15,9 @@ public class Categoria extends PersistentObject{
 	private Double valorFijo;
 	private Double valorVariable;
 
+	@SuppressWarnings("unused")
+	private Categoria() {}
+	
 	public Categoria(String nombre, Integer limiteInferiorDeConsumo, Integer limiteSuperiorDeConsumo,
 			Double valorFijo, Double valorVariable) {
 		this.nombre = nombre;
