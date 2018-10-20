@@ -18,7 +18,7 @@ public class ReporteHogar {
 	public Double consumoHogar(LocalDate fechaInicio, LocalDate fechaFin, Cliente cliente) {
 		double dni = cliente.getNumeroDeDocumento();
 		
-		Query query= manager.createNativeQuery("select sum(kwConsumidos) totalDeKw" + 
+		Query query = manager.createNativeQuery("select sum(kwConsumidos) totalDeKw" + 
 		 		"from consumo C join cliente CL on C.cliente_id = CL.id\r\n" + 
 		 		"where (C.fechaInicio >= ?1 and C.fechaFin <= ?2 ) and CL.numeroDeDocumento = ?3\r\n" + 
 		 		"group by CL.nombre, CL.apellido, CL.numeroDeDocumento");
@@ -27,14 +27,13 @@ public class ReporteHogar {
 		query.setParameter(2,Date.valueOf(fechaFin));
 		query.setParameter(3,dni);
 		
+		@SuppressWarnings("unchecked")
 		List<Object> listDatos =  query.getResultList();
 		 
-		 Double resultado = Double.parseDouble(listDatos.get(0).toString());
+		Double resultado = Double.parseDouble(listDatos.get(0).toString());
 		
 		return resultado;
-	
-	
-	
+		
 	}
 	
 }
