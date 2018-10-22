@@ -20,7 +20,7 @@ public class LoginController {
 
         if(usuario.isPresent()){
             req.session().attribute("auth",true);
-            req.session().attribute("user",usuario);
+            req.session().attribute("user",usuario.get());
             res.redirect("/roleSelection");
         }else{
             return "Usuario y/o contraseña invalidos";
