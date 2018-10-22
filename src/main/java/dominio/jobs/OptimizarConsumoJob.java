@@ -19,12 +19,11 @@ public class OptimizarConsumoJob {
 	
 	public void ejecutar() {
 		List<Cliente> clientesConAhorroAutomatico = repoClientes
-		                                           .filtrarSegun(unCliente -> unCliente.getAhorroAutomatico())
-		                                           .collect(Collectors.toList());
+		                                           .findAllWhere("ahorroAutomatico = true");
 		
 		clientesConAhorroAutomatico.forEach(cliente -> {
 			List<Optimizacion> optimizaciones = OptimizadorConsumo.optimizar(cliente.dispositivos());
-			optimizaciones.forEach(optimizacion -> optimizacion.restringirConsumo());
+			optimizaciones.forEach(Optimizacion::restringirConsumo);
 		});	
 		
 	}
