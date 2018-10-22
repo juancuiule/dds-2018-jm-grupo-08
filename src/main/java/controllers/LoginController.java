@@ -1,7 +1,12 @@
 package controllers;
 
+import dominio.Usuario;
 import spark.Request;
 import spark.Response;
+
+import java.util.Optional;
+
+import static utils.Authenticator.*;
 
 public class LoginController {
     public static String respond(Request req, Response res) {
@@ -11,22 +16,15 @@ public class LoginController {
     public static String react(Request req, Response res) {
         String username = req.params("username");
         String password = req.params("password");
-        if(authenticate(username,password)){
+        Optional<Usuario> usuario = authenticateUser(username, password);
+
+        if(usuario.isPresent()){
             req.session().attribute("auth",true);
-            pupulateSession(req);
+            req.session().attribute("user",usuario);
             res.redirect("/roleSelection");
         }else{
             return "Usuario y/o contraseña invalidos";
         }
         return null;
     }
-
-    private static void pupulateSession(Request req) {
-        req.session().attribute("role","user");
-    }
-
-    private static Boolean authenticate(String username, String password) {
-        return true;
-    }
-
 }
