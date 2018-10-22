@@ -2,6 +2,7 @@ package server;
 
 import controllers.LandingController;
 import controllers.LoginController;
+import dominio.Usuario;
 import spark.Request;
 import spark.Response;
 
@@ -16,29 +17,34 @@ public class Server {
         post("/login", LoginController::react);
 
         before("/user*",(req,res)->{
-            validateAuthenticationOrHalt(req);
-            validateRoleOrRedirect(req,res,"user");
+            haltIfNotAuthenticated(req);
+            redirectHomeIfTrue(res,!obtenerUsuario(req).esCliente());
         });
         before("/admin*",(req,res)->{
-            validateAuthenticationOrHalt(req);
-            validateRoleOrRedirect(req,res,"admin");
+            haltIfNotAuthenticated(req);
+            redirectHomeIfTrue(res,!obtenerUsuario(req).esAdmin());
         });
     }
 
-    private static void validateAuthenticationOrHalt(Request req){
-        Boolean isAuthenticated = Optional.ofNullable
-                ((Boolean) req.session().attribute("auth"))
-                .orElse(false);
-        if(!isAuthenticated){
+    private static void haltIfNotAuthenticated(Request req){
+        if(!isAuthenticated(req)){
             halt(401, "Acceso restingido");
         }
     }
 
-    private static void validateRoleOrRedirect(Request req, Response res, String expectedRole){
-        String role = Optional.ofNullable((String) req.session().attribute("role"))
-                .orElse("guest");
-        if(!role.equals(expectedRole)){
-            res.redirect("/");
-        }
+    private static Boolean isAuthenticated(Request req) {
+        return Optional.ofNullable
+                ((Boolean) req.session().attribute("auth"))
+                .orElse(false);
     }
+
+    private static void redirectHomeIfTrue(Response res, Boolean condition){
+        if(condition) res.redirect("/");
+    }
+
+
+    private static Usuario obtenerUsuario(Request req){
+        return req.session().attribute("user");
+    }
+
 }
