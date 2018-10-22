@@ -1,27 +1,18 @@
 package dominio;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
-public class RepositorioClientes extends Repositorio<Cliente> {
+public class RepositorioClientes extends Repositorio<Cliente> implements WithGlobalEntityManager {
 	public static RepositorioClientes instancia;
 	
-	public RepositorioClientes() {
-		this.elementos = new ArrayList<Cliente>();
+	public RepositorioClientes(String tableName) {
+		super(tableName);
 	}
 	
 	public static RepositorioClientes getInstance() {
 		if(instancia == null) {
-			instancia =  new RepositorioClientes();
+			instancia =  new RepositorioClientes("Cliente");
 		}
 		return instancia;
-	}
-	
-	public void agregarCliente(Cliente unCliente) {
-		this.elementos.add(unCliente);
-	}
-	
-	public List<Cliente> obtenerClientes() {
-		return this.elementos;
 	}
 }

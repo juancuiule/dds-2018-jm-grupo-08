@@ -3,21 +3,21 @@ package dominio.transformadores;
 import dominio.Cliente;
 import dominio.Repositorio;
 
-import java.util.ArrayList;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class RepositorioTransformadores extends Repositorio<Transformador> {
 	static RepositorioTransformadores instancia;
-
+	
 	public static RepositorioTransformadores getInstance() {
 		if (instancia == null) {
-			instancia = new RepositorioTransformadores();
+			instancia = new RepositorioTransformadores("Transformador");
 		}
 		return instancia;
 	}
 
-	public RepositorioTransformadores() {
-		this.elementos = new ArrayList<Transformador>();
+	public RepositorioTransformadores(String tableName) {
+		super(tableName);
 	}
 	
 	public Stream<Transformador> tranformadoresActivos() {
@@ -25,10 +25,15 @@ public class RepositorioTransformadores extends Repositorio<Transformador> {
 	}
 	
 	public Transformador transformadorMasCercano(Cliente cliente) {
-		return this.elementos.stream().min(new ComparadorDistancias(cliente)).get();
+		return this.findAll().stream().min(new ComparadorDistancias(cliente)).get();
 	}
 	
 	public void asignarTransformador(Cliente cliente) {
 		transformadorMasCercano(cliente).conectarCliente(cliente);
+	}
+
+	public Stream<Transformador> filtrarSegun(Predicate<Transformador> unaCondicion) {
+		// estaria bueno si podemos hacer algunos de estos filtros desde la db... y no en memoria trayendo todo
+		return this.findAll().stream().filter(unaCondicion);
 	}
 }

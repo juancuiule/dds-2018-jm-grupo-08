@@ -15,6 +15,8 @@ public class ComparadorDistancias implements Comparator<Transformador>{
 
 	@Override
 	public int compare(Transformador transformador1, Transformador transformador2) {
+		System.out.println(transformador1);
+		System.out.println(transformador2);
 		Double distancia1 = distance(transformador1.getPunto(), cliente.getPunto());
 		Double distancia2 = distance(transformador2.getPunto(), cliente.getPunto());
 		if (distancia1 < distancia2) {
