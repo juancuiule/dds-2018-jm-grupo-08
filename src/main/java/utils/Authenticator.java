@@ -6,7 +6,17 @@ import dominio.repositorios.RepositorioUsuarios;
 import java.util.Optional;
 
 public class Authenticator {
-    public static Optional<Usuario> authenticateUser(String username, String password){
-        return RepositorioUsuarios.getInstance().findOneOptional("username ="+ username + "AND password =" + password );
+    private RepositorioUsuarios repositorio;
+
+    public Authenticator(RepositorioUsuarios repositorio) {
+        this.repositorio = repositorio;
+    }
+
+    public Authenticator() {
+        this.repositorio = RepositorioUsuarios.getInstance();
+    }
+
+    public Optional<Usuario> authenticateUser(String username, String password){
+        return repositorio.findOneOptional("username = "+ username + " AND password = " + password );
     }
 }
