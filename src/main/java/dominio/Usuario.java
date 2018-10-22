@@ -54,4 +54,12 @@ public class Usuario extends PersistentObject{
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean esAdmin() {
+        return rolAdmin != null;
+    }
+
+    public boolean esCliente() {
+        return rolCliente != null;
+    }
 }
