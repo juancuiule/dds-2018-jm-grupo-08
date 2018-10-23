@@ -19,8 +19,9 @@ public class LoginController {
     }
 
     public static String react(Request req, Response res) {
-        String username = req.params("username");
-        String password = req.params("password");
+        String username = req.queryParams("username");
+        String password = req.queryParams("password");
+        System.out.println(req.body());
         Optional<Usuario> usuario = auth.authenticateUser(username, password);
 
         if(usuario.isPresent()){

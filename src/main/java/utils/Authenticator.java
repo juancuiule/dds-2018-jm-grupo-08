@@ -17,6 +17,6 @@ public class Authenticator {
     }
 
     public Optional<Usuario> authenticateUser(String username, String password){
-        return repositorio.findOneOptional("username = "+ username + " AND password = " + password );
+        return repositorio.findOneOptional("username = '"+ username + "' AND password = '" + password + "'");
     }
 }
