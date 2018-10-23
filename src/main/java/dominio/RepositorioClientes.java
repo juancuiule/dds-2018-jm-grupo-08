@@ -3,9 +3,9 @@ package dominio;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 public class RepositorioClientes extends Repositorio<Cliente> implements WithGlobalEntityManager {
-	public static RepositorioClientes instancia;
+	private static RepositorioClientes instancia;
 	
-	public RepositorioClientes(String tableName) {
+	private RepositorioClientes(String tableName) {
 		super(tableName);
 	}
 	
