@@ -23,6 +23,7 @@
 		<class>dominio.reactores.Sensor</class>
 		<class>dominio.reactores.Actuador</class>
 		<class>dominio.dispositivo.Consumo</class>
+		<class>dominio.dispositivoBase.DispositivoBase</class>
 
 		<properties>
 			<property name="hibernate.archive.autodetection"
