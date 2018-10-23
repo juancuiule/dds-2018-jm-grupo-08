@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 public abstract class Repositorio<T> implements WithGlobalEntityManager {
-	public String tableName;
+	private String tableName;
 
 	public Repositorio(String tableName) {
 		this.tableName = tableName;
@@ -28,19 +28,17 @@ public abstract class Repositorio<T> implements WithGlobalEntityManager {
 
     public Optional<T> findOneOptional(String where) {
         List<T> results = entityManager()
-                .createQuery("from " + this.tableName + " where ( " + where + " )").getResultList();
-        T result;
-        if (results.isEmpty()){
-            result = null;
-        }else{
+                .createQuery(String.format("from %s where ( %s )", this.tableName, where)).getResultList();
+
+        T result = null;
+        if (!results.isEmpty()){
             result = results.get(0);
         }
         return Optional.ofNullable(result);
     }
 	
 	public void agregar(T elemento) {
-		entityManager().persist(elemento);
+		persistir(elemento);
 	}
-
-	public void persistir(T elemento) { agregar(elemento); }
+	public void persistir(T elemento) { entityManager().persist(elemento); }
 }

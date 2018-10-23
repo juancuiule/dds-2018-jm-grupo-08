@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import javax.persistence.*;
 
+import dominio.dispositivo.ConversorDeFecha;
 import dominio.dispositivo.Dispositivo;
 import dominio.transformadores.Punto;
 import dominio.transformadores.RepositorioTransformadores;
@@ -21,6 +22,7 @@ public class Cliente extends PersistentObject {
 	private String apellido;
 	private Integer numeroDeDocumento;
 	private Integer telefono;
+	@Convert(converter = ConversorDeFecha.class)
 	private LocalDate fechaDeAlta;
 	private String domicilio;
 	private String nombreDeUsuario;
