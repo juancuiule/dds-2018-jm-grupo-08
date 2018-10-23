@@ -23,6 +23,9 @@ public class Usuario extends PersistentObject{
         this.password = password;
     }
 
+    public Usuario() {
+    }
+
     public Cliente getRolCliente() {
         return rolCliente;
     }
