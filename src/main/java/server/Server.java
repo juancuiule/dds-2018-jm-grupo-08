@@ -2,6 +2,8 @@ package server;
 
 import controllers.LandingController;
 import controllers.LoginController;
+import controllers.AdminController;
+import controllers.AdminReporteController;
 import spark.Request;
 import spark.Response;
 
@@ -14,6 +16,9 @@ public class Server {
         get("/", LandingController::respond);
         get("/login", LoginController::respond);
         post("/login", LoginController::react);
+        get("/admin", AdminController::respond); 
+        get("/admin/reporte", AdminReporteController::respond);
+        
 
         before("/user*",(req,res)->{
             validateAuthenticationOrHalt(req);
