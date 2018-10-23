@@ -7,18 +7,19 @@ import java.util.List;
 
 import dominio.Cliente;
 import dominio.RepositorioClientes;
+import dominio.reporte.ReporteHogar;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 public class AdminReporteController {
 	
-	public  ModelAndView respond(Request req, Response res) {
+	public static ModelAndView respond(Request req, Response res) {
         return new ModelAndView(generarDominio(req), "reportes.hbs");
     }
 	
 	
-	private List<ReporteUser> generarDominio(Request req) {
+	private static List<ReporteUser> generarDominio(Request req) {
 		
 		
 		
@@ -49,8 +50,10 @@ public class AdminReporteController {
 		
 		clientes.forEach(c -> {
 		
-			listaReporteUser.add(new ReporteUser(c.getNombre(),c.getApellido(),c.getNumeroDeDocumento(),c.getDomicilio(),queryReporte.consumoHogar(fechaInicio, fechaFinal, c ))	
+		listaReporteUser.add(new ReporteUser(c.getNombre(),c.getApellido(),c.getNumeroDeDocumento(),c.getDomicilio(),queryReporte.consumoHogar(fechaInicio, fechaFinal, c )));
+		
 		});
+		
 		
 		return listaReporteUser;
 	}
