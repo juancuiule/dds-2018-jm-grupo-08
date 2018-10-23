@@ -22,4 +22,19 @@ public class Optimizacion {
 		}
 	}
 
+	public Dispositivo getDispositivo() {
+		return dispositivo;
+	}
+
+	public void setDispositivo(Dispositivo dispositivo) {
+		this.dispositivo = dispositivo;
+	}
+
+	public Double getLimite() {
+		return limite;
+	}
+
+	public void setLimite(Double limite) {
+		this.limite = limite;
+	}
 }
