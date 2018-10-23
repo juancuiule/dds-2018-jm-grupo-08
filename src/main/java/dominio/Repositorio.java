@@ -16,6 +16,10 @@ public abstract class Repositorio<T> implements WithGlobalEntityManager {
 		return entityManager().createQuery("from ".concat(this.tableName)).getResultList();
 	}
 
+    public List<T> findAllWhere(String where) {
+        return entityManager().createQuery("from " + this.tableName + " where ( " + where + " )").getResultList();
+    }
+
 	@SuppressWarnings("unchecked")
 	public T findOne(String where) {
 		return (T) entityManager()
@@ -37,4 +41,6 @@ public abstract class Repositorio<T> implements WithGlobalEntityManager {
 	public void agregar(T elemento) {
 		entityManager().persist(elemento);
 	}
+
+	public void persistir(T elemento) { agregar(elemento); }
 }

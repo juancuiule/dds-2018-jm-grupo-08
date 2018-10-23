@@ -25,16 +25,19 @@ public class AdminReporteController {
 		String fechaIni = req.queryParams("fechaInicio");
 		String fechaFin = req.queryParams("fechaFin");
 		
+		LocalDate fechaInicio;
+		LocalDate fechaFinal;
+		
 		if(fechaIni != null || fechaFin != null ) {
 			
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
-			LocalDate fechaInicio = LocalDate.parse(fechaIni,formatter);
-			LocalDate fechaFinal = LocalDate.parse(fechaFin,formatter);
+			fechaInicio = LocalDate.parse(fechaIni,formatter);
+			fechaFinal = LocalDate.parse(fechaFin,formatter);
 			
 			} else {
 			
-			LocalDate fechaFinal = LocalDate.now();
-			LocalDate fechaInicio = LocalDate.now().minusMonths(1);
+			fechaFinal = LocalDate.now();
+			fechaInicio = LocalDate.now().minusMonths(1);
 			
 			}
 		

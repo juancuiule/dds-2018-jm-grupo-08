@@ -9,6 +9,6 @@ public class HogaresController extends Controller<RepositorioClientes> {
 
     @Override
     public Object generarModelo(RepositorioClientes repositorio) {
-        return repositorio.obtenerClientes();
+        return repositorio.findAll();
     }
 }
