@@ -3,12 +3,14 @@ package dominio.dispositivoBase;
 import dominio.Cliente;
 import dominio.dispositivo.Dispositivo;
 
+import java.util.Optional;
+
 public class ClienteController {
 
 	public void agregarUnDispositivoAunCliente(Cliente cliente, String nombre) {
-		DispositivoBase  dispositivo = RepositorioDispositivoBase.getInstance().buscarDispositivo(nombre);
+		Optional<DispositivoBase> dispositivo = RepositorioDispositivoBase.getInstance().buscarDispositivo(nombre);
 		
-		Dispositivo dispositivoParaElCliente = dispositivo.devolverDisositivo();
+		Dispositivo dispositivoParaElCliente = dispositivo.get().devolverDisositivo();
 		
 		cliente.agregarDispositivo(dispositivoParaElCliente);
 	}
