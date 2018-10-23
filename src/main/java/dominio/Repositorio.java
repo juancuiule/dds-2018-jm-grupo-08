@@ -41,4 +41,6 @@ public abstract class Repositorio<T> implements WithGlobalEntityManager {
 	public void agregar(T elemento) {
 		entityManager().persist(elemento);
 	}
+
+	public void persistir(T elemento) { agregar(elemento); }
 }
