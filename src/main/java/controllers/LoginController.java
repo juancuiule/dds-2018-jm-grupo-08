@@ -1,17 +1,21 @@
 package controllers;
 
 import dominio.Usuario;
+import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import utils.Authenticator;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class LoginController {
     private static Authenticator auth = new Authenticator();
 
-    public static String respond(Request req, Response res) {
-        return "Login page";
+    public static ModelAndView respond(Request req, Response res) {
+        Map<String, Object> viewModel = new HashMap<>();
+        return new ModelAndView(viewModel,"login.hbs");
     }
 
     public static String react(Request req, Response res) {

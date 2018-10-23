@@ -5,13 +5,16 @@ import dominio.Usuario;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.util.Optional;
 
 public class Router {
     public static void init() {
+        HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
+
         Spark.get("/", LandingController::respond);
-        Spark.get("/login", LoginController::respond);
+        Spark.get("/login", LoginController::respond,engine);
         Spark.post("/login", LoginController::react);
         Spark.get("/admin", AdminController::respond);
         Spark.get("/admin/reporte", AdminReporteController::respond);
