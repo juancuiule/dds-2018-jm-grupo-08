@@ -129,6 +129,9 @@ public class UserController {
 	public static ModelAndView estadoDelHogar(Request req, Response res) {
 		Map<String, Object> viewModel = new HashMap<>();
 		viewModel.put("dispositivos", dispositivos);
+		// falta mostrar:
+		// - ultimas mediciones (podría ser la tercer columna)
+		// - consumo del ultimo periodo
 		return new ModelAndView(viewModel, "user-dashboard.hbs");
 	}
 
