@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
+
 import dominio.dispositivo.ComportamientoEstandar;
 import dominio.dispositivo.Dispositivo;
 import spark.ModelAndView;
@@ -36,6 +38,30 @@ class Mes {
 	}
 }
 
+class SubPeriodo {
+	String fechas;
+	Double consumo;
+	Double consumoAcumulado;
+
+	public SubPeriodo(String fechas, Double consumo, Double consumoAcumulado) {
+		this.fechas = fechas;
+		this.consumo = consumo;
+		this.consumoAcumulado = consumoAcumulado;
+	}
+
+	public String getFechas() {
+		return fechas;
+	}
+
+	public Double getConsumo() {
+		return consumo;
+	}
+
+	public Double getConsumoAcumulado() {
+		return consumoAcumulado;
+	}
+}
+
 public class UserController {
 
 	static List<Mes> meses = new ArrayList<Mes>(
@@ -43,6 +69,11 @@ public class UserController {
 					new Mes(4, "Abril", false), new Mes(5, "Mayo", false), new Mes(6, "Junio", false),
 					new Mes(7, "Julio", false), new Mes(8, "Agosto", false), new Mes(9, "Septiembre", false),
 					new Mes(10, "Octubre", true), new Mes(11, "Noviembre", false), new Mes(12, "Diciembre", false)));
+
+	static List<SubPeriodo> subperiodos = new ArrayList<SubPeriodo>(
+			Arrays.asList(new SubPeriodo("1-5", 150.3, 150.3), new SubPeriodo("6-10", 200d, 350.3),
+					new SubPeriodo("11-15", 15.3, 365.6), new SubPeriodo("16-20", 50.3, 415.9),
+					new SubPeriodo("21-25", 114.1, 530d), new SubPeriodo("25-30", 100d, 630d)));
 
 	public static ModelAndView dashboard(Request req, Response res) {
 		return estadoDelHogar(req, res);
@@ -57,9 +88,24 @@ public class UserController {
 		return new ModelAndView(viewModel, "user-dashboard.hbs");
 	}
 
+	public static List<SubPeriodo> consumosParaPeriodo(Mes mes) {
+		System.out.println("Se pidio data para el mes: " + mes.getDescripcion());
+		return subperiodos; // esto debería buscar la data en el reporte, acorde al mes o periodo gral
+	}
+
+	public static String consumosParaPeriodoJson(Request req, Response res) {
+		Integer mes = Integer.parseInt(req.queryParams("mes"));
+		Mes mesEnCuestion = meses.get(mes - 1);
+		String subperiodosJson = new Gson().toJson(consumosParaPeriodo(mesEnCuestion));
+		return subperiodosJson;
+	}
+
 	public static ModelAndView consumosPorPeriodos(Request req, Response res) {
 		Map<String, Object> viewModel = new HashMap<>();
 		viewModel.put("periodos", meses);
+		// meses.get(10) tendría que ser el periodo acutal, y tendría que
+		// coincidir con el que este con selected = true en la lista de periodos/meses
+		viewModel.put("subperiodos", consumosParaPeriodo(meses.get(10)));
 		return new ModelAndView(viewModel, "consumos-por-periodo.hbs");
 	}
 

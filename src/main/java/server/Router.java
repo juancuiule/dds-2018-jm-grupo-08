@@ -38,6 +38,7 @@ public class Router {
 		Spark.get("/user/dashboard", UserController::dashboard, engine);
 		Spark.get("/user/estado-del-hogar", UserController::estadoDelHogar, engine);
 		Spark.get("/user/consumos-por-periodo", UserController::consumosPorPeriodos, engine);
+		Spark.get("/user/consumos-por-periodo/data", UserController::consumosParaPeriodoJson);
 	}
 
 	private static void haltIfNotAuthenticated(Request req) {
