@@ -6,7 +6,12 @@ import spark.Response;
 
 public class AdminController {
 
-	public static ModelAndView respond(Request req, Response res) {
+	public static ModelAndView dashboard(Request req, Response res) {
+		return reporteDeConsumo(req, res);
+	}
+
+	public static ModelAndView reporteDeConsumo(Request req, Response res) {
+		// mandar la data del reporte al mostrar
 		return new ModelAndView(null, "admin-dashboard.hbs");
 	}
 	

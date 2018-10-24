@@ -2,19 +2,11 @@ package server;
 
 import controllers.*;
 import dominio.Usuario;
-import dominio.dispositivo.ComportamientoEstandar;
-import dominio.dispositivo.Dispositivo;
-import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public class Router {
@@ -37,16 +29,16 @@ public class Router {
 //		});
 
 		Spark.redirect.get("/admin", "/admin/dashboard");
-		Spark.get("/admin/dashboard", AdminController::respond, engine);
-		Spark.get("/admin/dashboard/reporte-de-consumo", AdminController::respond, engine);
-		Spark.get("/admin/dashboard/alta-de-dispositivo", AdminController::altaDispositivo, engine);
-		Spark.post("/admin/dashboard/alta-de-dispositivo", AdminController::darDeAlta);
+		Spark.get("/admin/dashboard", AdminController::dashboard, engine);
+		Spark.get("/admin/reporte-de-consumo", AdminController::reporteDeConsumo, engine);
+		Spark.get("/admin/alta-de-dispositivo", AdminController::altaDispositivo, engine);
+		Spark.post("/admin/alta-de-dispositivo", AdminController::darDeAlta);
 
 //		Spark.get("/admin/reporte", AdminReporteController::respond);
 
 		Spark.redirect.get("/user", "/user/dashboard");
-		Spark.get("/user/dashboard", EstadoDelHogarController::respond, engine);
-		Spark.get("/user/dashboard/estado-del-hogar", EstadoDelHogarController::respond, engine);
+		Spark.get("/user/dashboard", UserController::dashboard, engine);
+		Spark.get("/user/estado-del-hogar", UserController::estadoDelHogar, engine);
 	}
 
 	private static void haltIfNotAuthenticated(Request req) {

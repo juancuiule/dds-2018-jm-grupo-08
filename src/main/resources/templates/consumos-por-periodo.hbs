@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+{{#partial "title"}}
+  <title>Panel de Control - Consumos por Periodo</title>
+{{/partial}}
+{{> partials/head.hbs}}
+<body>
+  {{#partial "links"}}
+    <li class="nav-item active">
+      <a class="nav-link" href="/user/estado-del-hogar">Estado del Hogar</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="#">Consumos por Periodo</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="/user/optimizaciones">Ver Optmizaciones</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="/logout">Salir</a>
+    </li>
+  {{/partial}}
+  {{> partials/nav.hbs}}
+  <header>
+    <h1>Consumos por Periodo</h1>
+    <p>Acá podes ver tu consumo a lo largo del mes</p>
+    <p>Elegí un periodo para ver el consumo</p>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="monthSelect">Mes</label>
+      </div>
+      <select class="custom-select" id="monthSelect">
+        {{#each periodos}}
+          {{#if selected}}
+            <option value="{{value}}" selected>{{descripcion}}</option>
+          {{else}}
+            <option value="{{value}}">{{descripcion}}</option>
+          {{/if}}
+        {{/each}}
+      </select>
+    </div>
+
+    <table class="table estado-hogar-table">
+      <thead>
+        <tr>
+          <th scope="col">Periodo</th>
+          <th scope="col">Consumo</th>
+          <th scope="col">Consumo Acumulado</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each subperiodos}}
+          <tr>
+            <td>{{fechas}}</td>
+            <td>{{consumo}}</td>
+            <td>{{consumoAcumulado}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </header>
+</body>
+</html>
