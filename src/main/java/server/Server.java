@@ -7,6 +7,4 @@ public class Server {
         Router.init();
         DebugScreen.enableDebugScreen();
     }
-
-
 }
