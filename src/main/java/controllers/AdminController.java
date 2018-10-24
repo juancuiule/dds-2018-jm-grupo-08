@@ -10,7 +10,14 @@ public class AdminController {
 		return new ModelAndView(null, "admin-dashboard.hbs");
 	}
 	
-	public static void redirectToDashboard(Request req, Response res) {
-		res.redirect("/admin/dashboard");
+	public static ModelAndView altaDispositivo(Request req, Response res) {
+		// mandar las interfaces disponibles
+		return new ModelAndView(null, "alta-de-dispositivo.hbs");
+	}
+
+	public static String darDeAlta(Request req, Response res) {
+		System.out.println(req.body());
+		// todo: dar de alta el dispositivo
+		return "";
 	}
 }

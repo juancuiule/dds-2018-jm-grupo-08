@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+{{#partial "title"}}
+  <title>Panel de Control - Alta de Dispositivos</title>
+{{/partial}}
+{{> partials/head.hbs}}
+<body>
+  {{#partial "links"}}
+    <li class="nav-item active">
+      <a class="nav-link" href=/admin/dashboard/reporte-de-consumo">Reporte de Consumo</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="/admin/dashboaard/alta-de-dispositivo">Alta de Dispositivos</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="/logout">Salir</a>
+    </li>
+  {{/partial}}
+  {{> partials/nav.hbs}}
+  <header>
+    <h1>Alta de Dispositivos</h1>
+    <div class="form" id="form-dispositivo">
+      <div class="form-group">
+        <label for="descripcion">Descripcion</label>
+        <input type="text" class="form-control" id="descripcion">
+      </div>
+      <div class="form-group">
+        <label for="consumoPorHora">Consumo por hora</label>
+        <div class="input-group">
+          <input type="number" class="form-control" id="consumoPorHora">
+          <div class="input-group-append">
+            <span class="input-group-text">kWh</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Tipo de Dispositivo</label>
+        <div class="custom-control custom-radio">
+          <input type="radio" id="inteligente" name="tipo" class="custom-control-input">
+          <label class="custom-control-label" for="inteligente">Dispositivo Inteligente</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input type="radio" id="estandar" name="tipo" checked class="custom-control-input">
+          <label class="custom-control-label" for="estandar">Dispositivo Estandar</label>
+        </div>
+      </div>
+      <div class="form-group hide" id="interfaz-box">
+        <label for="interfaz">Interfaz</label>
+        <select class="form-control form-control-sm" id="interfaz">
+          <option disabled>Interfaz</option>
+          <option value="sony">Sony XC3232</option>
+          <option value="samsung">Samsung #Y123</option>
+          <option value="lg">LG Fridge321XXY</option>
+        </select>
+      </div>
+      <button id="submit-button" onclick="javascript:void(0)" class="btn btn-primary">Dar de alta</button>
+    </div>
+  </header>
+  <script>
+    window.onload = function() {
+      const radios = document.getElementsByName('tipo')
+      const interfazBox = document.getElementById('interfaz-box')
+      const showInterfaz = () => {
+        interfazBox.classList.remove("hide")
+      }
+      const hideInterfaz = () => {
+        interfazBox.classList.add("hide")
+      }
+      radios.forEach((r) => {
+        r.onclick = function() {
+          this.id === "inteligente" ? showInterfaz() : hideInterfaz()
+        }
+      })
+      
+      const button = document.getElementById('submit-button');
+      const inputDescripcion = document.getElementById("descripcion");
+      const inputConsumo = document.getElementById("consumoPorHora");
+      button.addEventListener('click', (e) => {
+      	let descripcion = inputDescripcion.value
+      	let consumoPorHora = inputConsumo.value
+      	let inteligente = document.getElementById("inteligente").checked
+      	let interfaz = document.getElementById("interfaz").value
+      	
+      	let obj;
+      	
+      	if(inteligente) {
+      		// mando data de interfaz
+      		obj = { inteligente: true, descripcion, consumoPorHora, interfaz }
+      	} else {
+      		obj = { inteligente: false, descripcion, consumoPorHora }
+      	}
+      	
+      	console.log(obj);
+      	fetch('/admin/dashboard/alta-de-dispositivo', {
+      		method: 'POST',
+      		body: JSON.stringify(obj)
+      	}).then(res => {
+      		console.log(res)
+      		inputDescripcion.value = "";
+      		inputConsumo.value = "";
+      	})
+      })
+    }
+  </script>
+</body>
+</html>
