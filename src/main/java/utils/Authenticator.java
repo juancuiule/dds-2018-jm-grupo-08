@@ -2,6 +2,7 @@ package utils;
 
 import dominio.Usuario;
 import dominio.repositorios.RepositorioUsuarios;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Optional;
 
@@ -17,6 +18,18 @@ public class Authenticator {
     }
 
     public Optional<Usuario> authenticateUser(String username, String password){
-        return repositorio.findOneOptional("username = '"+ username + "' AND password = '" + password + "'");
+        Optional<Usuario> usuario = repositorio.findOneOptional("username = '"+ username + "'");
+        if(!usuario.isPresent())                                return Optional.empty();
+        if(verifyHash(password, usuario.get().getPassword()))   return usuario;
+                                                                return Optional.empty();
+    }
+
+    public static String hashPassword(String password){
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+
+    }
+
+    public Boolean verifyHash(String candidate, String hash) {
+        return BCrypt.checkpw(candidate, hash);
     }
 }

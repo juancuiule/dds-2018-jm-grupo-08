@@ -1,5 +1,7 @@
 package dominio;
 
+import utils.Authenticator;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -20,7 +22,7 @@ public class Usuario extends PersistentObject{
         this.rolCliente = rolCliente;
         this.rolAdmin = rolAdmin;
         this.username = username;
-        this.password = password;
+        this.password = Authenticator.hashPassword(password);
     }
 
     public Usuario() {
@@ -64,5 +66,9 @@ public class Usuario extends PersistentObject{
 
     public boolean esCliente() {
         return rolCliente != null;
+    }
+
+    public void actualizarPassword(String nuevaPass){
+        this.password = Authenticator.hashPassword(password);
     }
 }
