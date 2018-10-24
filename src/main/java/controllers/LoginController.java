@@ -17,9 +17,9 @@ public class LoginController {
 	private static Authenticator auth = new Authenticator();
 
 	public static ModelAndView respond(Request req, Response res) {
-		Boolean hayUsuario = req.session().attribute("auth");
+		Boolean hayUsuario = Optional.ofNullable((Boolean) req.session().attribute("auth")).orElse(false);
 		if(hayUsuario) {
-			res.redirect("/roleSelection");			
+			res.redirect("/roleSelection");
 		} else {
 			return new ModelAndView(null, "login.hbs");			
 		}
@@ -33,14 +33,11 @@ public class LoginController {
 		String username = jsonObject.get("username").getAsString();
 		String password = jsonObject.get("password").getAsString();
 
-		System.out.println(jsonObject);
-
 		Optional<Usuario> usuario = auth.authenticateUser(username, password);
-
 		if (usuario.isPresent()) {
 			req.session().attribute("auth", true);
 			req.session().attribute("user", usuario.get());
-			res.redirect("/roleSelection");
+			res.status(200);
 		} else {
 			res.status(403);
 		}

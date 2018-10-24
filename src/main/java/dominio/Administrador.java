@@ -24,6 +24,8 @@ public class Administrador extends PersistentObject {
 		this.identificador = identificador;
 	}
 
+	public Administrador() {
+	}
 
 	public String getNombre() {
 		return nombre;
