@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <title>Login</title>
-</head>
+{{#partial "title"}}
+	<title>Login</title>
+{{/partial}}
+{{> partials/head.hbs}}
 <body>
+  {{> partials/nav.hbs}}
   <header>
     <h1>Ingreso</h1>
-    <form class="login-form" action="/login" method="POST">
+    <form class="login-form" action="/login" method="post">
       <div class="form-group">
         <input type="text" class="form-control" id="userInput" placeholder="Usuario" name="username">
       </div>
