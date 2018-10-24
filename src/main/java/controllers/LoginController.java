@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 public class LoginController {
 	private static Authenticator auth = new Authenticator();
 
@@ -17,9 +20,15 @@ public class LoginController {
 		return new ModelAndView(null, "login.hbs");
 	}
 
-	public static String react(Request req, Response res) {
-		String username = req.queryParams("username");
-		String password = req.queryParams("password");
+	public static String processLogin(Request req, Response res) {
+		JsonParser jsonParser = new JsonParser();
+		JsonObject jsonObject = (JsonObject) jsonParser.parse(req.body());
+
+		String username = jsonObject.get("username").getAsString();
+		String password = jsonObject.get("password").getAsString();
+
+		System.out.println(jsonObject);
+
 		Optional<Usuario> usuario = auth.authenticateUser(username, password);
 
 		if (usuario.isPresent()) {
@@ -27,8 +36,8 @@ public class LoginController {
 			req.session().attribute("user", usuario.get());
 			res.redirect("/roleSelection");
 		} else {
-			return "Usuario y/o contraseña invalidos";
+			res.status(403);
 		}
-		return null;
+		return "";
 	}
 }

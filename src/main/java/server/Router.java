@@ -9,6 +9,10 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.util.Optional;
 
+import com.google.gson.JsonParser;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 public class Router {
 	public static void init() {
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
@@ -16,7 +20,7 @@ public class Router {
 
 		Spark.get("/", LandingController::respond);
 		Spark.get("/login", LoginController::respond, engine);
-		Spark.post("/login", LoginController::react);
+		Spark.post("/login", LoginController::processLogin);
 		Spark.get("/roleSelection", RoleSelectionController::respond);
 
 //		Spark.before("/user/*", (req, res) -> {
