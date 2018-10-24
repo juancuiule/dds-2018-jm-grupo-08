@@ -17,7 +17,13 @@ public class LoginController {
 	private static Authenticator auth = new Authenticator();
 
 	public static ModelAndView respond(Request req, Response res) {
-		return new ModelAndView(null, "login.hbs");
+		Boolean hayUsuario = req.session().attribute("auth");
+		if(hayUsuario) {
+			res.redirect("/roleSelection");			
+		} else {
+			return new ModelAndView(null, "login.hbs");			
+		}
+		return null;
 	}
 
 	public static String processLogin(Request req, Response res) {

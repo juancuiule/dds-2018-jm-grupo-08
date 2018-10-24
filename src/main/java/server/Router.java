@@ -38,8 +38,6 @@ public class Router {
 		Spark.get("/admin/alta-de-dispositivo", AdminController::altaDispositivo, engine);
 		Spark.post("/admin/alta-de-dispositivo", AdminController::darDeAlta);
 
-//		Spark.get("/admin/reporte", AdminReporteController::respond);
-
 		Spark.redirect.get("/user", "/user/dashboard");
 		Spark.get("/user/dashboard", UserController::dashboard, engine);
 		Spark.get("/user/estado-del-hogar", UserController::estadoDelHogar, engine);
