@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class LandingController {
 
-	public static void respond(Request req, Response res) {
+	public static String respond(Request req, Response res) {
 		Optional<Usuario> user = Optional.ofNullable(req.session().attribute("user"));
 
 		if (user.isPresent()) {
@@ -20,6 +20,7 @@ public class LandingController {
 		} else {
 			res.redirect("/login");
 		}
+		return null;
 	}
 
 }
