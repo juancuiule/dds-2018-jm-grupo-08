@@ -23,6 +23,6 @@ public class AdminController {
 	public static String darDeAlta(Request req, Response res) {
 		System.out.println(req.body());
 		// todo: dar de alta el dispositivo
-		return "";
+		return "{ \"message\": \"se creo un nuevo dispositivo\" }";
 	}
 }
