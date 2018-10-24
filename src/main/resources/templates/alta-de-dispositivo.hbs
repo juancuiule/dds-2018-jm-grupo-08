@@ -55,50 +55,69 @@
       </div>
       <button id="submit-button" onclick="javascript:void(0)" class="btn btn-primary">Dar de alta</button>
     </div>
+
+    <div class="alert alert-success hide" id="success-alert" role="alert">
+      Dispositivo dado de alta correctamente!
+    </div>
+    <div class="alert alert-danger hide" id="error-alert" role="alert">
+      Hubo un error al crear el dispositivo
+    </div>
   </header>
   <script>
+    const show = (element) => { element.classList.remove("hide") }
+    const hide = (element) => { element.classList.add("hide") }
+    const responseAlert = (element) => {
+      show(element);
+      setTimeout(() => hide(element), 1500);
+    }
+
     window.onload = function() {
       const radios = document.getElementsByName('tipo')
       const interfazBox = document.getElementById('interfaz-box')
-      const showInterfaz = () => {
-        interfazBox.classList.remove("hide")
-      }
-      const hideInterfaz = () => {
-        interfazBox.classList.add("hide")
-      }
+      const successAlert = document.getElementById('success-alert')
+      const errorAlert = document.getElementById('error-alert')
+
       radios.forEach((r) => {
         r.onclick = function() {
-          this.id === "inteligente" ? showInterfaz() : hideInterfaz()
+          this.id === "inteligente" ? show(interfazBox) : hide(interfazBox)
         }
       })
       
       const button = document.getElementById('submit-button');
       const inputDescripcion = document.getElementById("descripcion");
       const inputConsumo = document.getElementById("consumoPorHora");
+
+      const resetForm = () => {
+        inputDescripcion.value = "";
+        inputConsumo.value = "";
+      }
+
       button.addEventListener('click', (e) => {
-      	let descripcion = inputDescripcion.value
-      	let consumoPorHora = inputConsumo.value
-      	let inteligente = document.getElementById("inteligente").checked
-      	let interfaz = document.getElementById("interfaz").value
-      	
-      	let obj;
-      	
-      	if(inteligente) {
-      		// mando data de interfaz
-      		obj = { inteligente: true, descripcion, consumoPorHora, interfaz }
-      	} else {
-      		obj = { inteligente: false, descripcion, consumoPorHora }
-      	}
-      	
+        const descripcion = inputDescripcion.value
+        const consumoPorHora = inputConsumo.value
+        const inteligente = document.getElementById("inteligente").checked
+        const interfaz = document.getElementById("interfaz").value
+
+        let obj = { inteligente, descripcion, consumoPorHora }
+        if (inteligente) {
+          obj.interfaz = interfaz
+        }
+
       	console.log(obj);
       	fetch('/admin/dashboard/alta-de-dispositivo', {
       		method: 'POST',
       		body: JSON.stringify(obj)
       	}).then(res => {
-      		console.log(res)
-      		inputDescripcion.value = "";
-      		inputConsumo.value = "";
-      	})
+          if(res.status === 500) {
+            responseAlert(errorAlert)
+            return;
+          }
+          responseAlert(successAlert);
+          resetForm();
+        }).catch(e => {
+          console.log(e)
+          responseAlert(errorAlert)
+        })
       })
     }
   </script>

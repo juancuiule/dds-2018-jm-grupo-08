@@ -61,6 +61,11 @@ nav {
   display: none;
 }
 
+#success-alert,
+#error-alert {
+  margin-top: 20px;
+}
+
 @media (max-width: 736px) {
   header {
     padding: 60px 20px;
