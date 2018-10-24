@@ -9,10 +9,6 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.util.Optional;
 
-import com.google.gson.JsonParser;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
 public class Router {
 	public static void init() {
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
@@ -41,6 +37,7 @@ public class Router {
 		Spark.redirect.get("/user", "/user/dashboard");
 		Spark.get("/user/dashboard", UserController::dashboard, engine);
 		Spark.get("/user/estado-del-hogar", UserController::estadoDelHogar, engine);
+		Spark.get("/user/consumos-por-periodo", UserController::consumosPorPeriodos, engine);
 	}
 
 	private static void haltIfNotAuthenticated(Request req) {

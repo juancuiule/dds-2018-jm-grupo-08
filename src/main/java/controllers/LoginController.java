@@ -37,6 +37,13 @@ public class LoginController {
 		if (usuario.isPresent()) {
 			req.session().attribute("auth", true);
 			req.session().attribute("user", usuario.get());
+			// res.redirect("/roleSelection");
+			// estaría mal acá hace un res.redirect("/roleSelection") ?
+			// y que si bien el redirect no se haga, le llegue al front la ruta de /roleSelection
+			
+			// ahora esta funcionando porque el front termina haciendo un redirect a /login
+			// y cuando entra a login se da cuenta de que ya hay usuario en la session y lo manda
+			// a /roleSelection
 			res.status(200);
 		} else {
 			res.status(403);
