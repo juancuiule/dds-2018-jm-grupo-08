@@ -156,4 +156,8 @@ public class UserController {
 		return new ModelAndView(viewModel, "consumos-por-periodo.hbs");
 	}
 
+	public static ModelAndView optimizaciones(Request req, Response res) {
+		return new ModelAndView(null, "optimizaciones.hbs");
+	}
+
 }

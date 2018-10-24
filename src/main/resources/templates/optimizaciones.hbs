@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 {{#partial "title"}}
-  <title>Panel de Control - Estado del Hogar</title>
+  <title>Panel de Control - Consumos por Periodo</title>
 {{/partial}}
 {{> partials/head.hbs}}
 <body>
@@ -10,10 +10,10 @@
       <a class="nav-link" href="/user/estado-del-hogar">Estado del Hogar</a>
     </li>
     <li class="nav-item active">
-      <a class="nav-link" href="/user/consumos-por-periodo">Consumos por Periodo</a>
+      <a class="nav-link" href="#">Consumos por Periodo</a>
     </li>
     <li class="nav-item active">
-      <a class="nav-link" href="/user/optimizaciones">Ver Optmizaciones</a>
+      <a class="nav-link" href="#">Ver Optmizaciones</a>
     </li>
     <li class="nav-item active">
       <a class="nav-link" href="/logout">Salir</a>
@@ -21,26 +21,32 @@
   {{/partial}}
   {{> partials/nav.hbs}}
   <header>
-    <h1>Estado del Hogar</h1>
-    <p>Acá podes ver el estado actual de tus dispositivos del hogar.</p>
-    <table class="table estado-hogar-table">
+    <h1>Optimizaciones</h1>
+    <p>Acá podes ver tu cual sería el consumo máximo u óptimo de tus dispositivos</p>
+
+    <table class="table optimizaciones-table">
       <thead>
         <tr>
-          <th scope="col">Dispositivos</th>
-          <th scope="col">Estado</th>
-          <th scope="col">Consumo Promedio</th>
+          <th scope="col">Dispositivo</th>
+          <th scope="col">Consumo en el periodo</th>
+          <th scope="col">Consumo Óptimo</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="table-body">
         {{#each dispositivos}}
           <tr>
             <td>{{nombre}}</td>
-            <td class="{{style}}">{{estado}}</td>
-            <td>{{consumo}}</td>
+            <td>{{consumoEnElPeriodo}}</td>
+            <td>{{consumoOptimo}}</td>
           </tr>
         {{/each}}
       </tbody>
     </table>
   </header>
+  <script>
+
+    window.onload = function() {
+    }
+  </script>
 </body>
 </html>
