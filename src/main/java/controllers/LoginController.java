@@ -14,8 +14,7 @@ public class LoginController {
 	private static Authenticator auth = new Authenticator();
 
 	public static ModelAndView respond(Request req, Response res) {
-		Map<String, Object> viewModel = new HashMap<>();
-		return new ModelAndView(viewModel, "login.hbs");
+		return new ModelAndView(null, "login.hbs");
 	}
 
 	public static String react(Request req, Response res) {
