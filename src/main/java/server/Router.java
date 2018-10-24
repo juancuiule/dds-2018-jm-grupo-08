@@ -25,8 +25,6 @@ public class Router {
 		Spark.get("/", LandingController::respond);
 		Spark.get("/login", LoginController::respond, engine);
 		Spark.post("/login", LoginController::react);
-		Spark.get("/admin", AdminController::respond);
-		Spark.get("/admin/reporte", AdminReporteController::respond);
 		Spark.get("/roleSelection", RoleSelectionController::respond);
 
 //		Spark.before("/user/*", (req, res) -> {
@@ -38,7 +36,15 @@ public class Router {
 //			redirectRootIfTrue(res, !obtenerUsuario(req).esAdmin());
 //		});
 
+		Spark.redirect.get("/admin", "/admin/dashboard");
+		Spark.get("/admin/dashboard", AdminController::respond, engine);
+		Spark.get("/admin/dashboard/reporte-de-consumo", AdminController::respond, engine);
+
+//		Spark.get("/admin/reporte", AdminReporteController::respond);
+
+		Spark.redirect.get("/user", "/user/dashboard");
 		Spark.get("/user/dashboard", EstadoDelHogarController::respond, engine);
+		Spark.get("/user/dashboard/estado-del-hogar", EstadoDelHogarController::respond, engine);
 	}
 
 	private static void haltIfNotAuthenticated(Request req) {
