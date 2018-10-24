@@ -2,11 +2,19 @@ package server;
 
 import controllers.*;
 import dominio.Usuario;
+import dominio.dispositivo.ComportamientoEstandar;
+import dominio.dispositivo.Dispositivo;
+import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class Router {
@@ -21,14 +29,16 @@ public class Router {
 		Spark.get("/admin/reporte", AdminReporteController::respond);
 		Spark.get("/roleSelection", RoleSelectionController::respond);
 
-		Spark.before("/user*", (req, res) -> {
-			haltIfNotAuthenticated(req);
-			redirectRootIfTrue(res, !obtenerUsuario(req).esCliente());
-		});
-		Spark.before("/admin*", (req, res) -> {
-			haltIfNotAuthenticated(req);
-			redirectRootIfTrue(res, !obtenerUsuario(req).esAdmin());
-		});
+//		Spark.before("/user/*", (req, res) -> {
+//			haltIfNotAuthenticated(req);
+//			redirectRootIfTrue(res, !obtenerUsuario(req).esCliente());
+//		});
+//		Spark.before("/admin/*", (req, res) -> {
+//			haltIfNotAuthenticated(req);
+//			redirectRootIfTrue(res, !obtenerUsuario(req).esAdmin());
+//		});
+
+		Spark.get("/user/dashboard", EstadoDelHogarController::respond, engine);
 	}
 
 	private static void haltIfNotAuthenticated(Request req) {
