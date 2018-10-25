@@ -87,6 +87,7 @@ public class UserController {
 		List<DispositivoDecorator> dispositivos = getCliente(req).getDispositivos().stream()
 				.map(disp -> new DispositivoDecorator(disp)).collect(Collectors.toList());
 		viewModel.put("dispositivos", dispositivos);
+		viewModel.put("consumoUltimoPeriodo", new ReporteHogar().consumoMesPasado(getCliente(req)));
 		return new ModelAndView(viewModel, "user-dashboard.hbs");
 	}
 
@@ -114,9 +115,4 @@ public class UserController {
 		viewModel.put("subperiodos", consumosParaPeriodo(meses.get(month - 1), getCliente(req)));
 		return new ModelAndView(viewModel, "consumos-por-periodo.hbs");
 	}
-
-	public static ModelAndView optimizaciones(Request req, Response res) {
-		return new ModelAndView(null, "optimizaciones.hbs");
-	}
-
 }

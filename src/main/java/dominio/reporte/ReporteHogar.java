@@ -46,4 +46,10 @@ public class ReporteHogar {
 		return new ArrayList<SubPeriodo>(Arrays.asList(new SubPeriodo("1-" + inicio.lengthOfMonth(), consumo, consumo)));
 	}
 
+	public Double consumoMesPasado(Cliente cliente) {
+		Integer month = LocalDate.now().getMonthValue();
+		LocalDate inicio = LocalDate.parse("1." + month + ".2018");
+		LocalDate fin = inicio.withDayOfMonth(inicio.lengthOfMonth());
+		return this.consumoHogar(inicio, fin, cliente);
+	}
 }
