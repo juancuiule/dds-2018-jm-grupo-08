@@ -19,11 +19,26 @@
   {{> partials/nav.hbs}}
   <header>
     <h1>Reporte de Consumo</h1>
-      {{#each clientes}}
-            {{nombre}}
-            {{apellido}}
-      {{/each}}
-    {{!-- TODO: Mostrar algun reporte de la entrega anterior --}}
+      <table class="table">
+          <thead>
+          <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Documento</th>
+              <th scope="col">Domicilio</th>
+              <th scope="col">Consumo Promedio</th>
+          </tr>
+          </thead>
+          <tbody>
+          {{#each clientes}}
+              <tr>
+                  <td>{{apellido}}, {{nombre}}</td>
+                  <td>{{numeroDeDocumento}}</td>
+                  <td>{{domicilio}}</td>
+                  <td>{{consumoPromedio}}</td>
+              </tr>
+          {{/each}}
+          </tbody>
+      </table>
   </header>
 </body>
 </html>
