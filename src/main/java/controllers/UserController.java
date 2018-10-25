@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 
@@ -69,12 +71,12 @@ public class UserController {
 			new Mes(8, "Agosto"), new Mes(9, "Septiembre"), new Mes(10, "Octubre"), new Mes(11, "Noviembre"),
 			new Mes(12, "Diciembre")));
 
-	static List<DispositivoDecorator> dispositivos = new ArrayList<DispositivoDecorator>(Arrays.asList(
-			new DispositivoDecorator(
-					new Dispositivo("Aire Acondicionado 2200 Frigorias", new ComportamientoEstandar(1.35, 12.0))),
-			new DispositivoDecorator(new Dispositivo("Heladera con Freezer", new ComportamientoEstandar(0.4, 12.0))),
-			new DispositivoDecorator(
-					new Dispositivo("Tostadora", new ComportamientoInteligente(new DispositivoFisicoMock())))));
+//	static List<DispositivoDecorator> dispositivos = new ArrayList<DispositivoDecorator>(Arrays.asList(
+//			new DispositivoDecorator(
+//					new Dispositivo("Aire Acondicionado 2200 Frigorias", new ComportamientoEstandar(1.35, 12.0))),
+//			new DispositivoDecorator(new Dispositivo("Heladera con Freezer", new ComportamientoEstandar(0.4, 12.0))),
+//			new DispositivoDecorator(
+//					new Dispositivo("Tostadora", new ComportamientoInteligente(new DispositivoFisicoMock())))));
 
 	public static ModelAndView dashboard(Request req, Response res) {
 		return estadoDelHogar(req, res);
@@ -82,7 +84,9 @@ public class UserController {
 
 	public static ModelAndView estadoDelHogar(Request req, Response res) {
 		Map<String, Object> viewModel = new HashMap<>();
-		viewModel.put("dispositivos", dispositivos); // usar dispositivos del cliente
+		List<DispositivoDecorator> dispositivos = getCliente(req).getDispositivos().stream()
+				.map(disp -> new DispositivoDecorator(disp)).collect(Collectors.toList());
+		viewModel.put("dispositivos", dispositivos);
 		return new ModelAndView(viewModel, "user-dashboard.hbs");
 	}
 
