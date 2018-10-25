@@ -27,12 +27,20 @@ public class AdminController {
 		JsonParser jsonParser = new JsonParser();
 		JsonObject jsonObject = (JsonObject) jsonParser.parse(req.body());
 
+		System.out.println(req.body());
+
 		String nombre = jsonObject.get("nombre").getAsString();
 		Boolean esInteligente = jsonObject.get("inteligente").getAsBoolean();
 		Double consumoPorHora = jsonObject.get("consumoPorHora").getAsDouble();
+		Double cotaInferior = jsonObject.get("cotaInferior").getAsDouble();
+		Double cotaSuperior = jsonObject.get("cotaSuperior").getAsDouble();
+
 		String interfaz;
+		Integer horasDeUso;
 		if (esInteligente) {
 			interfaz = jsonObject.get("interfaz").getAsString();
+		} else {
+			horasDeUso = jsonObject.get("horasDeUso").getAsInt();
 		}
 
 		// todo: dar de alta el dispositivo
