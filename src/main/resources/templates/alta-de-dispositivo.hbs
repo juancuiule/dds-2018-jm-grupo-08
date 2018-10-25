@@ -81,9 +81,9 @@
         <label for="interfaz">Interfaz</label>
         <select class="form-control form-control-md" id="interfaz">
           <option disabled>Interfaz</option>
-          <option value="sony">Sony XC3232</option>
-          <option value="samsung">Samsung #Y123</option>
-          <option value="lg">LG Fridge321XXY</option>
+            {{#each interfaces}}
+                <option value="{{nombre}}">{{nombre}}</option>
+            {{/each}}
         </select>
       </div>
       <button id="submit-button" onclick="javascript:void(0)" class="btn btn-primary">Dar de alta</button>
