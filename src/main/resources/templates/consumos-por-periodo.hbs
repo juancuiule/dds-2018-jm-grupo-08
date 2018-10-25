@@ -47,7 +47,7 @@
           <th scope="col">Consumo Acumulado</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="table-body">
         {{#each subperiodos}}
           <tr>
             <td>{{fechas}}</td>
@@ -58,5 +58,29 @@
       </tbody>
     </table>
   </header>
+  <script>
+    const createRow = ({fechas, consumo, consumoAcumulado}) => (`
+      <tr>
+        <td>${fechas}</td>
+        <td>${consumo}</td>
+        <td>${consumoAcumulado}</td>
+      </tr>
+    `)
+
+    window.onload = function() {
+      const select = document.getElementById('monthSelect');
+      const tableBody = document.getElementById('table-body');
+      select.onchange = () => {
+        const mes = select.value
+        tableBody.innerHTML = "loading"
+        fetch(`/user/consumos-por-periodo/data?mes=${mes}`)
+          .then(res => res.json())
+          .then(data => {
+            let rows = data.map(createRow).join("");
+            tableBody.innerHTML = rows;
+          })
+      }
+    }
+  </script>
 </body>
 </html>
