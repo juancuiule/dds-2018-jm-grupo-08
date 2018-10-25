@@ -55,7 +55,8 @@ class DispositivoDecorator {
 	}
 
 	public Double getConsumo() {
-		return (Math.random() * (300 - 40 + 1)) + 40;
+		Integer days = LocalDate.now().minusMonths(1).lengthOfMonth();
+		return dispositivo.consumoEnElPeriodo(Double.parseDouble(days.toString()));
 	}
 }
 
@@ -79,10 +80,7 @@ public class UserController {
 
 	public static ModelAndView estadoDelHogar(Request req, Response res) {
 		Map<String, Object> viewModel = new HashMap<>();
-		viewModel.put("dispositivos", dispositivos);
-		// falta mostrar:
-		// - ultimas mediciones (podr�a ser la tercer columna)
-		// - consumo del ultimo periodo
+		viewModel.put("dispositivos", dispositivos); // usar dispositivos del cliente
 		return new ModelAndView(viewModel, "user-dashboard.hbs");
 	}
 
