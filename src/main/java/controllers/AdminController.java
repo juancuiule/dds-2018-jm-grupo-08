@@ -47,25 +47,25 @@ public class AdminController {
 		Double cotaSuperior = jsonObject.get("cotaSuperior").getAsDouble();
 		Double cotaInferior = jsonObject.get("cotaInferior").getAsDouble();
 		String interfaz = null;
-		
+
 		if (esInteligente) {
 			interfaz = jsonObject.get("interfaz").getAsString();
 		}
-		
-		
-		//Validaciones
-		
-		//Se podría dividir en métodos más cortos
-		
-		if(nombre == null || esInteligente == null || consumoPorHora == null || cotaSuperior == null || cotaInferior == null  ) {
-			
-			return "{ \"message\": \"Error 400\" }";
-		
+
+		// Validaciones
+
+		// Se podría dividir en métodos más cortos
+
+		if (nombre == null || esInteligente == null || consumoPorHora == null || cotaSuperior == null
+				|| cotaInferior == null) {
+			res.status(400);
+			return "{ \"message\": \"hubo algun error en la data que se envio\" }";
+
 		} else {
-			
+
 			DispositivoBase dispositivo;
 
-			if(esInteligente) {
+			if (esInteligente) {
 				DispositivoFisico dispositivoFisico = null;
 				try {
 					dispositivoFisico = (DispositivoFisico) Class.forName(interfaz).newInstance();
@@ -73,36 +73,21 @@ public class AdminController {
 					e.printStackTrace();
 				}
 				dispositivoFisico = Optional.ofNullable(dispositivoFisico).orElse(new DispositivoFisicoGenerico());
-				dispositivo = new InteligenteDB (nombre, cotaSuperior, cotaInferior, consumoPorHora, dispositivoFisico);
+				dispositivo = new InteligenteDB(nombre, cotaSuperior, cotaInferior, consumoPorHora, dispositivoFisico);
 			} else {
 				Double horasDeUso = jsonObject.get("horasDeUso").getAsDouble();
-				dispositivo = new EstandarDB (nombre, cotaSuperior, cotaInferior, consumoPorHora, horasDeUso);
+				dispositivo = new EstandarDB(nombre, cotaSuperior, cotaInferior, consumoPorHora, horasDeUso);
 			}
-		
-		EntityManager em = PerThreadEntityManagers.getEntityManager();		
-		EntityTransaction transaction = em.getTransaction();
-		
-		transaction.begin();
+
+			EntityManager em = PerThreadEntityManagers.getEntityManager();
+			EntityTransaction transaction = em.getTransaction();
+
+			transaction.begin();
 			em.persist(dispositivo);
-		transaction.commit();
+			transaction.commit();
+			res.status(201);
+			return "{ \"message\": \"se creo un nuevo dispositivo\" }";
+		}
 	}
 
-		
-	return "{ \"message\": \"se creo un nuevo dispositivo\" }";
-}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
