@@ -3,6 +3,7 @@ package controllers;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import dominio.Cliente;
@@ -15,14 +16,10 @@ import spark.Response;
 public class AdminReporteController {
 	
 	public static ModelAndView respond(Request req, Response res) {
-        return new ModelAndView(generarDominio(req), "reportes.hbs");
+        return new ModelAndView(generarDominio(req), "admin-dashboard.hbs");
     }
-	
-	
-	private static List<ReporteUser> generarDominio(Request req) {
-		
-		
-		
+
+	private static HashMap<String, Object> generarDominio(Request req) {
 		String fechaIni = req.queryParams("fechaInicio");
 		String fechaFin = req.queryParams("fechaFin");
 		
@@ -30,32 +27,29 @@ public class AdminReporteController {
 		LocalDate fechaFinal;
 		
 		if(fechaIni != null || fechaFin != null ) {
-			
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
 			fechaInicio = LocalDate.parse(fechaIni,formatter);
 			fechaFinal = LocalDate.parse(fechaFin,formatter);
-			
-			} else {
-			
+		} else {
 			fechaFinal = LocalDate.now();
 			fechaInicio = LocalDate.now().minusMonths(1);
-			
-			}
-		
-				   
+		}
 
 		List<Cliente> clientes = RepositorioClientes.getInstance().findAll();
 		List<ReporteUser> listaReporteUser = new ArrayList<ReporteUser>();
 		ReporteHogar  queryReporte = new ReporteHogar();
 		
 		clientes.forEach(c -> {
-		
-		listaReporteUser.add(new ReporteUser(c.getNombre(),c.getApellido(),c.getNumeroDeDocumento(),c.getDomicilio(),queryReporte.consumoHogar(fechaInicio, fechaFinal, c )));
-		
+			listaReporteUser.add(new ReporteUser(	c.getNombre(),
+													c.getApellido(),
+													c.getNumeroDeDocumento(),
+													c.getDomicilio(),
+													queryReporte.consumoHogar(fechaInicio, fechaFinal, c )));
 		});
-		
-		
-		return listaReporteUser;
+
+		HashMap<String, Object> viewModel = new HashMap<>();HashMap model = new HashMap();
+		viewModel.put("clientes", listaReporteUser);
+		return viewModel;
 	}
 
 }

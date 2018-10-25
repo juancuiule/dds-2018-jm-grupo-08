@@ -19,6 +19,10 @@
   {{> partials/nav.hbs}}
   <header>
     <h1>Reporte de Consumo</h1>
+      {{#each clientes}}
+            {{nombre}}
+            {{apellido}}
+      {{/each}}
     {{!-- TODO: Mostrar algun reporte de la entrega anterior --}}
   </header>
 </body>
