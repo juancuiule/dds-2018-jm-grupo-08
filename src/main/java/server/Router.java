@@ -19,14 +19,14 @@ public class Router {
 		Spark.post("/login", LoginController::processLogin);
 		Spark.get("/roleSelection", RoleSelectionController::respond);
 
-//		Spark.before("/user/*", (req, res) -> {
-//			haltIfNotAuthenticated(req);
-//			redirectRootIfTrue(res, !obtenerUsuario(req).esCliente());
-//		});
-//		Spark.before("/admin/*", (req, res) -> {
-//			haltIfNotAuthenticated(req);
-//			redirectRootIfTrue(res, !obtenerUsuario(req).esAdmin());
-//		});
+		Spark.before("/user/*", (req, res) -> {
+			haltIfNotAuthenticated(req);
+			redirectRootIfTrue(res, !obtenerUsuario(req).esCliente());
+		});
+		Spark.before("/admin/*", (req, res) -> {
+			haltIfNotAuthenticated(req);
+			redirectRootIfTrue(res, !obtenerUsuario(req).esAdmin());
+		});
 
 		Spark.redirect.get("/admin", "/admin/dashboard");
 		Spark.get("/admin/dashboard", AdminReporteController::respond, engine);
