@@ -12,6 +12,9 @@ import dominio.dispositivo.ComportamientoEstandar;
 import dominio.dispositivo.ComportamientoInteligente;
 import dominio.dispositivo.Dispositivo;
 import dominio.dispositivo.Rango;
+import dominio.dispositivoBase.DispositivoBase;
+import dominio.dispositivoBase.EstandarDB;
+import dominio.dispositivoBase.InteligenteDB;
 import dominioTest.mocks.DispositivoFisicoMock;
 import spark.ModelAndView;
 import spark.Request;
@@ -51,6 +54,8 @@ public class AdminController {
 		
 		//Validaciones
 		
+		//Se podría dividir en métodos más cortos
+		
 		if(nombre == null || esInteligente == null || consumoPorHora == null || cotaSuperior == null || cotaInferior == null  ) {
 			
 			return "{ \"message\": \"Error 400\" }";
@@ -63,13 +68,14 @@ public class AdminController {
 					
 					DispositivoFisicoMock dispFisico =	new DispositivoFisicoMock();
 					dispFisico.setNombre("interfaz");
-					dispositivo = new Dispositivo (new ComportamientoInteligente(dispFisico,consumoPorHora), nombre, new Rango(cotaSuperior,cotaInferior));
+					InteligenteDB intel = new InteligenteDB  (nombre,cotaSuperior,cotaInferior,consumoPorHora,dispFisico );
+					dispositivo = intel.devolverDisositivo();
 					
 				} else {
 					
 					Double horasDeUso = jsonObject.get("horasDeUso").getAsDouble();
-					dispositivo = new Dispositivo (new ComportamientoEstandar(consumoPorHora,horasDeUso), nombre, new Rango(cotaSuperior,cotaInferior));
-					
+					EstandarDB estandar = new EstandarDB (nombre, cotaSuperior, cotaInferior, consumoPorHora, horasDeUso);
+					dispositivo = estandar.devolverDisositivo();
 					}
 		
 		EntityManager em = PerThreadEntityManagers.getEntityManager();		
@@ -86,4 +92,19 @@ public class AdminController {
 		
 		return "{ \"message\": \"se creo un nuevo dispositivo\" }";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
