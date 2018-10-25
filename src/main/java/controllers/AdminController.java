@@ -10,6 +10,9 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import dominio.dispositivoBase.DispositivoBase;
+import dominio.dispositivoBase.EstandarDB;
+import dominio.dispositivoBase.InteligenteDB;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -43,8 +46,7 @@ public class AdminController {
 		Double consumoPorHora = jsonObject.get("consumoPorHora").getAsDouble();
 		Double cotaSuperior = jsonObject.get("cotaSuperior").getAsDouble();
 		Double cotaInferior = jsonObject.get("cotaInferior").getAsDouble();
-		String interfaz = jsonObject.get("interfaz").getAsString();
-		//String interfaz;
+		String interfaz = null;
 		
 		if (esInteligente) {
 			interfaz = jsonObject.get("interfaz").getAsString();
@@ -53,47 +55,54 @@ public class AdminController {
 		
 		//Validaciones
 		
+		//Se podría dividir en métodos más cortos
+		
 		if(nombre == null || esInteligente == null || consumoPorHora == null || cotaSuperior == null || cotaInferior == null  ) {
 			
 			return "{ \"message\": \"Error 400\" }";
 		
 		} else {
 			
-			Dispositivo dispositivo;
-			
-				if(esInteligente) {
-					DispositivoFisico dispositivoFisico = null;
-					try {
-						dispositivoFisico = (DispositivoFisico) Class.forName(interfaz).newInstance();
-					} catch (InstantiationException e) {
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
-					}
-					dispositivoFisico = Optional.ofNullable(dispositivoFisico).orElse(new DispositivoFisicoGenerico());
-					dispositivo = new Dispositivo (new ComportamientoInteligente(dispositivoFisico,consumoPorHora), nombre, new Rango(cotaSuperior,cotaInferior));
-					
-				} else {
-					
-					Double horasDeUso = jsonObject.get("horasDeUso").getAsDouble();
-					dispositivo = new Dispositivo (new ComportamientoEstandar(consumoPorHora,horasDeUso), nombre, new Rango(cotaSuperior,cotaInferior));
-					
-					}
+			DispositivoBase dispositivo;
+
+			if(esInteligente) {
+				DispositivoFisico dispositivoFisico = null;
+				try {
+					dispositivoFisico = (DispositivoFisico) Class.forName(interfaz).newInstance();
+				} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				dispositivoFisico = Optional.ofNullable(dispositivoFisico).orElse(new DispositivoFisicoGenerico());
+				dispositivo = new InteligenteDB (nombre, cotaSuperior, cotaInferior, consumoPorHora, dispositivoFisico);
+			} else {
+				Double horasDeUso = jsonObject.get("horasDeUso").getAsDouble();
+				dispositivo = new EstandarDB (nombre, cotaSuperior, cotaInferior, consumoPorHora, horasDeUso);
+			}
 		
 		EntityManager em = PerThreadEntityManagers.getEntityManager();		
 		EntityTransaction transaction = em.getTransaction();
 		
 		transaction.begin();
-		em.persist(dispositivo);
-		transaction.commit();	
-			
-			}
-		
-		
-		
-		
-		return "{ \"message\": \"se creo un nuevo dispositivo\" }";
+			em.persist(dispositivo);
+		transaction.commit();
 	}
+
+		
+	return "{ \"message\": \"se creo un nuevo dispositivo\" }";
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
