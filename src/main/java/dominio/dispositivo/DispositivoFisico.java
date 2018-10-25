@@ -4,13 +4,11 @@ import dominio.PersistentObject;
 
 import java.time.Period;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name= "DispositivoFisico")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class DispositivoFisico extends PersistentObject {
 
 	abstract public Double consumoEnLasUltimasHoras(Double horas);

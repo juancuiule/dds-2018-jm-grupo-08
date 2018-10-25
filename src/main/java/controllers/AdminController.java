@@ -3,19 +3,19 @@ package controllers;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import dominio.ConfiguracionApp;
+import dominio.dispositivo.*;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import dominio.dispositivo.ComportamientoEstandar;
-import dominio.dispositivo.ComportamientoInteligente;
-import dominio.dispositivo.Dispositivo;
-import dominio.dispositivo.Rango;
-import dominioTest.mocks.DispositivoFisicoMock;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+
+import java.util.HashMap;
+import java.util.Optional;
 
 public class AdminController {
 
@@ -29,8 +29,9 @@ public class AdminController {
 	}
 
 	public static ModelAndView altaDispositivo(Request req, Response res) {
-		// mandar las interfaces disponibles
-		return new ModelAndView(null, "alta-de-dispositivo.hbs");
+		HashMap<String, Object> viewModel = new HashMap<>();
+		viewModel.put("interfaces", ConfiguracionApp.interfacesFisicas);
+		return new ModelAndView(viewModel, "alta-de-dispositivo.hbs");
 	}
 
 	public static String darDeAlta(Request req, Response res) {
@@ -42,7 +43,8 @@ public class AdminController {
 		Double consumoPorHora = jsonObject.get("consumoPorHora").getAsDouble();
 		Double cotaSuperior = jsonObject.get("cotaSuperior").getAsDouble();
 		Double cotaInferior = jsonObject.get("cotaInferior").getAsDouble();
-		String interfaz;
+		String interfaz = jsonObject.get("interfaz").getAsString();
+		//String interfaz;
 		
 		if (esInteligente) {
 			interfaz = jsonObject.get("interfaz").getAsString();
@@ -59,11 +61,19 @@ public class AdminController {
 			
 			Dispositivo dispositivo;
 			
-				if(esInteligente) {	
-					
-					DispositivoFisicoMock dispFisico =	new DispositivoFisicoMock();
-					dispFisico.setNombre("interfaz");
-					dispositivo = new Dispositivo (new ComportamientoInteligente(dispFisico,consumoPorHora), nombre, new Rango(cotaSuperior,cotaInferior));
+				if(esInteligente) {
+					DispositivoFisico dispositivoFisico = null;
+					try {
+						dispositivoFisico = (DispositivoFisico) Class.forName(interfaz).newInstance();
+					} catch (InstantiationException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+					dispositivoFisico = Optional.ofNullable(dispositivoFisico).orElse(new DispositivoFisicoGenerico());
+					dispositivo = new Dispositivo (new ComportamientoInteligente(dispositivoFisico,consumoPorHora), nombre, new Rango(cotaSuperior,cotaInferior));
 					
 				} else {
 					
