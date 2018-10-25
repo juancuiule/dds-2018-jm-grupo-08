@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+{{#partial "title"}}
+  <title>Panel de Control - Reporte de Consumo</title>
+{{/partial}}
+{{> partials/head.hbs}}
+<body>
+  {{#partial "links"}}
+    <li class="nav-item active">
+      <a class="nav-link" href="/admin/reporte-de-consumo">Reporte de Consumo</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="/admin/alta-de-dispositivo">Alta de Dispositivos</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="/logout">Salir</a>
+    </li>
+  {{/partial}}
+  {{> partials/nav.hbs}}
+  <header>
+    <h1>Reporte de Consumo</h1>
+      <table class="table">
+          <thead>
+          <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Documento</th>
+              <th scope="col">Domicilio</th>
+              <th scope="col">Consumo Promedio</th>
+          </tr>
+          </thead>
+          <tbody>
+          {{#each clientes}}
+              <tr>
+                  <td>{{apellido}}, {{nombre}}</td>
+                  <td>{{numeroDeDocumento}}</td>
+                  <td>{{domicilio}}</td>
+                  <td>{{consumoPromedio}}</td>
+              </tr>
+          {{/each}}
+          </tbody>
+      </table>
+  </header>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+{{#partial "title"}}
+	<title>Login</title>
+{{/partial}}
+{{> partials/head.hbs}}
+<body>
+  {{> partials/nav.hbs}}
+  <header>
+    <h1>Ingreso</h1>
+    <div class="form login-form" id="form">
+      <div class="form-group">
+        <input type="text" class="form-control" id="usernameInput" placeholder="Usuario" name="username">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" id="passwordInput" placeholder="Password" name="password">
+      </div>
+      <button id="submit-button" class="btn btn-primary">Ingresar</button>
+    </div>
+    <div class="alert alert-danger hide" id="error-alert" role="alert">
+      Usuario o contraseña incorrectos.
+    </div>
+  </header>
+  <script>
+    const show = (element) => { element.classList.remove("hide") }
+    const hide = (element) => { element.classList.add("hide") }
+    const responseAlert = (element) => {
+      show(element);
+      setTimeout(() => hide(element), 1500);
+    }
+
+    window.onload = function() {
+      const passwordInput = document.getElementById("passwordInput");
+      const usernameInput = document.getElementById("usernameInput");
+
+      const button = document.getElementById("submit-button");
+
+      const errorAlert = document.getElementById("error-alert");
+      button.addEventListener("click", (e) => {
+        const password = passwordInput.value;
+        const username = usernameInput.value;
+
+        console.log(password, username)
+        fetch("/login", {
+          method: "POST",
+          body: JSON.stringify({username, password})
+        }).then(res => {
+          if(res.status === 403) {
+            responseAlert(errorAlert);
+            throw new Error();
+          } else if (res.status === 200) {
+            // hacer el redirect a mano
+            window.location.href = res.url
+          }
+        }).catch(e => {
+          console.log(e)
+        })
+      })
+    }
+  </script>
+</body>
+</html>

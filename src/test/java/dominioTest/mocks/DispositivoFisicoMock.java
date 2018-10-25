@@ -5,11 +5,26 @@ import dominio.dispositivo.DispositivoFisico;
 public class DispositivoFisicoMock extends DispositivoFisico {
 
 	Boolean encendido = false;
+	private String nombre;
 
 	@Override
 	public Double consumoPorHora() {
 		return null;
 	}
+	
+	
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
 
 	@Override
 	public Double consumoEnLasUltimasHoras(Double horas) {

@@ -1,0 +1,92 @@
+h1, h2, h3, h4, h5, h6 {
+  color: #47525e;
+}
+
+header {
+  height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 50px;
+  background-color: #e5e9f2;
+}
+
+header h1 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+nav {
+  background-color: #8190a5;
+}
+
+.navbar-align-right {
+  justify-content: flex-end;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.login-form .form-group {
+  margin-right: 30px;
+}
+
+.login-form .form-group input {
+  border-color: #47525e6e;
+}
+
+.login-form button {
+  height: 38px;
+  min-width: 120px;
+  background-color: #47525e;
+  border-color: #47525e;
+}
+
+.estado-hogar-table .on {
+  color: green
+}
+
+.estado-hogar-table .off {
+  color: red
+}
+
+.estado-hogar-table .no-data {
+  color: grey
+}
+
+.hide {
+  display: none;
+}
+
+#success-alert,
+#error-alert {
+  margin-top: 20px;
+}
+
+@media (max-width: 736px) {
+  header {
+    padding: 60px 20px;
+  }
+
+  .nav-item {
+    text-align: right;
+  }
+
+  .login-form {
+    flex-direction: column;
+  }
+
+  .login-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .login-form .form-group {
+    margin-right: 0px;
+  }
+}

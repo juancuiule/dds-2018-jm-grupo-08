@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+{{#partial "title"}}
+  <title>Panel de Control - Estado del Hogar</title>
+{{/partial}}
+{{> partials/head.hbs}}
+<body>
+  {{#partial "links"}}
+    <li class="nav-item active">
+      <a class="nav-link" href="/user/estado-del-hogar">Estado del Hogar</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="/user/consumos-por-periodo">Consumos por Periodo</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="/user/optimizaciones">Ver Optmizaciones</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="/logout">Salir</a>
+    </li>
+  {{/partial}}
+  {{> partials/nav.hbs}}
+  <header>
+    <h1>Estado del Hogar</h1>
+    <p>Tu consumo en el último mes fue de: {{consumoUltimoPeriodo}}</p>
+    <p>Acá podes ver el estado actual de tus dispositivos del hogar.</p>
+    <table class="table estado-hogar-table">
+      <thead>
+        <tr>
+          <th scope="col">Dispositivos</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Consumo último período</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each dispositivos}}
+          <tr>
+            <td>{{nombre}}</td>
+            <td class="{{style}}">{{estado}}</td>
+            <td>{{consumo}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </header>
+</body>
+</html>

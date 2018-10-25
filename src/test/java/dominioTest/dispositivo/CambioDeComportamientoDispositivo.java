@@ -17,9 +17,10 @@ public class CambioDeComportamientoDispositivo {
 
 	@Before
 	public void instanciaTvEstandar() {
-		tv = tvEstandar.tvFluo21();
+		tv = tvEstandar.dispositivoFactory("tvFluo21");
 	}
-
+	
+	// rompe porque no hay datos cargados
 	@Test
 	public void cambiarElComportamientoAinteligente() {
 		tv.cambiarComportamiento(new ComportamientoInteligente(dispositivoFisico, 1d));

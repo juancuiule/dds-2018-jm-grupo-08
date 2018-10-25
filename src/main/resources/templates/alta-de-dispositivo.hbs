@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+{{#partial "title"}}
+  <title>Panel de Control - Alta de Dispositivos</title>
+{{/partial}}
+{{> partials/head.hbs}}
+<body>
+  {{#partial "links"}}
+    <li class="nav-item active">
+      <a class="nav-link" href="/admin/reporte-de-consumo">Reporte de Consumo</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="#">Alta de Dispositivos</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="/logout">Salir</a>
+    </li>
+  {{/partial}}
+  {{> partials/nav.hbs}}
+  <header>
+    <h1>Alta de Dispositivos</h1>
+    <div class="form" id="form-dispositivo">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control" id="nombre">
+      </div>
+
+      <div class="form-group">
+        <label for="consumoPorHora">Consumo por hora</label>
+        <div class="input-group">
+          <input type="number" class="form-control" id="consumoPorHora">
+          <div class="input-group-append">
+            <span class="input-group-text">kWh</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cotaInferior">Cota inferior de consumo</label>
+        <div class="input-group">
+          <input type="number" class="form-control" id="cotaInferior">
+          <div class="input-group-append">
+            <span class="input-group-text">kWh</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cotaSuperior">Cota superior de consumo</label>
+        <div class="input-group">
+          <input type="number" class="form-control" id="cotaSuperior">
+          <div class="input-group-append">
+            <span class="input-group-text">kWh</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Tipo de Dispositivo</label>
+        <div class="custom-control custom-radio">
+          <input type="radio" id="inteligente" name="tipo" class="custom-control-input">
+          <label class="custom-control-label" for="inteligente">Dispositivo Inteligente</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input type="radio" id="estandar" name="tipo" checked class="custom-control-input">
+          <label class="custom-control-label" for="estandar">Dispositivo Estandar</label>
+        </div>
+      </div>
+
+      <div class="form-group" id="horas-de-uso-box">
+        <label for="horasDeUso">Horas de uso</label>
+        <div class="input-group">
+          <input type="number" class="form-control" id="horasDeUso">
+          <div class="input-group-append">
+            <span class="input-group-text">hr</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group hide" id="interfaz-box">
+        <label for="interfaz">Interfaz</label>
+        <select class="form-control form-control-md" id="interfaz">
+          <option disabled>Interfaz</option>
+            {{#each interfaces}}
+                <option value="{{nombre}}">{{nombre}}</option>
+            {{/each}}
+        </select>
+      </div>
+      <button id="submit-button" onclick="javascript:void(0)" class="btn btn-primary">Dar de alta</button>
+    </div>
+
+    <div class="alert alert-success hide" id="success-alert" role="alert">
+      Dispositivo dado de alta correctamente!
+    </div>
+    <div class="alert alert-danger hide" id="error-alert" role="alert">
+      Hubo un error al crear el dispositivo
+    </div>
+  </header>
+  <script>
+    const show = (element) => { element.classList.remove("hide") }
+    const hide = (element) => { element.classList.add("hide") }
+    const responseAlert = (element) => {
+      show(element);
+      setTimeout(() => hide(element), 1500);
+    }
+
+    window.onload = function() {
+      const radios = document.getElementsByName('tipo')
+      const interfazBox = document.getElementById('interfaz-box')
+      const horasDeUsoBox = document.getElementById('horas-de-uso-box')
+
+      const successAlert = document.getElementById('success-alert')
+      const errorAlert = document.getElementById('error-alert')
+
+      radios.forEach((r) => {
+        r.onclick = function() {
+          if (this.id === "inteligente") {
+            show(interfazBox)
+            hide(horasDeUsoBox)
+          } else {
+            hide(interfazBox)
+            show(horasDeUsoBox)
+          }
+        }
+      })
+
+      const button = document.getElementById('submit-button');
+      const inputNombre = document.getElementById("nombre");
+      const inputConsumo = document.getElementById("consumoPorHora");
+      const inputCotaInferior = document.getElementById('cotaInferior')
+      const inputCotaSuperior = document.getElementById('cotaSuperior')
+      const inputHorasDeUso = document.getElementById('horasDeUso')
+
+      const resetForm = () => {
+        inputNombre.value = "";
+        inputConsumo.value = "";
+      }
+
+      button.addEventListener('click', (e) => {
+        const nombre = inputNombre.value
+        const consumoPorHora = inputConsumo.value
+        const cotaInferior = inputCotaInferior.value
+        const cotaSuperior = inputCotaSuperior.value
+        const horasDeUso = inputHorasDeUso.value
+        const inteligente = document.getElementById("inteligente").checked
+        const interfaz = document.getElementById("interfaz").value
+
+        let data = { inteligente, nombre, consumoPorHora, cotaInferior, cotaSuperior }
+        if (inteligente) {
+          data.interfaz = interfaz
+        } else {
+          data.horasDeUso = horasDeUso
+        }
+
+        fetch('/admin/alta-de-dispositivo', {
+      		method: 'POST',
+      		body: JSON.stringify(data)
+      	}).then(res => {
+          if(res.status === 500) {
+            responseAlert(errorAlert)
+            return;
+          }
+          responseAlert(successAlert);
+          resetForm();
+        }).catch(e => {
+          console.log(e)
+          responseAlert(errorAlert)
+        })
+      })
+    }
+  </script>
+</body>
+</html>

@@ -1,7 +1,6 @@
-package dominio;
+package simplex;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
 import dominio.dispositivo.Dispositivo;
@@ -23,4 +22,19 @@ public class Optimizacion {
 		}
 	}
 
+	public Dispositivo getDispositivo() {
+		return dispositivo;
+	}
+
+	public void setDispositivo(Dispositivo dispositivo) {
+		this.dispositivo = dispositivo;
+	}
+
+	public Double getLimite() {
+		return limite;
+	}
+
+	public void setLimite(Double limite) {
+		this.limite = limite;
+	}
 }
