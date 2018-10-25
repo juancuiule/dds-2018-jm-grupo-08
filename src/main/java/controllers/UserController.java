@@ -6,10 +6,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.google.gson.Gson;
 
 import dominio.Cliente;
+import dominio.Usuario;
 import dominio.dispositivo.ComportamientoEstandar;
 import dominio.dispositivo.ComportamientoInteligente;
 import dominio.dispositivo.Dispositivo;
@@ -89,20 +91,23 @@ public class UserController {
 		return new ReporteHogar().subperiodosParaMes(mes, cliente);
 	}
 
+	public static Cliente getCliente(Request req) {
+		Usuario user = req.session().attribute("user");
+		return user.getRolCliente();
+	}
+
 	public static String consumosParaPeriodoJson(Request req, Response res) {
 		Integer mes = Integer.parseInt(req.queryParams("mes"));
-		Cliente cliente = req.session().attribute("user");
 		Mes mesEnCuestion = meses.get(mes - 1);
-		String subperiodosJson = new Gson().toJson(consumosParaPeriodo(mesEnCuestion, cliente));
+		String subperiodosJson = new Gson().toJson(consumosParaPeriodo(mesEnCuestion, getCliente(req)));
 		return subperiodosJson;
 	}
 
 	public static ModelAndView consumosPorPeriodos(Request req, Response res) {
 		Map<String, Object> viewModel = new HashMap<>();
-		Cliente cliente = req.session().attribute("user");
 		viewModel.put("periodos", meses);
 		Integer month = LocalDate.now().getMonthValue();
-		viewModel.put("subperiodos", consumosParaPeriodo(meses.get(month - 1), cliente));
+		viewModel.put("subperiodos", consumosParaPeriodo(meses.get(month - 1), getCliente(req)));
 		return new ModelAndView(viewModel, "consumos-por-periodo.hbs");
 	}
 
