@@ -21,8 +21,8 @@
     <h1>Alta de Dispositivos</h1>
     <div class="form" id="form-dispositivo">
       <div class="form-group">
-        <label for="descripcion">Descripcion</label>
-        <input type="text" class="form-control" id="descripcion">
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control" id="nombre">
       </div>
       <div class="form-group">
         <label for="consumoPorHora">Consumo por hora</label>
@@ -84,21 +84,21 @@
       })
       
       const button = document.getElementById('submit-button');
-      const inputDescripcion = document.getElementById("descripcion");
+      const inputNombre = document.getElementById("nombre");
       const inputConsumo = document.getElementById("consumoPorHora");
 
       const resetForm = () => {
-        inputDescripcion.value = "";
+        inputNombre.value = "";
         inputConsumo.value = "";
       }
 
       button.addEventListener('click', (e) => {
-        const descripcion = inputDescripcion.value
+        const nombre = inputNombre.value
         const consumoPorHora = inputConsumo.value
         const inteligente = document.getElementById("inteligente").checked
         const interfaz = document.getElementById("interfaz").value
 
-        let obj = { inteligente, descripcion, consumoPorHora }
+        let obj = { inteligente, nombre, consumoPorHora }
         if (inteligente) {
           obj.interfaz = interfaz
         }
